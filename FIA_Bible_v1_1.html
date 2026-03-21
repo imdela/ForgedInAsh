@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORGED IN ASH — Bible de Conception v1.0</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --black: #080604;
+  --deep: #0f0b08;
+  --card: #14100c;
+  --card-alt: #110d09;
+  --border: #261c12;
+  --border-bright: #4a3520;
+  --forge: #e85d20;
+  --forge-dim: #8b3510;
+  --forge-pale: #200d04;
+  --forge-glow: rgba(232,93,32,0.07);
+  --gold: #c4912a;
+  --gold-dim: #7a5a18;
+  --gold-pale: rgba(196,145,42,0.08);
+  --ash: #6a5040;
+  --text: #e8d8c0;
+  --text-dim: #9a7a60;
+  --text-faint: #4a3828;
+  --white: #f5ede0;
+  --seal: #1a3a8a;
+  --seal-bright: #4a6ab0;
+  --green: #2a6a40;
+  --green-bright: #4a9a60;
+  --red: #8a2020;
+  --red-bright: #c04040;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.85;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 30% at 85% 15%, rgba(232,93,32,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 50% at 15% 85%, rgba(196,145,42,0.03) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0;
+  width: 230px;
+  height: 100vh;
+  background: #0a0604;
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 1rem;
+  overflow-y: auto;
+  z-index: 100;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.nav-brand { margin-bottom: 1.8rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.nav-universe {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  display: block;
+}
+.nav-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  display: block;
+  margin: 0.3rem 0 0.1rem;
+}
+.nav-doc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--forge);
+  display: block;
+}
+
+.nav-section {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--forge-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin: 1.2rem 0 0.3rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--forge-pale);
+}
+
+nav a {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.2rem 0.4rem;
+  border-radius: 2px;
+  margin-bottom: 0.05rem;
+  transition: all 0.18s;
+  font-family: 'Crimson Pro', serif;
+  line-height: 1.5;
+}
+nav a:hover { color: var(--forge); background: var(--forge-glow); padding-left: 0.7rem; }
+
+/* ── MAIN ── */
+main {
+  margin-left: 230px;
+  padding: 0 4rem 8rem;
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+}
+
+/* ── COVER ── */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 0 4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.cover-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: var(--forge);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.cover h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 5rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.cover-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  color: var(--forge);
+  letter-spacing: 0.18em;
+  font-style: italic;
+  margin-bottom: 3rem;
+}
+
+.cover-divider {
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--forge), var(--gold), transparent);
+  margin-bottom: 2rem;
+}
+
+.cover-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-faint);
+  letter-spacing: 0.1em;
+  line-height: 2.2;
+}
+
+.cover-stats {
+  display: flex;
+  gap: 3.5rem;
+  margin-top: 3.5rem;
+  flex-wrap: wrap;
+}
+.stat .num {
+  font-family: 'Cinzel', serif;
+  font-size: 2.2rem;
+  color: var(--forge);
+  display: block;
+  line-height: 1.1;
+}
+.stat .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  color: var(--text-faint);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
+/* ── SECTION HEADERS ── */
+.section {
+  padding: 4rem 0 0;
+  margin-bottom: 0;
+}
+
+.section-marker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--forge-dim);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.section h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.9rem;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+
+h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  color: var(--forge);
+  margin: 2.5rem 0 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 1.8rem 0 0.5rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+p { margin-bottom: 0.85rem; font-size: 0.93rem; color: var(--text-dim); line-height: 1.8; }
+p strong { color: var(--text); }
+p em { color: var(--forge); font-style: italic; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1.8rem 2rem;
+  margin: 1.5rem 0;
+  position: relative;
+}
+.card-accent {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  border-radius: 3px 3px 0 0;
+}
+.card.forge .card-accent { background: linear-gradient(90deg, var(--forge), transparent); }
+.card.gold .card-accent { background: linear-gradient(90deg, var(--gold), transparent); }
+.card.seal .card-accent { background: linear-gradient(90deg, var(--seal-bright), transparent); }
+.card.ash .card-accent { background: linear-gradient(90deg, var(--ash), transparent); }
+.card.green .card-accent { background: linear-gradient(90deg, var(--green-bright), transparent); }
+
+.card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.card.forge .card-label { color: var(--forge); }
+.card.gold .card-label { color: var(--gold); }
+.card.seal .card-label { color: var(--seal-bright); }
+.card.green .card-label { color: var(--green-bright); }
+
+.card-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+/* ── PRINCIPE ── */
+.principe {
+  background: linear-gradient(135deg, #180a04 0%, #0e0804 100%);
+  border: 1px solid var(--forge-dim);
+  border-left: 4px solid var(--forge);
+  border-radius: 0 3px 3px 0;
+  padding: 2rem 2.5rem;
+  margin: 1.5rem 0;
+  position: relative;
+}
+.principe p { color: var(--text); font-size: 0.96rem; margin-bottom: 0.6rem; }
+.principe p:last-child { margin-bottom: 0; }
+.principe strong { color: var(--forge); }
+
+/* ── SEALED ── */
+.sealed {
+  border: 1px solid var(--seal-bright);
+  background: rgba(26,58,138,0.07);
+  border-radius: 3px;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+}
+.sealed-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--seal-bright);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.sealed-label::before { content: '🔒 '; }
+.sealed p { color: var(--text); margin-bottom: 0; font-size: 0.9rem; }
+
+/* ── RÈGLE / INTERDICTION ── */
+.rule {
+  padding: 0.55rem 1rem;
+  margin: 0.4rem 0;
+  font-size: 0.87rem;
+  border-radius: 0 3px 3px 0;
+}
+.rule.non {
+  background: rgba(138,32,32,0.08);
+  border-left: 3px solid var(--red-bright);
+  color: var(--text-dim);
+}
+.rule.non::before { content: '✗ '; color: var(--red-bright); font-weight: bold; }
+.rule.oui {
+  background: rgba(42,106,64,0.08);
+  border-left: 3px solid var(--green-bright);
+  color: var(--text-dim);
+}
+.rule.oui::before { content: '✓ '; color: var(--green-bright); font-weight: bold; }
+
+/* ── TROPES ── */
+.tropes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.trope {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1.3rem 1.5rem;
+}
+.trope.dominant {
+  grid-column: 1 / -1;
+  border-color: var(--forge-dim);
+  background: linear-gradient(135deg, #180a04 0%, #110806 100%);
+}
+.trope-rank {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--forge);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.trope-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+.trope p { font-size: 0.85rem; margin: 0; }
+
+/* ── ARC TOMES ── */
+.arc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 1.2rem 0 1.8rem;
+}
+.arc-item {
+  background: var(--card);
+  padding: 1.3rem 1.4rem;
+}
+.arc-tome {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  color: var(--forge);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+.arc-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+.arc-item p { font-size: 0.82rem; margin: 0; }
+
+/* ── PROGRESSION VOIX ── */
+.voix-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 1.2rem 0;
+}
+.voix-item {
+  background: var(--card-alt);
+  padding: 1.3rem;
+}
+.voix-item:nth-child(3) { opacity: 0.8; }
+.voix-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--forge);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.voix-age {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--text-faint);
+  display: block;
+  margin-bottom: 0.7rem;
+}
+.voix-item p { font-size: 0.82rem; margin: 0; }
+
+/* ── TABLE ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2rem 0 1.8rem;
+  font-size: 0.85rem;
+}
+thead tr { background: #180e08; }
+thead th {
+  padding: 0.65rem 1rem;
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--forge);
+  font-weight: 500;
+}
+tbody tr { border-bottom: 1px solid var(--border); }
+tbody tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+td { padding: 0.55rem 1rem; color: var(--text-dim); vertical-align: top; line-height: 1.6; }
+td:first-child { color: var(--text); }
+td strong { color: var(--forge); }
+
+/* ── EXEMPLE DE VOIX ── */
+.voix-ex {
+  background: #0e0906;
+  border-left: 3px solid var(--forge-dim);
+  border-radius: 0 3px 3px 0;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.voix-ex .attr {
+  display: block;
+  font-style: normal;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--text-faint);
+  margin-top: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── STADES MARQUE ── */
+.stades {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 1.2rem 0;
+}
+.stade {
+  background: var(--card);
+  padding: 1.2rem;
+  text-align: center;
+}
+.stade-num {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  color: var(--forge);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.stade-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.stade p { font-size: 0.78rem; margin: 0; }
+
+/* ── BIA LINK ── */
+.bia-box {
+  background: rgba(26,58,138,0.06);
+  border: 1px solid var(--seal-bright);
+  border-radius: 3px;
+  padding: 2rem 2.5rem;
+  margin: 1.5rem 0;
+  position: relative;
+}
+.bia-box::after {
+  content: 'BOUND IN ASH';
+  position: absolute;
+  top: 1rem; right: 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  color: var(--seal-bright);
+  opacity: 0.3;
+}
+.bia-box h3 { color: var(--seal-bright); margin-top: 0; }
+
+/* ── FOOTER ── */
+.doc-footer {
+  text-align: center;
+  padding: 4rem 0 2rem;
+  border-top: 1px solid var(--border);
+  margin-top: 5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--text-faint);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 2;
+}
+
+hr.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 3rem 0;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <span class="nav-universe">Kaerath Universe · Série Parallèle</span>
+    <span class="nav-title">Forged in Ash</span>
+    <span class="nav-doc">Bible de Conception v1.0</span>
+  </div>
+
+  <div class="nav-section">I. Concept</div>
+  <a href="#s1">Pitch & positionnement</a>
+  <a href="#tropes">Les tropes viraux</a>
+  <a href="#diff">Différenciateur</a>
+
+  <div class="nav-section">II. Univers</div>
+  <a href="#kaerath">Héritage Kaerath</a>
+  <a href="#vael">Vael — territoire</a>
+  <a href="#marque">La marque de forge</a>
+  <a href="#social">Lore social</a>
+  <a href="#chrono">Chronologie</a>
+
+  <div class="nav-section">III. Personnages</div>
+  <a href="#ryn">Ryn — FMC</a>
+  <a href="#calder">Calder — MMC</a>
+  <a href="#sera">Sera — POV secondaire</a>
+  <a href="#varek">Varek — Antagoniste</a>
+  <a href="#aleth">Aleth</a>
+  <a href="#davan">Davan</a>
+
+  <div class="nav-section">IV. Structure</div>
+  <a href="#architecture">Architecture 3 tomes</a>
+  <a href="#loglines">Loglines & dernières lignes</a>
+  <a href="#pics">Pics émotionnels</a>
+  <a href="#rythme">Rythme & densité</a>
+
+  <div class="nav-section">V. Style & Voix</div>
+  <a href="#pov">Choix de POV</a>
+  <a href="#voix-ryn">Voix de Ryn</a>
+  <a href="#voix-calder">Voix de Calder</a>
+  <a href="#voix-sera">Voix de Sera</a>
+  <a href="#refs">Références de style</a>
+
+  <div class="nav-section">VI. Règles</div>
+  <a href="#regles">Règles absolues</a>
+  <a href="#interdictions">Interdictions</a>
+  <a href="#objets">Objets-symboles</a>
+
+  <div class="nav-section">VII. Lien BIA</div>
+  <a href="#lien">Mécanique du lien</a>
+  <a href="#kael-fia">Kael dans FIA</a>
+
+  <div class="nav-section">VIII. Scellé</div>
+  <a href="#decisions">Décisions scellées</a>
+</nav>
+
+<main>
+
+<!-- ══ COVER ══ -->
+<div class="cover">
+  <div class="cover-eyebrow">Kaerath Universe · Série Parallèle à Bound in Ash</div>
+  <h1>FORGED<br>IN ASH</h1>
+  <div class="cover-subtitle">Bible de Conception · Version 1.0</div>
+  <div class="cover-divider"></div>
+  <div class="cover-meta">
+    Vera Draye · Mars 2026 · Confidentiel<br>
+    Concept · Univers · Personnages · Structure · Style · Règles<br>
+    Objectif commercial : 1 000 000+ exemplaires<br>
+    Marché cible : Dark romantasy adulte · Anglophone · KDP 2026
+  </div>
+  <div class="cover-stats">
+    <div class="stat"><span class="num">3</span><span class="label">Tomes</span></div>
+    <div class="stat"><span class="num">2</span><span class="label">POV principaux</span></div>
+    <div class="stat"><span class="num">3</span><span class="label">Tropes viraux</span></div>
+    <div class="stat"><span class="num">Vael</span><span class="label">Territoire</span></div>
+    <div class="stat"><span class="num">−7 ans</span><span class="label">Avant BIA T1</span></div>
+  </div>
+</div>
+
+<!-- ══ SECTION I ══ -->
+<div class="section" id="s1">
+  <span class="section-marker">Section I</span>
+  <h2>Concept & Positionnement</h2>
+
+  <h3>Pitch en une phrase</h3>
+  <div class="principe">
+    <p>Dans le territoire de Vael, une femme marquée à la naissance par le Roi-Dieu de la Guerre comme arme de destruction — et le général envoyé pour la livrer — doivent choisir entre exécuter l'ordre qui les a réunis et survivre à ce que la marque fait quand elle est en présence de celui qu'elle ne devrait pas vouloir.</p>
+  </div>
+
+  <h3 id="tropes">Les tropes viraux — sélection 2026</h3>
+  <p>Ces trois tropes ont été sélectionnés sur la base des données BookTok 2026. Chacun génère seul des millions de vues. Leur combinaison dans un seul titre crée un effet de superposition qui maximise la viralité organique.</p>
+
+  <div class="tropes-grid">
+    <div class="trope dominant">
+      <span class="trope-rank">Trope dominant · #1 BookTok 2026</span>
+      <div class="trope-name">Marked / Bargain forcé</div>
+      <p>Ryn porte la marque de Varek depuis sa naissance — arme conçue pour être activée contre sa volonté. Calder est envoyé pour la livrer. Au Ch.3 du T1, Ryn propose un marché : dix jours pour lui prouver que la marque vaut plus fonctionnelle que captive. Il accepte. Ce <em>bargain forcé</em> entre deux personnes qui n'ont aucune raison de se faire confiance est le moteur de toute la série. La proximité est imposée par le contrat, pas par la coïncidence. C'est ce qui le rend inévitable.</p>
+    </div>
+    <div class="trope">
+      <span class="trope-rank">Trope secondaire 1</span>
+      <div class="trope-name">Enemies to Lovers</div>
+      <p>Il est l'instrument de l'homme qui veut la détruire. Elle hait tout ce que Varek représente. La tension entre eux est de la haine qui s'effrite — lentement, contre la volonté des deux. La bascule arrive à la fin du T1, pas résolue, juste nommée. C'est le trope qui viralise par les réactions émotionnelles des créatrices.</p>
+    </div>
+    <div class="trope">
+      <span class="trope-rank">Trope secondaire 2</span>
+      <div class="trope-name">He Falls First</div>
+      <p>Calder comprend ce qu'il ressent avant elle. Le lecteur le sait avant Ryn. Ce décalage — où le lecteur souffre pour le personnage qui ne sait pas encore — est le carburant du slow burn sur trois tomes. C'est le trope qui génère les vidéos "I am not okay" sur TikTok.</p>
+    </div>
+  </div>
+
+  <h3 id="diff">Différenciateur concurrentiel</h3>
+  <p>Le marché de la dark romantasy adulte en 2026 est dense mais segmenté. Deux zones sont saturées : les fae et les dragons. FORGED IN ASH se positionne dans le segment <strong>dieux-guerriers / empire dark</strong> — sous-exploité par rapport à sa demande réelle sur BookTok.</p>
+
+  <div class="card forge">
+    <div class="card-accent"></div>
+    <div class="card-label">Avantage vs le marché</div>
+    <p><strong>Vs BIA :</strong> FIA offre ce que BIA ne promet pas — tension existentielle immédiate, vulnérabilité de la FMC, résolution catharctique. Les deux séries coexistent sans concurrence directe. Le lecteur de l'une veut l'autre.</p>
+    <p><strong>Vs FBaA :</strong> FIA partage les marqueurs de surface (monde dark, être supérieur, identité cachée) mais la FMC est vulnérable là où Poppy est choisie. La marque n'est pas un don — c'est une possession. L'angle est plus sombre.</p>
+    <p><strong>Vs ACOTAR :</strong> L'univers de FIA ne grandit pas — il se contracte. La menace vient du dedans, pas du dehors. Pas de cour à naviguer : un territoire, une traque, un choix.</p>
+    <p><strong>Avantage unique :</strong> Trilogie complète disponible au lancement. La promesse "no waiting" est le premier argument marketing sur TikTok en 2026.</p>
+  </div>
+</div>
+
+<!-- ══ SECTION II ══ -->
+<div class="section" id="kaerath">
+  <span class="section-marker">Section II</span>
+  <h2>L'Univers — Kaerath &amp; Vael</h2>
+
+  <h3>Ce qui est hérité de BIA — intangible</h3>
+  <div class="sealed">
+    <span class="sealed-label">Règle d'univers partagé</span>
+    <p>FIA se déroule dans le même Kaerath que BIA. Aucun élément de l'univers ne peut contredire BIA. En cas de doute, BIA prime. Consulter les Bibles BIA avant toute décision d'univers.</p>
+  </div>
+
+  <table>
+    <thead><tr><th>Élément hérité</th><th>Description — identique à BIA</th></tr></thead>
+    <tbody>
+      <tr><td>L'empire Kaerath</td><td>Continental, 5 territoires, mille ans sous les Rois-Dieux. Pas de mer connue des mortels.</td></tr>
+      <tr><td>Le Souffle</td><td>Magie transmise par le sang des lignées divines. Mortels sans Souffle = majorité de la population. Hiérarchie : Rois-Dieux → Généraux Divins → Porteurs de lignée → Mortels.</td></tr>
+      <tr><td>Les cinq Rois-Dieux</td><td>Guerre (Varek), Feu, Mémoire (Sorel), Temps, Chair. Immortels. Gouvernent mais n'interviennent pas en personne dans la vie ordinaire — sauf exception.</td></tr>
+      <tr><td>Kael Ashvar</td><td>Le seul Général Divin survivant. Ashmark. La malédiction. Son réseau d'informateurs à Vael est actif pendant FIA.</td></tr>
+      <tr><td>La cendre</td><td>Tombe à son rythme ordinaire à Vael — différent d'Ashmark mais présent. Indifférence totale aux événements humains. Ne jamais l'utiliser comme métaphore active.</td></tr>
+      <tr><td>Le système des Tributs</td><td>Chaque territoire envoie un Tribut annuel à Ashmark. Vael désignera Sera 3-4 ans après FIA T3.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="vael">Vael — le territoire de FIA</h3>
+  <p>Vael est un territoire pauvre de l'empire. Sa principale caractéristique dans BIA est d'être le lieu d'où viennent Sera et Davan — un district où la survie est une organisation sociale, pas un accident. Dans FIA, on voit ce territoire de l'intérieur pour la première fois.</p>
+
+  <div class="card ash">
+    <div class="card-accent"></div>
+    <div class="card-label">Vael dans FIA — à développer en plan T1</div>
+    <p><strong>Géographie :</strong> Territoire intérieur, ni riche ni stratégique. Pas de garnison permanente — une présence administrative minimale de l'empire. C'est précisément ce qui en fait un territoire où les gens sans lignée peuvent disparaître sans que personne pose de questions.</p>
+    <p><strong>Le district :</strong> Le district où vivent Ryn, Sera, Davan est un district d'économie duale — il y a une économie légale et une autre, et la frontière entre les deux est une question de porte d'entrée. BIA T2 l'établit explicitement : <em>"la différence entre l'économie légale et l'autre était principalement une question de quelle porte on utilisait."</em></p>
+    <p><strong>La cendre à Vael :</strong> Elle tombe. Moins dense qu'à Ashmark. Elle fait partie du paysage depuis assez longtemps pour que personne ne la remarque.</p>
+  </div>
+
+  <h3 id="marque">La marque de forge — mécanique complète</h3>
+
+  <div class="principe">
+    <p>La marque de forge est un sceau divin que Varek peut imprimer dans la lignée d'un mortel à sa naissance. Ce n'est pas une bénédiction ni une malédiction au sens ordinaire — c'est une <strong>arme plantée dans un être humain</strong> et laissée à mûrir jusqu'à activation.</p>
+    <p>Elle est distincte du Void That Eats / Eating Silence (le pouvoir de Sera). Ce sont deux mécaniques différentes dans le même système du Souffle. <strong>Elles ne s'influencent pas, ne se neutralisent pas, ne se combinent pas.</strong></p>
+  </div>
+
+  <div class="stades">
+    <div class="stade">
+      <span class="stade-num">1</span>
+      <span class="stade-name">Dormant</span>
+      <p>Marque présente depuis la naissance. La porteuse ne sait pas ce que c'est. Elle cache une brûlure sous des bandages.</p>
+    </div>
+    <div class="stade">
+      <span class="stade-num">2</span>
+      <span class="stade-name">Réactif</span>
+      <p>Chauffe quand la violence approche. Brûle au contact des armes. Involontaire, incontrôlable. Ryn en est là au début du T1.</p>
+    </div>
+    <div class="stade">
+      <span class="stade-num">3</span>
+      <span class="stade-name">Actif</span>
+      <p>La porteuse apprend à l'activer volontairement. Portée étendue. Douleur réelle. Ryn atteint ce stade en T2.</p>
+    </div>
+    <div class="stade">
+      <span class="stade-num">4</span>
+      <span class="stade-name">Arme de masse</span>
+      <p>Ce pour quoi Varek l'a conçue. Activation complète = destruction à grande échelle. Mortelle pour la porteuse si non maîtrisée. Choix du T3.</p>
+    </div>
+  </div>
+
+  <h4>La marque et Calder — anomalie non documentée</h4>
+  <p>La marque de Ryn réagit différemment en présence de Calder qu'en présence de n'importe qui d'autre. Pas d'activation violente — une <strong>pulsation</strong>, un signal qui ne ressemble à rien dans la documentation de Varek. Ni l'un ni l'autre ne comprend ce que ça signifie dans le T1. C'est l'un des mystères centraux de la série.</p>
+  <p>Règle d'usage : cette anomalie n'est jamais expliquée dans le T1. Elle est observée, notée, et laissée ouverte. L'explication partielle arrive en T2.</p>
+
+  <h3 id="social">Lore social — Vael et l'empire</h3>
+  <p><strong>Les personnes sans lignée à Vael</strong> ont trois options : travailler dans l'économie légale (rare, mal payé), travailler dans l'économie parallèle (plus fréquent, risqué), ou être désignées comme Tribut par le Conseil. Le Conseil de Vael désigne les Tributs délibérément — pour se débarrasser des personnes gênantes ou de ceux qui n'ont pas de protection sociale.</p>
+  <p><strong>Les agents de Varek</strong> opèrent dans les territoires sans se déclarer. Ils ne portent pas de marque visible. Ils se comportent comme des marchands ou des voyageurs. Calder est la version visible — le général envoyé quand les agents ordinaires n'ont pas suffi.</p>
+
+  <h3 id="chrono">Chronologie — scellée</h3>
+
+  <table>
+    <thead><tr><th>Période</th><th>Événements FIA</th><th>Sera</th><th>Aleth</th></tr></thead>
+    <tbody>
+      <tr><td><strong>FIA T1</strong><br>~7 ans avant BIA</td><td>Ryn découverte. Marché forcé. Les dix jours.</td><td>17 ans — voix analytique en formation, erreurs visibles</td><td><strong>Vivante et active</strong> dans Vael</td></tr>
+      <tr><td><strong>FIA T2</strong><br>~5-6 ans avant BIA</td><td>La chasse. Hors des ordres. Conséquence irréversible de Ryn.</td><td>18-19 ans — voix qui se précise, erreurs plus rares</td><td><strong>Disparaît progressivement</strong> — efface ses traces</td></tr>
+      <tr><td><strong>FIA T3</strong><br>~3-4 ans avant BIA</td><td>La guerre. Varek détruit. Sera désignée Tribut.</td><td>19-20 ans — voix quasi-mature</td><td><strong>Morte ou absente</strong> — Sera porte l'absence</td></tr>
+      <tr><td><strong>BIA T1</strong></td><td>—</td><td>23 ans — voix à pleine maturité</td><td>Morte depuis ~6 ans</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sealed">
+    <span class="sealed-label">Contrainte chronologique — ne jamais dévier</span>
+    <p>Aleth est morte ~6 ans avant BIA T1. Elle est donc vivante en FIA T1, disparaît en FIA T2, est absente en FIA T3. La mort d'Aleth ne se produit pas dans la narration de FIA — elle est une absence qui s'installe. Le lecteur de BIA comprend ce que Sera ne comprend pas encore.</p>
+  </div>
+</div>
+
+<!-- ══ SECTION III ══ -->
+<div class="section" id="personnages">
+  <span class="section-marker">Section III</span>
+  <h2>Personnages Principaux</h2>
+
+  <!-- RYN -->
+  <h3 id="ryn">Ryn — FMC · L'héroïne sans partage</h3>
+
+  <div class="card forge">
+    <div class="card-accent"></div>
+    <div class="card-label">FMC · POV principal · 1ère personne présent</div>
+    <div class="card-title">Ryn</div>
+    <p><strong>Âge :</strong> 20 ans au début de FIA T1. Originaire de Vael, district extérieur. Marchande ambulante — ni esclave, ni libre. Dans l'entre-deux précaire des personnes sans lignée.</p>
+    <p><strong>La marque :</strong> épaule gauche. Brûlure en forme de sceau militaire de Varek. Depuis la naissance. Cachée sous des bandages et des mensonges depuis qu'elle peut se souvenir. Elle ne sait pas ce que c'est — elle sait seulement que montrer ça à quelqu'un de mauvais serait fatal.</p>
+  </div>
+
+  <h4>Personnalité — ce qui la distingue de Sera</h4>
+  <p>Ryn est l'opposé fonctionnel de Sera. Elle fait des erreurs grosses et visibles. Elle survit par instinct, pas par analyse. Elle est courageuse de façon irrationnelle — elle agit avant de réfléchir, ce qui la met constamment en danger et crée la tension existentielle que BIA n'avait pas. <strong>Le lecteur tremble pour elle. C'est le moteur commercial de la série.</strong></p>
+  <p>Elle n'est pas stupide — elle est impulsive. La différence est importante. Elle lit les gens correctement (elle a survécu assez longtemps pour ça) mais elle agit sur ses lectures avant d'avoir tous les éléments. Ce décalage entre la bonne lecture et la mauvaise décision est sa mécanique de personnage centrale.</p>
+
+  <h4>Son défaut central — à ne jamais corriger avant T3</h4>
+  <p>Elle accorde sa confiance trop vite aux personnes qui lui montrent un minimum de respect. Elle en a si peu reçu que la moindre considération lui paraît extraordinaire. Ce défaut est <strong>visible dès le Ch.3 du T1</strong>, <strong>opère avec conséquences réelles au Ch.19 du T1</strong> (son calcul sur le second agent expose Davan — irréversible dans le tome), et <strong>lui coûte quelque chose d'irréparable dans le T2</strong>. Ne jamais le résoudre avant le T3.</p>
+
+  <h4>Arc sur trois tomes</h4>
+  <div class="arc-grid">
+    <div class="arc-item">
+      <span class="arc-tome">Tome 1 · The Mark</span>
+      <span class="arc-title">De la survie passive à la décision active</span>
+      <p>Ryn réagit depuis le début. Le marché avec Calder est la première décision qu'elle prend au lieu de subir. Elle finit le tome ayant fait un choix qui ne se défait pas — et dont elle ignore encore les conséquences.</p>
+    </div>
+    <div class="arc-item">
+      <span class="arc-tome">Tome 2 · The Hunt</span>
+      <span class="arc-title">De la décision à la conséquence irréversible</span>
+      <p>Ryn utilise la marque activement pour la première fois. Son défaut central lui coûte quelque chose qu'elle ne récupérera pas. Elle finit le tome ayant perdu quelque chose, pas l'ayant gagné — mais debout.</p>
+    </div>
+    <div class="arc-item">
+      <span class="arc-tome">Tome 3 · The War</span>
+      <span class="arc-title">Du choix final à la décision qui définit</span>
+      <p>Utiliser la marque pour ce pour quoi elle a été conçue — arme de masse — ou la brûler de l'intérieur. Ces deux options ont un coût réel. La résolution est gagnée, pas offerte.</p>
+    </div>
+  </div>
+
+  <h4>Phrase-clé — à sceller avant la rédaction du Ch.1</h4>
+  <div class="sealed">
+    <span class="sealed-label">Phrase-clé de Ryn — candidat de travail</span>
+    <p>"I have never had the luxury of being careful. Careful is what happens when you have something to protect. I've spent twenty years protecting nothing — which means I can afford to be reckless, and reckless is the only thing Varek never prepared for."</p>
+  </div>
+
+  <h4>Geste physique — à documenter au Ch.1</h4>
+  <p>Un geste corporel précis que Ryn fait quand elle calcule une situation ou prend une décision. Ce geste traverse les trois tomes et change de sens à chaque apparition. À identifier pendant la rédaction du Ch.1 et à verrouiller ici immédiatement. Règle d'usage : le geste ne s'explique jamais.</p>
+
+  <!-- CALDER -->
+  <h3 id="calder">Calder — MMC · Le général qui a un code</h3>
+
+  <div class="card gold">
+    <div class="card-accent"></div>
+    <div class="card-label">MMC · 3ème personne limitée présent · Morally grey</div>
+    <div class="card-title">Calder</div>
+    <p><strong>Âge :</strong> 30 ans. Général de premier rang de Varek — le plus efficace, le plus redouté, le plus loyal en apparence. Pas parce qu'il croit en Varek. Parce que Varek lui a tout donné quand il n'avait rien, et il sait exactement ce qu'il doit en échange.</p>
+    <p><strong>Ce qu'il est :</strong> morally grey au sens strict. Il a un code, pas une morale. Son code : les ordres sont des ordres jusqu'à la ligne qu'il ne franchit pas. Il ne livre pas quelqu'un qui ne mérite pas ce qui l'attend. Il ne s'était jamais posé la question pour une cible. Jusqu'à Ryn.</p>
+  </div>
+
+  <h4>Ce qui le distingue de Kael (BIA)</h4>
+  <p>Kael gère. Calder exprime. La violence est proche de la surface chez Calder et elle s'exprime — pas constamment, mais quand elle arrive, elle est réelle. Il fait peur intentionnellement et s'en sert comme outil. Il fait des erreurs de jugement sur les personnes (pas sur les missions). Il n'a pas mille ans de distance — il est jeune pour ce qu'il est, et ça se voit dans ses angles morts.</p>
+
+  <h4>Sa ligne qu'il ne franchit pas</h4>
+  <p>Il existe une chose que Calder ne fait pas, même sur ordre. Elle n'est pas nommée dans le T1 — le lecteur la découvre dans la scène de révélation du Ch.7 du T1 quand il comprend pourquoi Calder a accepté le marché. La révélation de cette ligne est le premier moment où le lecteur comprend que Calder n'est pas ce qu'il présentait.</p>
+
+  <h4>Arc sur trois tomes</h4>
+  <div class="arc-grid">
+    <div class="arc-item">
+      <span class="arc-tome">Tome 1 · The Mark</span>
+      <span class="arc-title">De l'exécution des ordres à la première désobéissance</span>
+      <p>Calder arrive avec un ordre clair. Il repart sans l'avoir exécuté comme prévu. Ce n'est pas une faiblesse — c'est la première fois en vingt ans qu'il applique son propre code plutôt que celui de Varek.</p>
+    </div>
+    <div class="arc-item">
+      <span class="arc-tome">Tome 2 · The Hunt</span>
+      <span class="arc-title">Hors des ordres, sans structure</span>
+      <p>Calder sans mission est le personnage le plus dangereux et le plus vulnérable. Son code tient, mais sans le cadre des ordres il ne sait pas encore ce qu'il est. Ce tome est sa découverte.</p>
+    </div>
+    <div class="arc-item">
+      <span class="arc-tome">Tome 3 · The War</span>
+      <span class="arc-title">Choisir un camp pour la première fois</span>
+      <p>Pas le camp de Varek. Pas le camp abstrait du "bien". Le camp de Ryn — ce qui signifie son camp propre, pour la première fois de sa vie.</p>
+    </div>
+  </div>
+
+  <h4>Phrase-clé — à sceller avant la rédaction du Ch.3</h4>
+  <div class="sealed">
+    <span class="sealed-label">Phrase-clé de Calder — candidat de travail</span>
+    <p>"I don't follow orders because I believe in them. I follow orders because the alternative is a man with my skills and no structure, and that is a considerably more dangerous thing than a general who obeys."</p>
+  </div>
+
+  <!-- SERA -->
+  <h3 id="sera">Sera — POV secondaire · Voix en progression</h3>
+
+  <div class="card seal">
+    <div class="card-accent"></div>
+    <div class="card-label">POV secondaire · Sections intercalées · Voix en construction</div>
+    <div class="card-title">Sera</div>
+    <p><strong>Âge :</strong> 17 à 20 ans pendant FIA. Elle vit dans le même district de Vael que Ryn. Elle connaît Ryn — pas intimement, dans la façon dont deux personnes se connaissent quand elles partagent le même espace précaire depuis suffisamment longtemps.</p>
+    <p><strong>Le fragment :</strong> dans sa poche, depuis avant qu'elle se souvienne de l'avoir. Elle le tient par réflexe. Elle ne sait pas ce que c'est. Cette information n'est jamais donnée dans FIA.</p>
+  </div>
+
+  <h4>Format POV — règle stricte</h4>
+  <div class="sealed">
+    <span class="sealed-label">Format scellé — ne pas dévier</span>
+    <p>Sera n'a pas de chapitres entiers. Son POV apparaît en <strong>sections courtes en italique, intercalées dans des chapitres de Ryn</strong>, aux moments précis où son angle de lecture produit une information que Ryn ne peut pas avoir. Maximum 3-4 sections par tome. Ryn est l'héroïne sans partage. Si une section Sera ne produit pas d'information nouvelle ou ne fait pas avancer la lecture, elle n'existe pas.</p>
+  </div>
+
+  <h4>La progression de voix — contrainte scellée</h4>
+  <div class="voix-grid">
+    <div class="voix-item">
+      <span class="voix-num">FIA T1</span>
+      <span class="voix-age">17 ans · Voix brute</span>
+      <p>Elle note et catalogue. Ses conclusions arrivent parfois trop vite ou ratent quelque chose. Elle est en avance sur Ryn, pas encore en avance sur tout. Ses erreurs de lecture sont visibles pour le lecteur de BIA qui sait ce qu'elle deviendra. Elle rate au moins une lecture importante dans le T1.</p>
+    </div>
+    <div class="voix-item">
+      <span class="voix-num">FIA T2</span>
+      <span class="voix-age">18-19 ans · Voix qui se précise</span>
+      <p>Les erreurs de lecture deviennent plus rares. Elle commence à gérer les situations plutôt qu'à les observer. Le fragment est dans sa poche — sa main le trouve par réflexe dans les moments de tension. Le lecteur de BIA commence à entendre la voix familière.</p>
+    </div>
+    <div class="voix-item">
+      <span class="voix-num">FIA T3</span>
+      <span class="voix-age">19-20 ans · Voix quasi-mature</span>
+      <p>Le lecteur de BIA la reconnaît pleinement. La voix analytique est établie. Les erreurs sont rares et précises — pas de l'incompétence mais des angles morts liés à son âge. La dernière section Sera de FIA T3 est son départ comme Tribut.</p>
+    </div>
+  </div>
+
+  <h4>Règles absolues pour les sections Sera</h4>
+  <div class="rule non">Jamais de POV Sera si l'information est déjà disponible dans le POV de Ryn</div>
+  <div class="rule non">Jamais d'explication sur la signification du fragment — ni de Sera ni par le narrateur</div>
+  <div class="rule non">Jamais de voix mature de BIA avant la fin de FIA T3 — la progression est réelle</div>
+  <div class="rule non">Jamais de chapitre entier. Jamais de plus de 3-4 sections par tome.</div>
+  <div class="rule oui">La voix analytique de Sera est acquise par la survie — jamais innée, jamais magique</div>
+  <div class="rule oui">Le fragment dans sa poche est une constante — présent, jamais commenté</div>
+  <div class="rule oui">Sera fait une erreur de lecture par tome en T1 et T2 — le lecteur de BIA la voit</div>
+
+  <!-- VAREK -->
+  <h3 id="varek">Varek — L'antagoniste · Le Roi-Dieu de la Guerre</h3>
+
+  <div class="card ash">
+    <div class="card-accent"></div>
+    <div class="card-label">Antagoniste · Roi-Dieu de la Guerre</div>
+    <div class="card-title">Varek</div>
+    <p>L'opposé de Sorel (BIA) dans le même système. Sorel gouverne par la mémoire et la précision. Varek gouverne par la force, la peur, et la préparation militaire sur des décennies. Il n'argumente pas — il possède.</p>
+    <p><strong>Son rapport à Ryn :</strong> stratégie militaire divine, pas cruauté. Il a planté une arme dans une lignée ordinaire et l'a laissée mûrir vingt ans. C'est long. C'est patient. C'est exactement comment Varek opère.</p>
+    <p><strong>Sa logique :</strong> Varek a raison sur les faits — la marque de forge est une arme réelle et Ryn la porte. Son erreur est de conclusion — il ne peut pas concevoir qu'une arme puisse refuser son activation.</p>
+  </div>
+
+  <div class="sealed">
+    <span class="sealed-label">Résolution scellée — ne jamais dévier</span>
+    <p>Varek est détruit à la fin de FIA T3. Pas en impasse, pas en exil. Détruit. La victoire de Ryn est nette et catharctique. C'est la décision commerciale la plus importante de la série par rapport à BIA. Le lectorat de mass market a besoin de cette résolution.</p>
+  </div>
+
+  <h4>Présence par tome</h4>
+  <p><strong>T1 :</strong> Présent uniquement par ses agents et par la marque sur Ryn. Calder est sa voix dans le tome. Varek n'apparaît pas en personne. Sa présence est une menace constante, jamais incarnée.</p>
+  <p><strong>T2 :</strong> Apparition à la fin — en personne, brève. Cliffhanger. Ce qu'il dit à Calder change la nature de la menace pour le T3.</p>
+  <p><strong>T3 :</strong> Présent directement. L'affrontement final. Sa destruction est le climax du tome.</p>
+
+  <!-- ALETH -->
+  <h3 id="aleth">Aleth — La mère de Sera · Présence décroissante</h3>
+  <div class="card ash">
+    <div class="card-accent"></div>
+    <div class="card-label">Personnage secondaire · Mère de Sera · Présence T1 → disparition T2 → absence T3</div>
+    <p><strong>T1 — Vivante et active :</strong> Aleth vit dans le district de Vael. Elle est sobre, économe dans ses paroles, précise dans ses actes. Elle observe Sera observer — le lecteur de BIA reconnaît quelque chose. Elle n'explique pas ses décisions. Elle n'élabore pas ses absences. Elle est présente sans être décryptable.</p>
+    <p><strong>T2 — Disparition progressive :</strong> Aleth efface ses traces entre elle et Sera. Pas de rupture dramatique — des présences de plus en plus rares, des déplacements inexpliqués, des mentions qui deviennent des absences. C'est la façon dont elle protège Sera : en supprimant les liens visibles. Le lecteur comprend à mi-tome que c'est délibéré. Sera ne comprend pas encore.</p>
+    <p><strong>T3 — Absente :</strong> Morte ou disparue. Sera porte l'absence sans en mesurer la nature. Le lecteur de BIA sait. Le lecteur de FIA commence à comprendre.</p>
+    <div class="rule non">La ressemblance entre Aleth et Sera est de lignée — jamais de transmission magique, jamais de "don" maternel. Aleth est économe dans le langage. Sera sera analytique. Ce ne sont pas la même chose.</div>
+  </div>
+
+  <!-- DAVAN -->
+  <h3 id="davan">Davan — Présence secondaire dans le district</h3>
+  <div class="card ash">
+    <div class="card-accent"></div>
+    <div class="card-label">Personnage secondaire · 2 ans de plus que Sera</div>
+    <p>Davan a 19-22 ans pendant FIA. Il vit dans le même district de Vael. Dans FIA, sa relation avec Sera est en formation — deux personnes qui se reconnaissent dans l'autre sans encore avoir nommé ce qu'elles sont l'une pour l'autre. Il est présent, observateur, jamais dans la lumière principale. Sa loyauté envers Sera dans BIA a ses racines dans ce que FIA montre sans l'expliquer.</p>
+    <p>Davan dans FIA n'a pas de moments héroïques. Il est là. C'est suffisant. C'est exactement ce qui le définit dans BIA aussi.</p>
+  </div>
+</div>
+
+<!-- ══ SECTION IV ══ -->
+<div class="section" id="structure">
+  <span class="section-marker">Section IV</span>
+  <h2>Structure Narrative</h2>
+
+  <h3 id="architecture">Architecture — 3 tomes, ~100 000 mots chacun</h3>
+  <table>
+    <thead><tr><th>Tome</th><th>Titre</th><th>Arc central</th><th>Résolution du tome</th></tr></thead>
+    <tbody>
+      <tr><td><strong>T1</strong></td><td>The Mark</td><td>Le marché forcé · Les dix jours · Première désobéissance de Calder</td><td>Calder fait le choix qui ne se défait pas. Varek envoie un exécuteur. Cliffhanger.</td></tr>
+      <tr><td><strong>T2</strong></td><td>The Hunt</td><td>La traque · Hors des ordres · La conséquence irréversible de Ryn</td><td>Varek apparaît en personne. Ce qu'il dit à Calder change tout. Pic 3 → tension maximale.</td></tr>
+      <tr><td><strong>T3</strong></td><td>The War</td><td>La guerre · Le choix final de Ryn · Destruction de Varek</td><td>Victoire nette. Déclaration romantique explicite. Sera désignée Tribut.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="loglines">Loglines officielles &amp; dernières lignes scellées</h3>
+
+  <div class="card forge">
+    <div class="card-accent"></div>
+    <div class="card-label">Logline T1 — The Mark</div>
+    <p>A woman marked at birth as a weapon strikes a desperate bargain with the general sent to deliver her: ten days to prove she's worth more alive. She didn't expect the mark to react to him differently than it reacts to anyone else. Neither did he.</p>
+  </div>
+
+  <div class="card gold">
+    <div class="card-accent"></div>
+    <div class="card-label">Logline T2 — The Hunt</div>
+    <p>With Varek's hunters closing in and no orders left to follow, the general has to decide what he is without a mission. The woman he chose not to deliver has a theory. She's right. He wishes she weren't.</p>
+  </div>
+
+  <div class="card ash">
+    <div class="card-accent"></div>
+    <div class="card-label">Logline T3 — The War</div>
+    <p>Varek's weapon has a choice: activate as designed, or burn the mark from the inside and survive or not. The general who started as her captor intends to make sure "or not" is not an option. Varek disagrees.</p>
+  </div>
+
+  <h4>Dernières lignes — à sceller avant la rédaction du Ch.1 de chaque tome</h4>
+  <div class="sealed">
+    <span class="sealed-label">Dernière ligne T1 — SCELLÉE v1.1</span>
+    <p><em>"He closed the second section of the notebook and put it in his coat, next to where her name had lived for ten days. Varek was coming. He started walking."</em></p>
+    <p>Trois phrases. Le carnet (He Falls First), la menace (Varek arrive), l'action sans hésitation (il part). Doit circuler seule sur BookTok sans contexte et produire une sensation immédiate. Ne pas toucher.</p>
+  </div>
+  <div class="sealed">
+    <span class="sealed-label">Dernière ligne T2 — à sceller</span>
+    <p>[À définir avant la rédaction du Ch.1 du T2. Doit correspondre à la révélation de Varek à la fin du tome — ce qu'il dit à Calder qui change la nature de tout ce qui vient après.]</p>
+  </div>
+  <div class="sealed">
+    <span class="sealed-label">Dernière ligne T3 — SCELLÉE</span>
+    <p>La dernière scène de FIA T3 montre Sera emmenée comme Tribut. Elle ne regarde pas en arrière. Ce n'est pas du courage — c'est qu'elle a appris à ne pas regarder en arrière. Le lecteur de BIA sait où elle va. Le lecteur de FIA a une question ouverte.</p>
+  </div>
+
+  <h3 id="pics">Les pics émotionnels — architecture d'abord</h3>
+  <p>Les pics émotionnels ne s'improvisent pas. Ils sont identifiés avant la rédaction et chaque chapitre intermédiaire est construit pour les rendre inévitables. Quatre pics par tome, positionnés aux mêmes proportions structurelles.</p>
+
+  <table>
+    <thead><tr><th>Pic</th><th>T1 — The Mark</th><th>T2 — The Hunt</th><th>T3 — The War</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Pic 1</strong><br>~Ch.7-8</td><td>La révélation de la ligne que Calder ne franchit pas. Premier moment où le lecteur comprend qu'il n'est pas ce qu'il prétend.</td><td>[À définir en Bible T2]</td><td>[À définir en Bible T3]</td></tr>
+      <tr><td><strong>Pic 2</strong><br>~Ch.15-16</td><td>Première activation involontaire complète de la marque. Ce qu'elle fait. Ce que Calder fait pendant. Ce que ni l'un ni l'autre ne dit après.</td><td>[À définir]</td><td>[À définir]</td></tr>
+      <tr><td><strong>Pic 3</strong><br>~Ch.23-24</td><td>La bascule nommée — pas résolue. Le lecteur sait. Ryn commence à savoir. Calder sait depuis le Ch.7 et n'a rien dit.</td><td>[Conséquence irréversible de Ryn]</td><td>[À définir]</td></tr>
+      <tr><td><strong>Pic 4 / Cliffhanger</strong><br>Ch. final</td><td>Varek envoie l'exécuteur. Calder fait le choix. Fin de tome ouverte — pas de résolution, une décision.</td><td>[Varek en personne]</td><td>[Destruction de Varek + déclaration]</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="rythme">Rythme et densité émotionnelle</h3>
+  <div class="principe">
+    <p>La structure cible est : <strong>une scène de tension ou d'émotion forte toutes les 3 000 à 4 000 mots maximum.</strong> Le lecteur de dark romance ne tolère pas les creux prolongés. Chaque chapitre se termine sur un élément qui rend la page suivante obligatoire.</p>
+    <p>Les chapitres d'exposition pure n'existent pas. Chaque information sur le monde ou sur les personnages arrive dans une scène qui a une tension propre — jamais dans un passage de description ou de réflexion seule.</p>
+  </div>
+</div>
+
+<!-- ══ SECTION V ══ -->
+<div class="section" id="voix">
+  <span class="section-marker">Section V</span>
+  <h2>Style &amp; Voix Narrative</h2>
+
+  <h3 id="pov">Choix de POV — justification architecturale</h3>
+  <div class="principe">
+    <p><strong>POV Ryn (1ère personne, présent) :</strong> Le lecteur ne sait que ce que Ryn sait. La tension du danger est immédiate parce que Ryn ne voit pas tout. Les erreurs qu'elle fait sont des erreurs que le lecteur voit venir et ne peut pas empêcher. C'est le moteur de la tension existentielle.</p>
+    <p><strong>POV Calder (3ème personne limitée, présent) :</strong> Le lecteur voit Calder résister à quelque chose avant que Calder le nomme. Ce décalage — le lecteur sait ce que Calder ressent, Calder ne le nomme pas encore — est le cœur du He Falls First. Un POV Ryn seul ne peut pas produire cet effet.</p>
+    <p><strong>Sections Sera (1ère personne, présent, italique) :</strong> Uniquement aux moments où son angle de lecture produit une information que ni Ryn ni Calder ne peut avoir. Maximum 3-4 par tome.</p>
+  </div>
+
+  <h4>Règle d'alternance</h4>
+  <p>On entre dans le POV de Calder uniquement quand ce qu'il ne dit pas est plus important que ce que Ryn peut voir. Si les deux POV montrent la même information, l'un des deux est de trop.</p>
+
+  <h3 id="voix-ryn">Voix de Ryn — règles précises</h3>
+  <p>Première personne, présent. Phrases courtes à moyennes. Ryn décrit ce qu'elle voit avant de décider ce qu'elle en pense. Sa voix intérieure est plus franche que son comportement extérieur — elle pense des choses qu'elle ne dit pas, souvent avec un humour involontaire né de l'inadéquation entre la situation et sa réaction.</p>
+
+  <div class="voix-ex">
+    He was looking at the mark like it was a problem he'd already solved.
+    I hate people who look at me like a problem they've already solved.
+    The more complicated truth was that he probably had.
+    <span class="attr">Exemple de voix — Ryn · T1</span>
+  </div>
+
+  <div class="rule non">Jamais analytique comme Sera — Ryn note les faits, Sera en tire des architectures</div>
+  <div class="rule non">Jamais de réflexion prolongée — Ryn agit, puis réfléchit, jamais l'inverse</div>
+  <div class="rule non">Jamais d'explication de ses erreurs — elle les fait, le lecteur les voit, elle les découvre après</div>
+  <div class="rule oui">L'humour de Ryn est l'humour de quelqu'un qui a appris à trouver ça drôle pour ne pas trouver ça terrible</div>
+  <div class="rule oui">Sa voix est physique — elle dit ce que ses mains font, ce que son corps ressent, pas ce que ça signifie</div>
+
+  <h3 id="voix-calder">Voix de Calder — règles précises</h3>
+  <p>Troisième personne limitée, présent. Phrases plus longues que Ryn, plus denses. Calder observe des faits et tire des conclusions — sa narration ressemble à un rapport militaire intérieur, sauf quand Ryn est dans la scène, où quelque chose dans la syntaxe change imperceptiblement sans que le narrateur le commente.</p>
+
+  <div class="voix-ex">
+    The mark reacted differently in his presence than the documentation described. He had read the documentation four times. He was certain of what it said. He looked at his hands. The documentation had been written by people who had never been in the same room as a marked carrier.
+    He filed this as a methodological failure of the documentation, not a failure of his understanding.
+    He was aware this was not entirely accurate.
+    <span class="attr">Exemple de voix — Calder · T1</span>
+  </div>
+
+  <div class="rule non">Jamais "il ressentit", "il éprouva", "il fut touché" — l'émotion dans ce qu'il choisit de ne pas dire</div>
+  <div class="rule non">Jamais de longues chaînes de subordonnées comme Kael (BIA) — Calder est plus direct, plus court</div>
+  <div class="rule oui">L'émotion de Calder est dans les mots qu'il n'utilise pas et les conclusions qu'il reporte</div>
+  <div class="rule oui">Son humour est involontaire — il dit des choses parfaitement littérales dans des moments chargés</div>
+
+  <h3 id="voix-sera">Voix de Sera dans FIA — progression par tome</h3>
+  <p>Première personne, présent, italique. La voix analytique de BIA en formation. Elle note, elle catalogue — mais ses connexions entre les observations sont parfois trop rapides (T1), plus fiables (T2), quasi-fiables (T3).</p>
+
+  <div class="voix-ex">
+    <em>The general arrived on a Tuesday. I know this because Tuesdays are when the district empties for the outer market, which means anyone watching from a window would have a clear view of who was moving and who wasn't. He stood in the middle of the street and looked at numbers. I noted: he already knew which one. I noted: he didn't look at mine. I noted: this was probably not reassurance.</em>
+    <span class="attr">Exemple de voix — Sera dans FIA · T1 · Section intercalée</span>
+  </div>
+
+  <div class="voix-ex">
+    <em>He had been standing at that door for four minutes before he knocked. I had been watching for three of them. The conclusion I drew in those three minutes was incomplete — I saw the hesitation but misread its cause. I corrected this two hours later, by which point the correction was no longer useful.</em>
+    <span class="attr">Exemple de voix — Sera dans FIA · T2 · Erreur de lecture visible</span>
+  </div>
+
+  <h3 id="refs">Références de style</h3>
+  <p>Le style cible de FIA se situe à l'intersection de trois influences — choisies pour leur efficacité commerciale, pas pour leur prestige littéraire :</p>
+  <table>
+    <thead><tr><th>Auteure</th><th>Ce qu'on prend</th><th>Ce qu'on ne prend pas</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Jennifer L. Armentrout</strong> (FBaA)</td><td>Le rythme. La façon de faire monter la pression sans résoudre. La clarté de la voix FMC.</td><td>L'expansion de l'univers. Les révélations identitaires expansives.</td></tr>
+      <tr><td><strong>Holly Black</strong> (The Cruel Prince)</td><td>Le danger omniprésent jamais explicitement nommé. La FMC qui survit par intelligence sans être parfaite.</td><td>L'ironie du narrateur. La distance de la voix.</td></tr>
+      <tr><td><strong>Danielle L. Jensen</strong> (Bridge Kingdom)</td><td>Les contraintes politiques comme moteur romantique. La résolution sans vainqueur absolu.</td><td>La complexité politique étendue. Les ensembles de personnages larges.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══ SECTION VI ══ -->
+<div class="section" id="regles">
+  <span class="section-marker">Section VI</span>
+  <h2>Règles Absolues &amp; Interdictions</h2>
+
+  <h3>La règle mère</h3>
+  <div class="principe">
+    <p><strong>L'émotion naît des faits, jamais des adjectifs.</strong> On ne dit jamais que Ryn est dévastée — on montre ce que ses mains font. Ce qu'elle regarde. Ce qu'elle fait à la place de ce qu'elle devrait faire. Cette règle s'applique à tous les POV, y compris aux sections Sera.</p>
+  </div>
+
+  <h3 id="interdictions">Ce qu'on ne fait jamais</h3>
+  <div class="rule non">Jamais de métaphore cardiaque — pas de "her heart broke", pas de "his chest tightened"</div>
+  <div class="rule non">Jamais de larmes expliquées — les pleurs arrivent ou n'arrivent pas. Le lecteur comprend.</div>
+  <div class="rule non">Jamais de remplissage — les chapitres longs le sont par densité de scènes, pas par accumulation</div>
+  <div class="rule non">Jamais d'exposition dialogue — les informations sur le monde arrivent quand Ryn en a besoin pour survivre</div>
+  <div class="rule non">Jamais de cliffhanger gratuit — chaque fin de chapitre est justifiée par la logique narrative</div>
+  <div class="rule non">Jamais la marque de forge confondue avec le Void That Eats de Sera — deux mécaniques distinctes</div>
+  <div class="rule non">Jamais Varek en impasse — il est détruit en T3, pas suspendu</div>
+  <div class="rule non">Jamais la voix analytique mature de BIA pour Sera avant la fin de FIA T3</div>
+  <div class="rule non">Jamais la signification du fragment expliquée dans FIA</div>
+  <div class="rule non">Jamais Calder qui verbalise ses sentiments directement</div>
+  <div class="rule non">Jamais la cendre utilisée comme métaphore active — elle tombe à son rythme ordinaire, indifférente</div>
+
+  <h3>Ce qu'on fait toujours</h3>
+  <div class="rule oui">Ryn fait une erreur de conséquence réelle par tome — le lecteur la voit venir</div>
+  <div class="rule oui">Chaque chapitre se termine sur quelque chose qui rend la page suivante obligatoire</div>
+  <div class="rule oui">Les scènes d'ancrage physique Ryn/Calder sont présentes, chargées, mémorables — au moins 3 par tome</div>
+  <div class="rule oui">L'humour de Calder est involontaire et rare — il arrive quand on ne l'attend pas</div>
+  <div class="rule oui">La déclaration romantique de T3 est explicite — pas seulement des non-dits</div>
+  <div class="rule oui">Le geste physique de Ryn (défini au Ch.1) revient en miroir aux moments de pivot</div>
+
+  <h3 id="objets">Objets-symboles</h3>
+  <p>Les objets-symboles portent les émotions que la narration ne verbalise pas. Ils traversent les tomes avec une trajectoire précise et changent de sens à chaque apparition. Leur sens ne s'explique jamais — il s'accumule par répétition et contexte.</p>
+
+  <table>
+    <thead><tr><th>Objet</th><th>Personnage</th><th>Sens T1</th><th>Sens T3</th></tr></thead>
+    <tbody>
+      <tr><td><strong>La marque</strong></td><td>Ryn</td><td>Ce qu'elle cache pour survivre</td><td>Ce qu'elle choisit d'utiliser — ou de refuser</td></tr>
+      <tr><td><strong>Le fragment</strong></td><td>Sera</td><td>Réflexe — objet de la poche, sens inconnu</td><td>[BIA T1] — Sens révélé dans la série suivante</td></tr>
+      <tr><td><strong>[Geste de Ryn]</strong></td><td>Ryn</td><td>[À définir au Ch.1]</td><td>[Variation finale du même geste]</td></tr>
+      <tr><td><strong>[Objet Calder]</strong></td><td>Calder</td><td>[À identifier — quelque chose qu'il porte ou fait qui révèle sa ligne]</td><td>[Transformation de cet objet en T3]</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══ SECTION VII ══ -->
+<div class="section" id="lien">
+  <span class="section-marker">Section VII</span>
+  <h2>Lien avec BIA — Mécanique Exacte</h2>
+
+  <div class="bia-box">
+    <h3>Ce que FIA révèle rétrospectivement de BIA</h3>
+    <table>
+      <thead><tr><th>Ce que BIA laisse opaque</th><th>Ce que FIA révèle</th><th>Pour quel lecteur</th></tr></thead>
+      <tbody>
+        <tr><td>7 années de vie floues avant Vael</td><td>Aleth active, puis disparaissant — Sera enfant en arrière-plan</td><td>Lecteur de BIA uniquement</td></tr>
+        <tr><td>Le fragment "depuis avant qu'elle se souvienne"</td><td>Le fragment dans la poche de Sera à 17 ans — jamais expliqué</td><td>Les deux lectorats</td></tr>
+        <tr><td>La voix analytique — construite comment</td><td>Construction visible en temps réel sur 3 tomes</td><td>Lecteur de BIA principalement</td></tr>
+        <tr><td>Davan "depuis ses 11 ans"</td><td>La dynamique Sera/Davan dans le district — en formation</td><td>Lecteur de BIA</td></tr>
+        <tr><td>Le départ forcé vers Ashmark</td><td>Dernière scène de FIA T3 — la désignation comme Tribut</td><td>Les deux lectorats</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bia-box">
+    <h3 id="kael-fia">Kael dans FIA — présence contrôlée</h3>
+    <p><strong>FIA T1-T2 :</strong> Son réseau d'informateurs est actif à Vael — BIA T1 établit qu'il surveille le territoire depuis plusieurs années avant le convoi de Sera. Il cherche le Void That Eats / The Eating Silence. Il ne trouve pas Sera parce qu'elle a supprimé toute manifestation visible de son pouvoir depuis l'enfance. Sans manifestation et sans voir le fragment, son réseau n'a rien à identifier.</p>
+    <p><strong>FIA T3 :</strong> Une scène directe entre Calder et Kael — deux hommes qui se reconnaissent comme ce qu'ils sont dans la hiérarchie de l'empire. Aucune allégeance à établir. Kael est à Vael pour des raisons politiques liées à la présence de Varek dans le territoire. Il croise Sera dans cette scène. Quelque chose dans sa façon d'être attentive à un espace vide de menaces attire son attention une seconde. L'événement le force à partir avant qu'il puisse creuser. Le lecteur de BIA retient son souffle.</p>
+    <div class="rule non">Kael ne vient pas à Vael à cause de la marque de forge — la marque et le Void That Eats sont deux mécaniques distinctes qui ne sont jamais liées dans FIA</div>
+    <div class="rule non">Kael ne reconnaît pas Sera dans FIA T3 — il pressent quelque chose, pas plus</div>
+    <div class="rule oui">La scène Calder/Kael en T3 est brève — deux hommes qui se reconnaissent et repartent chacun vers leur affaire</div>
+  </div>
+
+  <div class="bia-box">
+    <h3>Ce que FIA ne révèle jamais</h3>
+    <div class="rule non">Jamais la signification du fragment — elle appartient à BIA</div>
+    <div class="rule non">Jamais la nature du pouvoir de Sera (Void That Eats) — elle ne le sait pas encore</div>
+    <div class="rule non">Jamais ce que Kael cherche précisément à Vael — le lecteur de BIA le sait, le personnage ne le dit pas</div>
+    <div class="rule non">Jamais ce que sera le destin de Sera après FIA T3 — le lecteur de FIA a une question ouverte</div>
+  </div>
+</div>
+
+<!-- ══ SECTION VIII ══ -->
+<div class="section" id="decisions">
+  <span class="section-marker">Section VIII</span>
+  <h2>Décisions Scellées — À ne pas modifier sans justification</h2>
+
+  <table>
+    <thead><tr><th>Élément</th><th>Décision scellée</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Titre de la série</strong></td><td>FORGED IN ASH</td></tr>
+      <tr><td><strong>Titres des tomes</strong></td><td>T1 : The Mark · T2 : The Hunt · T3 : The War</td></tr>
+      <tr><td><strong>Territoire</strong></td><td>Vael — même territoire que BIA, 3-7 ans avant BIA T1</td></tr>
+      <tr><td><strong>FMC</strong></td><td>Ryn, 20 ans au début de T1, marquée à la naissance · POV : 1ère personne présent</td></tr>
+      <tr><td><strong>MMC</strong></td><td>Calder, 30 ans, Général de Varek · POV : 3ème personne limitée présent · Morally grey</td></tr>
+      <tr><td><strong>POV Sera</strong></td><td>Sections courtes en italique, intercalées dans les chapitres de Ryn · Max 3-4 par tome · Jamais chapitre entier</td></tr>
+      <tr><td><strong>Trope dominant</strong></td><td>Marked / Bargain forcé · Ch.3 du T1</td></tr>
+      <tr><td><strong>Trope secondaire 1</strong></td><td>Enemies to lovers · Bascule nommée en fin T1</td></tr>
+      <tr><td><strong>Trope secondaire 2</strong></td><td>He falls first · Calder le sait avant Ryn, le lecteur avant les deux</td></tr>
+      <tr><td><strong>Résolution de Varek</strong></td><td>Détruit en fin T3 — pas en impasse, pas exilé</td></tr>
+      <tr><td><strong>Résolution romantique</strong></td><td>Explicite en T3 — déclaration directe, pas seulement sous-entendue</td></tr>
+      <tr><td><strong>Scènes physiques</strong></td><td>Au moins 3 scènes d'ancrage physique mémorables par tome</td></tr>
+      <tr><td><strong>Voix de Sera</strong></td><td>Progression : brute T1 → précise T2 → quasi-mature T3. Jamais la maturité de BIA avant la fin de T3.</td></tr>
+      <tr><td><strong>Aleth</strong></td><td>Vivante T1 · Disparaît T2 · Absente T3 · Morte ~6 ans avant BIA T1</td></tr>
+      <tr><td><strong>Le fragment</strong></td><td>Présent dans la poche de Sera, jamais expliqué, jamais commenté dans FIA</td></tr>
+      <tr><td><strong>Kael dans FIA T1-T2</strong></td><td>Réseau actif à Vael, jamais présent en personne</td></tr>
+      <tr><td><strong>Kael dans FIA T3</strong></td><td>Scène brève avec Calder · Croise Sera · Pressent quelque chose · Repart sans confirmer</td></tr>
+      <tr><td><strong>Fin de FIA T3</strong></td><td>Sera désignée Tribut de force par le Conseil de Vael · Emmenée vers Ashmark · Invitation à lire BIA</td></tr>
+      <tr><td><strong>La marque vs le Void</strong></td><td>Deux mécaniques distinctes · Ne jamais lier · Ne jamais confondre</td></tr>
+    </tbody>
+  </table>
+
+  <hr class="section-divider">
+
+  <h3>Ce que chaque Bible de tome devra compléter</h3>
+  <p>La Bible de chaque tome développe à partir de cette Bible générale. Elle doit impérativement sceller les éléments suivants avant toute rédaction :</p>
+  <div class="rule oui">La dernière ligne du tome — cible narrative</div>
+  <div class="rule oui">Le geste physique de Ryn — défini au Ch.1 du T1, répété ensuite</div>
+  <div class="rule oui">L'objet-symbole de Calder — défini au Ch.1 du T1, répété ensuite</div>
+  <div class="rule oui">Les quatre pics émotionnels du tome — positionnés avant la rédaction</div>
+  <div class="rule oui">La conséquence irréversible de Ryn dans le tome — ce qu'elle perd ou ce qu'elle ne peut pas défaire</div>
+  <div class="rule oui">La ligne de Calder qu'il ne franchit pas — précisée dans le T1 au Ch.7</div>
+</div>
+
+<div class="doc-footer">
+  Forged in Ash · Bible de Conception v1.0 · Mars 2026 · Vera Draye<br>
+  Univers Kaerath · Série Parallèle à Bound in Ash<br>
+  Document confidentiel — développement créatif
+</div>
+
+</main>
+</body>
+</html>
