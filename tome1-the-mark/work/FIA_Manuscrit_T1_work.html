@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORGED IN ASH — Manuscrit · Book One: The Mark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #070905;
+    --deep: #0d110a;
+    --card: #121508;
+    --border: #1e2812;
+    --forge: #e85d20;
+    --forge-dim: #8b3510;
+    --forge-pale: rgba(232,93,32,0.06);
+    --gold: #c4912a;
+    --gold-dim: #7a5a18;
+    --ash: #5a6845;
+    --ember: #c23b1a;
+    --ember-dim: #7a2510;
+    --text: #dde8cc;
+    --text-dim: #8a9a70;
+    --text-faint: #3a4828;
+    --white: #eef5e0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.9;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(232,93,32,0.10) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(90,104,69,0.07) 0%, transparent 60%),
+      var(--black);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ash), transparent);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--ash);
+    margin-bottom: 3rem;
+    animation: fadeUp 1s ease both;
+  }
+
+  .cover-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--ash);
+    text-shadow:
+      0 0 80px rgba(90,104,69,0.35),
+      0 2px 4px rgba(0,0,0,0.8);
+    letter-spacing: 0.05em;
+    animation: fadeUp 1s 0.1s ease both;
+  }
+
+  .cover-sub {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+    letter-spacing: 0.4em;
+    color: var(--text-faint);
+    margin-top: 1.2rem;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+
+  .cover-line {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ash), transparent);
+    margin: 2.5rem auto;
+    animation: fadeUp 1s 0.3s ease both;
+  }
+
+  .cover-meta {
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    letter-spacing: 0.15em;
+    line-height: 2.4;
+    animation: fadeUp 1s 0.4s ease both;
+  }
+
+  .cover-meta strong { color: var(--ash); font-weight: 400; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.4em;
+    color: var(--text-faint);
+    animation: pulse 3s ease infinite;
+  }
+
+  /* ── NAV ── */
+  .ms-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(7,9,5,0.96);
+    border-bottom: 1px solid var(--border);
+    padding: 0.7rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    backdrop-filter: blur(8px);
+  }
+
+  .ms-nav-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ash);
+    white-space: nowrap;
+  }
+
+  .ms-nav-chapters {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .ms-nav-ch {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    text-decoration: none;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .ms-nav-ch:hover, .ms-nav-ch.active {
+    color: var(--ash);
+    border-color: var(--border);
+  }
+
+  .ms-nav-ch.placeholder {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .ms-nav-ch.peak { color: var(--ember-dim); }
+  .ms-nav-ch.peak:hover, .ms-nav-ch.peak.active { color: var(--ember); border-color: var(--ember-dim); }
+
+  .ms-nav-stats {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  .ms-nav-stats span { color: var(--ash); }
+
+  /* ── CORPUS ── */
+  .corpus {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem 10rem;
+  }
+
+  /* ── STATUS BAR ── */
+  .ms-status {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--ash);
+    padding: 1.5rem 2.5rem;
+    margin: 0 0 5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1px;
+    background-color: var(--border);
+  }
+
+  .ms-stat {
+    background: var(--card);
+    padding: 1rem 1.5rem;
+    text-align: center;
+  }
+
+  .ms-stat-val {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--ash);
+    display: block;
+    line-height: 1.1;
+  }
+
+  .ms-stat-val.dim { color: var(--text-faint); font-size: 1rem; }
+
+  .ms-stat-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    font-family: 'Cinzel', serif;
+    margin-top: 0.25rem;
+    display: block;
+  }
+
+  /* ── ACT DIVIDER ── */
+  .act-marker {
+    text-align: center;
+    margin: 6rem 0 4rem;
+    position: relative;
+  }
+
+  .act-marker::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  .act-marker-label {
+    display: inline-block;
+    position: relative;
+    background: var(--black);
+    padding: 0.6rem 2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.45em;
+    color: var(--ash);
+    border: 1px solid var(--border);
+    text-transform: uppercase;
+  }
+
+  /* ── CHAPTER ── */
+  .chapter {
+    margin-bottom: 7rem;
+  }
+
+  .ch-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--ash);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .ch-eyebrow-pov {
+    color: var(--text-faint);
+    border-left: 1px solid var(--border);
+    padding-left: 1rem;
+  }
+
+  .ch-number {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+
+  .ch-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 400;
+    color: var(--ash);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+
+  .ch-title.peak { color: var(--ember); }
+
+  .ch-rule {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--ash), transparent);
+    margin-bottom: 3rem;
+  }
+
+  .ch-rule.peak {
+    background: linear-gradient(90deg, var(--ember), transparent);
+    height: 2px;
+  }
+
+  /* ── PROSE ── */
+  .prose p {
+    margin-bottom: 1.5rem;
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.95;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .prose p:first-child::first-letter {
+    font-family: 'Cinzel', serif;
+    font-size: 4.2rem;
+    font-weight: 900;
+    color: var(--ash);
+    float: left;
+    line-height: 0.75;
+    margin: 0.1em 0.08em 0 0;
+    text-shadow: 0 0 40px rgba(90,104,69,0.3);
+  }
+
+  .prose em {
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  /* Sera section — italique intercalé */
+  .sera-section {
+    border-left: 2px solid var(--gold-dim);
+    padding-left: 1.8rem;
+    margin: 2.5rem 0;
+  }
+
+  .sera-section p {
+    font-style: italic;
+    color: var(--text-dim) !important;
+  }
+
+  .sera-section p::first-letter {
+    font-size: inherit !important;
+    float: none !important;
+    color: inherit !important;
+    margin: 0 !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    text-shadow: none !important;
+  }
+
+  .scene-break {
+    text-align: center;
+    margin: 2.5rem 0;
+    color: var(--ash);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+  }
+
+  .ch-end-rule {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ash), transparent);
+    margin: 3rem 0 1.5rem;
+  }
+
+  .ch-end-rule.peak {
+    background: linear-gradient(90deg, transparent, var(--ember), transparent);
+    height: 2px;
+  }
+
+  .ch-wordcount {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    text-align: right;
+  }
+
+  /* ── PLACEHOLDER ── */
+  .chapter-placeholder {
+    margin-bottom: 7rem;
+    opacity: 0.25;
+  }
+
+  .placeholder-inner {
+    border: 1px dashed var(--border);
+    border-left: 3px dashed var(--ash);
+    padding: 2rem 2.5rem;
+  }
+
+  .placeholder-inner .ch-number { color: var(--text-faint); }
+  .placeholder-inner .ch-title { color: var(--text-faint); }
+
+  .placeholder-note {
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    font-style: italic;
+    margin-top: 1rem;
+  }
+
+  /* ── POV MARKER (Calder) ── */
+  .pov-marker {
+    font-style: italic;
+    color: var(--text-faint);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .pov-marker::first-letter {
+    font-size: inherit !important;
+    float: none !important;
+    color: inherit !important;
+    margin: 0 !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    text-shadow: none !important;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--ash); }
+
+  @media print {
+    body { background: #fff; color: #111; }
+    .ms-nav, .cover, .ms-status { display: none; }
+    .corpus { max-width: 100%; padding: 2rem; }
+    .prose p { color: #111; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <p class="cover-eyebrow">Vera Draye · Manuscrit de travail</p>
+  <h1 class="cover-title">FORGED<br>IN ASH</h1>
+  <p class="cover-sub">Book One: The Mark</p>
+  <div class="cover-line"></div>
+  <div class="cover-meta">
+    <strong>Manuscrit · Tome 1 · Draft 1.0</strong><br>
+    30 chapitres · 4 actes · Dark Romantasy adulte<br>
+    POV principal Ryn (1ère pers. présent) / Calder (3ème pers. présent) / Sera (sections intercalées)<br><br>
+    Début rédaction : Mars 2026<br>
+    Chapitres rédigés : <strong>7 / 30</strong><br>
+    Mots : <strong>21,903</strong>
+  </div>
+  <p class="scroll-hint">↓ SCROLL ↓</p>
+</div>
+
+<!-- NAV -->
+<nav class="ms-nav">
+  <span class="ms-nav-title">Forged in Ash · Tome 1 · The Mark</span>
+  <div class="ms-nav-chapters">
+    <a class="ms-nav-ch active" href="#ch01">Ch.1</a>
+    <a class="ms-nav-ch active" href="#ch02">Ch.2</a>
+    <a class="ms-nav-ch active" href="#ch03">Ch.3</a>
+    <a class="ms-nav-ch active" href="#ch04">Ch.4</a>
+    <a class="ms-nav-ch active" href="#ch05">Ch.5</a>
+    <a class="ms-nav-ch active" href="#ch06">Ch.6</a>
+    <a class="ms-nav-ch peak active" href="#ch07">Ch.7 🔴</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.8</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.9</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.10</a>
+    <a class="ms-nav-ch peak placeholder" href="#">Ch.11 🔴</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.12</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.13</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.14</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.15</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.16</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.17</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.18</a>
+    <a class="ms-nav-ch peak placeholder" href="#">Ch.19 🔴</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.20</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.21</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.22</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.23</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.24</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.25</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.26</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.27</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.28</a>
+    <a class="ms-nav-ch placeholder" href="#">Ch.29</a>
+    <a class="ms-nav-ch peak placeholder" href="#">Ch.30 🔴</a>
+  </div>
+  <span class="ms-nav-stats"><span>7</span> / 30 rédigés · <span>21,903</span> mots</span>
+</nav>
+
+<!-- CORPUS -->
+<div class="corpus">
+
+  <!-- STATUS BAR -->
+  <div class="ms-status">
+    <div class="ms-stat">
+      <span class="ms-stat-val">7</span>
+      <span class="ms-stat-label">Chapitres rédigés</span>
+    </div>
+    <div class="ms-stat">
+      <span class="ms-stat-val">23</span>
+      <span class="ms-stat-label">À rédiger</span>
+    </div>
+    <div class="ms-stat">
+      <span class="ms-stat-val">21,903</span>
+      <span class="ms-stat-label">Mots</span>
+    </div>
+    <div class="ms-stat">
+      <span class="ms-stat-val dim">v1.0</span>
+      <span class="ms-stat-label">Version</span>
+    </div>
+    <div class="ms-stat">
+      <span class="ms-stat-val dim">En cours</span>
+      <span class="ms-stat-label">Statut</span>
+    </div>
+    <div class="ms-stat">
+      <span class="ms-stat-val dim">Mars 2026</span>
+      <span class="ms-stat-label">Début rédaction</span>
+    </div>
+  </div>
+
+  <!-- ACT I -->
+  <div class="act-marker">
+    <span class="act-marker-label">Act I — The District — Chapters 1 to 7 — ~23,000 words</span>
+  </div>
+
+  <!-- CH.1 -->
+  <div class="chapter" id="ch01">
+
+    <div class="ch-eyebrow">
+      Chapter One <span class="ch-eyebrow-pov">POV Ryn · First person present · + Sera section</span>
+    </div>
+    <div class="ch-number">One</div>
+    <div class="ch-title">The District on a Tuesday</div>
+    <div class="ch-rule"></div>
+
+    <div class="prose">
+
+      <p>The mark had been warm since dawn.</p>
+
+      <p>Not burning — warm. There was a difference, and Ryn knew it the way she knew the difference between a knife that was decorative and a knife that had been used. The warm meant something in the vicinity. The burning meant she needed to move. She had been living in the space between those two readings for so long that she had stopped asking why and started asking where.</p>
+
+      <p>She turned left at the second corridor and kept moving.</p>
+
+      <p>The morning market in the lower district ran Tuesday through Saturday, which meant Tuesdays were the worst — every vendor reset, every overnight load of goods arriving at once, every person who had been waiting since Sunday turning up with their budget and their opinions at the same time. The east stalls alone had forty-three regular vendors and a rotating set of transient ones, and the transients were the interesting part: people passing through Vael on the northern trade route, carrying goods and news from places where the administrative situation was different, which in practice meant any place that was not Vael. News from those places was worth money in the lower district. The lower district was built on information that moved faster than the empire expected it to.</p>
+
+      <p>Ryn worked the crowd on principle. Not pickpocketing, which was low-margin and produced the kind of attention she could not afford. Information. The kind that traveled with goods: which road south was being watched, which administrator had adjusted their position on import duties without announcing it, which family in the upper district had quietly begun selling off furniture before the next levy assessment. The district ran on this currency more reliably than it ran on coin. Ryn had spent five years learning exactly who needed to know what, and the learning had been worth every difficult month of it.</p>
+
+      <p>She was halfway through the east stalls when the mark shifted.</p>
+
+      <p>Not worse — just more specific. A direction, almost, or the suggestion of one. She had never felt it do that before, and she catalogued the observation without landing on a conclusion, because landing on a conclusion before you had the data was how you ended up wrong, and being wrong in the district was a luxury she had never had.</p>
+
+      <p>She found a gap between two storefronts — the narrow passage behind Meer's cart that let out on the side alley — and stepped into it. The light was thin here, the ash-fall slower than in open space, settling on the walls in the thin gray residue of years. Nobody used this passage for anything except cutting through. She had approximately forty-five seconds before someone else needed it.</p>
+
+      <p>She pulled her coat off her left shoulder and unwrapped the bandage quickly, the way you did something you had done ten thousand times — not looking, mostly, fingers following the familiar route. The mark underneath was warm to the touch. Elevated. The skin around it pinkish at the edges, tight in the specific way it got when something had been near for a while without her noticing. Not burning. Not yet. She pressed two fingers against the center — reflex, not diagnosis — and the mark pushed back with a low steady heat that said: yes, still here, still counting.</p>
+
+      <p>Third time this week.</p>
+
+      <p>Twenty years was a long time to live with something you could not explain. She had tried to explain it exactly three times: once to a physician when she was seven, who had prescribed a compress and told her mother it was probably from a cooking accident; once to a woman who claimed to know things about marks and seals, who had looked at it for a long time and then given her the salve and charged her too much for it and not said a word; and once to herself, at sixteen, when she had decided that the explanation was less important than the management and had not revisited the question since. The management was working.</p>
+
+      <p>She noted the color. Noted the temperature differential between the center and the edge. Noted that it had not gone to full alarm despite whatever was triggering it, which told her the trigger was ambient rather than proximate. The scar along the upper edge — the part that had always looked less like a burn and more like something deliberate, though she had never examined that thought closely enough to do anything with it — was faintly darker than yesterday. She filed that separately, under things she did not have a framework for yet.</p>
+
+      <p>She rewrapped in forty seconds flat and stepped back into the market.</p>
+
+      <p>The market had its own logic about violence, which was that it distributed the signals of it so evenly through the ordinary that distinguishing the dangerous from the loud required calibration she had spent years developing. Arguments over weight. Arguments over price. A man three stalls down gesturing at a scale with the energy of someone who had been wrong before and was not interested in being told so again. The mark had not reacted to any of it. It had reacted to something she had not seen, which meant something she had not seen was worth more attention than everything she had. She kept that conclusion and kept moving.</p>
+
+      <p>Meer's cart was three stalls down. Dried spice packets, powdered bark, and secondarily, news.</p>
+
+      <p>"The Halvern shipment came through," Meer said, without looking up from the small cloth bags she was tying. She was sixty years old and had outlasted four administrations by maintaining the expression of someone who had never had an interesting thought in her life. It was, Ryn had always thought, an underrated survival strategy.</p>
+
+      <p>"Late?"</p>
+
+      <p>"Two days. Weight was off by a quarter on the grain lot."</p>
+
+      <p>It was the kind of market conversation that looked like small talk and was not. Meer's cart was one of six permanent exchange points in the lower district that Ryn used regularly, each with its own specialty and its own pricing conventions. Meer handled commercial and administrative intelligence — goods, schedules, permit changes. The woman at the dried-fish stall handled personnel. The man in the east alley handled threat intelligence, though he did not call it that. Ryn had built this network over five years. It had cost her time and trust and occasionally coin she could not easily spare. It had kept her alive and in place, which was the same thing.</p>
+
+      <p>Ryn left a coin on the corner of the cart and noted the gap. Someone in the middle district had paid more than they received or received less than they contracted, and that gap had already started belonging to someone. The question was who got there first. She filed it under urgent and kept moving.</p>
+
+      <p>The mark cooled by mid-morning. That was new.</p>
+
+      <p>The cooling mid-session had not happened before — or not in this specific pattern, where the morning showed warmth and the late morning showed nothing, as if whatever had triggered the mark had moved away or gone quiet. She walked the rest of the east stalls and let the new data sit untouched, because the instinct to explain something before you had enough information was how you built explanations that fit the wrong situation.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>The second piece of information came from a courier's apprentice who did not know he was giving it to her. He mentioned, in passing, that the road checks at the southern gate had moved — two hundred meters east, new position, same personnel. The personnel were what mattered: she knew the east-facing shift ran long on Tuesdays, which meant the window before the handoff was ninety minutes instead of forty. She paid for his lunch without explaining why.</p>
+
+      <p>Davan passed through the east end of the market near mid-morning.</p>
+
+      <p>She saw him from across the stalls — moving the way he always moved, not quickly, not slowly, occupying exactly the space required and no more. He was carrying a wrapped package that told her nothing except that it was heavier than it looked, from the small adjustment he made with his shoulder when he shifted the weight. He did not stop at her position. He passed close enough that she could see him register her presence, and she registered that he had registered it, and that was the conversation.</p>
+
+      <p>She had known Davan for most of her five years in the district. What she knew: careful, reliable in the way careful people are reliable, connected in the part of the district she did not operate in, and not interested in her business. That was exactly sufficient. The district rewarded people who asked what was useful and stopped there. She applied the same rule to herself and found the symmetry useful.</p>
+
+      <p>The afternoon moved through its ordinary configurations. She completed three transactions — the Halvern weight discrepancy to a cloth trader who paid her promptly and then added a second coin on top of the agreed price, which told her the discrepancy was more significant than she had estimated; the gate-check timing to the courier family in the south passage, who had been waiting three weeks for exactly this kind of shift; the import ruling clarification to the woman who ran the textile stalls near the southern entrance, who had been losing margin for two months on the basis of an administrative note that had been superseded without announcement. Each transaction left her with one additional piece of information she had not held that morning.</p>
+
+      <p>What she did not do, and had never done, was allow the pattern of her work to be visible. The information moved, but it moved through her, not around her — no one in the district knew the full shape of what she collected, because the full shape would have made her valuable in a way she could not afford to be. Valuable things got taken. She had learned that early and applied it consistently: visible enough to be useful, invisible enough not to be worth acquiring.</p>
+
+      <p>The district at dusk had a specific quality she had never found anywhere else and had stopped trying to name. The ash-light was part of it — the way the falling gray caught in the low angle of the evening and made everything look like it had already been through something and survived. The lower district had survived a great deal, in fact. Three administrations that had tried to regularize it, two that had tried to tax it into compliance, and one that had simply ignored it, which had been by far the most effective approach. The district persisted. Its people were, as a category, people who persisted. Ryn found that accurate and comforting in approximately equal measure.</p>
+
+      <p>By the time the ash-haze shifted from white to gray — the specific change in late afternoon light that told you the district was beginning its evening accounting — she had covered the east and central sections and was working the south corridor back toward the northern exit.</p>
+
+      <p>The mark pulsed.</p>
+
+      <p>Ryn stopped.</p>
+
+      <p>This was different from the morning. Not the low heat of ambient tension. Not the full alarm she had felt twice in her life, both times with something sharp within arm's reach. This was something between those two states and not quite either — a steady oriented pressure, like the mark was not registering a general threat but pointing at a specific location. She stood still and let it resolve.</p>
+
+      <p>It did not resolve.</p>
+
+      <p>She rolled her right shoulder — small movement, almost involuntary, the thing she did when she was running numbers on a situation that did not have all its variables yet. Right shoulder, not left. She had learned young to keep the left side still in public.</p>
+
+      <p>The south corridor was ordinary. Same storefronts in their late-afternoon configurations, same faces she had been cataloguing for five years. She ran the full count: every person in eyeline, every entrance and exit, every deviation from what she expected. Nothing. The mark did not lie about the presence of a thing — it had been wrong about timing, wrong about distance, wrong about degree. It had never been wrong about the fact.</p>
+
+      <p>Something was here. Or had been. Or was close enough to register as here.</p>
+
+      <p>She changed her route home.</p>
+
+      <p>The long way ran through the inner passages — narrower, less traveled, better for certain kinds of threat and worse for others. She chose it because the afternoon pulse had been oriented roughly east, and her standard route ran east. Avoidance over confirmation. She could afford that today.</p>
+
+      <p>The route added eighteen minutes.</p>
+
+      <p>She spent them running the day in sequence: the morning warmth with direction, the mid-morning cooling, the afternoon pulse with orientation. No consistent cause she could identify. The mark had been more active this week than in the past three months combined, and the activity had a character she had not seen before — less like alarm, more like response to a specific thing that kept appearing and disappearing. She had been through stretches of unexplained activity before. She had survived all of them. This was probably that.</p>
+
+      <p>This felt different from that. She noted the difference and kept walking.</p>
+
+      <p>The mark was cold by the time she reached her door.</p>
+
+      <p>She stood outside and did the full check: lock in its original position, secondary mark on the frame intact, the thread at the base of the window exactly where she had left it. All intact. She went inside.</p>
+
+      <p>Everything was fine.</p>
+
+      <p>She did not quite believe that everything was fine.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="sera-section">
+      <p>I noticed the pattern on Sunday.</p>
+
+      <p>Two days now, which means I have not moved on it yet. I will. The pattern: movement in the east corridor that does not match the east corridor. Not wrong enough to be visible to someone who does not spend time cataloguing movement patterns in this district, which is most people. I am not most people. I have been watching the east corridor for three years, and what it looks like on a Tuesday has a specific shape — the vendors, the transient traffic, the timing of the deliveries from the northern gate — and this is not it. Something is moving through the east corridor that does not belong to the east corridor's Tuesday shape. It is subtle. It is consistent. That combination is the one I pay attention to.</p>
+
+      <p>I am on the roof of the mill building. Three stories. I have the east passage, the south approach, and the upper edge of the central market if I angle correctly. I have been here since the second hour. I have my notes.</p>
+
+      <p>The anomaly is fixed. That is the first thing I can say with certainty. It is not moving through the district the way foot traffic moves — it is positioned. That distinction matters. People who are positioned are either waiting for something or already holding something, and which of those is true changes everything about the correct response. A person waiting is a different problem than a person who already has what they came for.</p>
+
+      <p>I have seven registration points across the past two days. There is a geometry to them — not a clean pattern, but a logic. The positions form a rough arc. The arc has a center somewhere in the east market. I am working on the center. When I have the center, I will have the target, and when I have the target I will have enough to make a decision about what to do next.</p>
+
+      <p>What I have not been able to determine is whether the anomaly has noticed that I am watching it. I do not think so. But I am accounting for the possibility.</p>
+
+      <p>My hand found the fragment in my pocket at some point while I was writing this. I was not holding it and then I was. I kept writing.</p>
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>The bandage change was the last task of the day.</p>
+
+      <p>Ryn did it at the small table near the window, shutters angled to catch the last gray light and block the sightline from the building across the alley. The setup was automatic — the clean cloth folded in the second drawer, the small jar of salve, the specific positioning of her left arm that made the reach manageable without anyone's help. She had never asked for help with this. She did not intend to start.</p>
+
+      <p>The mark tonight looked the way it looked after an active day. The raised tissue along the upper edge faintly darker, the surrounding skin with the residual flush of sustained heat. She applied the salve — the cooling immediate, the specific relief of a surface that had been running warm all day brought back to neutral — and wrapped it clean. Pressed the edge flat. Done.</p>
+
+      <p>She had been treating this as a burn injury since she was old enough to know what burn injuries were. The categorization had served her. Burn injuries were common, explicable, unremarkable to anyone in the district who did not already have a reason to look. The shape of this one was not quite right for a burn — the edges too defined, the upper scar too regular — but she had learned early that people saw what they expected to see, and what they expected to see on the shoulder of a woman in the lower district was an old injury from an ordinary accident. She had never said otherwise. The silence had cost her nothing.</p>
+
+      <p>She closed the drawer and went to the window.</p>
+
+      <p>The ash was coming down steadily in the last of the light. It did this in the evenings sometimes — not heavier, just more visible against the darker sky, the gray settling into the window ledges and the angles of the rooftops opposite. It had been falling since before she was born. It was falling tonight over whatever had triggered the mark. It would be falling tomorrow regardless of what she found. It was entirely indifferent to her Tuesday.</p>
+
+      <p>She thought about the direction of the pulse one more time before she let the day go. East. The east stalls covered forty meters of the district's internal geography, which was not a small area but was small enough to work with. Tomorrow she would go north first and approach the east stalls from the upper passage — different angle, faster exit if the mark went to full alarm. She had a plan. She was always better at the planning than at the waiting. The waiting was the part that required a specific kind of discipline she had been building for twenty years and was not, she thought, entirely finished building yet.</p>
+
+      <p>She did not sleep immediately. She lay in the dark and ran the day one more time, looking for the variable she had missed, the detail that would make the new behavior legible. She did not find it. She had never been someone who needed to find things before morning. Some information arrived in its own time, and the correct response was to be ready when it did. She had built her life in the district on that principle.</p>
+
+      <p>The mark was cool and quiet against the bandage.</p>
+
+      <p>She closed her eyes.</p>
+
+      <p>She would be careful tomorrow. She was always careful. Tomorrow she would be careful about something specific, and that was different from careful about nothing in particular, and better.</p>
+
+    </div>
+
+    <div class="ch-end-rule"></div>
+    <div class="ch-wordcount">Chapter One · The District on a Tuesday · 3,222 words</div>
+
+  </div>
+
+  <!-- PLACEHOLDERS Ch.2–7 -->
+
+  <div class="chapter" id="ch02">
+
+    <div class="ch-eyebrow">
+      Chapter Two <span class="ch-eyebrow-pov">POV Calder · Third person present</span>
+    </div>
+    <div class="ch-number">Two</div>
+    <div class="ch-title">Two Days</div>
+    <div class="ch-rule"></div>
+
+    <div class="prose">
+
+      <p>The district had organized itself around the absence of oversight, which Calder found, on reflection, more efficient than most systems that had oversight built in.</p>
+
+      <p>He had been in Vael for three days. The first day was observation: he had arrived at the mid-morning hour and spent twelve hours moving through the district in patterns that intersected its traffic without following it. Standard methodology. By the end of the first day he had the layout — every entrance and exit, the boundaries of the parallel economy, the timing of the administrative presence, which was minimal and predictable. The second day was confirmation: he had identified the probable location of the target and spent the day confirming it through three independent observation points, cross-referencing the movement data with the physical description in the briefing until the probability was high enough to act on. Today — the third day — was the day he would have made contact, if the preliminary work had not produced a complication he was still accounting for.</p>
+
+      <p>The complication was this: the target had changed her route home on Tuesday evening.</p>
+
+      <p>He had been watching the south corridor when she came through it at the standard hour, and he had catalogued everything correctly — the pace, the scan pattern, the way she used the passage between storefronts to break sightlines. All consistent with someone who had been managing a concealed condition for a long time and had built the management into her daily structure. Then she had turned into the inner passages instead of taking the eastern route, which was the route she had taken on Sunday and Monday both, and she had done it in a way that suggested not urgency but recalibration. A route change based on updated information, not fear.</p>
+
+      <p>That was interesting.</p>
+
+      <p>Calder did not act on interesting things without understanding them first. He had learned this in the first year of his work for Varek and had not deviated from it in the nineteen years since. He went back to his room, opened his notebook to the first section, and wrote: <em>route change, south corridor, approx. 17th hour. Not evasion. Assessment of new variable.</em> Then he wrote: <em>she has a system.</em> He looked at that for a moment and crossed out <em>system</em> and wrote <em>protocol</em> instead, which was more precise.</p>
+
+      <p>He left the notebook open and went to the window.</p>
+
+      <p>The district at night was quieter than he had expected. Not quiet — he had not expected quiet; no district of this type was quiet — but quieter than the daytime version of itself in a way that suggested genuine economy rather than performance. The people here were not performing ordinariness. They were exercising it. There was a difference that mattered operationally, and it was this: people who performed ordinariness left gaps you could read. People who were genuinely ordinary were harder to use, because the gaps were structural rather than behavioral, and structural gaps required different tools.</p>
+
+      <p>He had brought the wrong tools for two days. He adjusted.</p>
+
+      <p>The window looked out on the interior passage — narrow, poorly lit after the lamp-hours, the kind of street that in Ashmark would have been a security concern and here was simply the street. Two men were moving something heavy through it, working with the efficient silence of people who had done this before and did not need to discuss it. A woman crossed the far end without looking toward them. Nobody looked at anything directly in this district. It was a learned behavior, and learned behaviors told you things about the history of a place that administrative reports did not include.</p>
+
+      <p>Varek's dossier on Vael had described it as a secondary territory, low strategic value, minimal imperial infrastructure. Accurate but incomplete. Low strategic value meant low surveillance, which meant the district had been building its parallel economy for long enough that it was now more functional than the official one. Calder had worked in four such districts over twenty years. They shared certain characteristics: a specific quality of attention, a tolerance for strangers that was not warmth but was professional courtesy, and an absence of unnecessary motion that was, here, more complete than in any district he had previously worked. He had written that in the second section of the notebook on the first day and had not followed the thought it almost produced.</p>
+
+      <p>The second thing the district had shown him, on the second day, was that the target had a network. Not a large one — three or four points of regular contact, each brief, each transactional. He had observed two of the contacts directly and inferred the rest from the routing of her afternoon movements. The contacts themselves were not notable. The fact of having them was. It meant she was not isolated, and isolated targets had a specific response profile to direct contact — freeze, then collapse — that non-isolated targets did not share. Non-isolated targets had more options. More options meant more variables, and more variables meant the standard approach was less reliable than the briefing assumed.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>The room he had taken was on the second floor of a building at the north end of the interior passage, three minutes from the east corridor and five from the southern exit. Standard operational requirement: access to two exit routes from the lodging. He had paid four days in advance in coin, which was the correct amount — enough to establish a plausible stay, not so much that it created an obligation. The woman who ran the lodging had not asked his name, which told him either that the district had a norm of non-inquiry or that she had specific reasons of her own not to ask questions of strangers who paid in coin. Both were fine.</p>
+
+      <p>The first day he had done nothing that would have looked like observation, because observation that looked like observation was not observation. He had eaten at two of the market stalls — the food was better than the territory's administrative classification suggested it should be, which he had noted in the second section of the notebook and then decided was not relevant and crossed out — and he had walked the district in the patterns of someone who had arrived from elsewhere and was orienting. The patterns he walked were precise and deliberate and produced exactly the spatial data he needed, which was the point.</p>
+
+      <p>By the end of the first day he had the layout complete. He had not yet seen the target.</p>
+
+      <p>The second day he had seen her three times. The first time was a contact observation at the southern stalls. The second time was the mark-check in the east passage. The third time was in the evening, when he confirmed the address.</p>
+
+      <p>Three sightings in a single day was more than he usually had at this stage. He had noted this. He had not developed the note.</p>
+
+      <p>The probable address had been confirmed on the second evening. He had followed her movement from the east market through the interior passages, tracking at a distance that was far enough to be undetectable and close enough to be useful. She had entered the building on the interior passage at approximately the nineteenth hour. Third floor. He had confirmed by the light — fourth window, the specific quality of a lamp being carried from the entrance side of the room to the table side, which meant the table was not by the window, which meant the room's working position was away from the street. He had noted: <em>probable address confirmed. Interior passage building. Third floor. Fourth window. Table position: interior.</em> He had noted separately: <em>she does not work by the window.</em> He had filed the second note under the second section and had not expanded it.</p>
+
+      <p>The second day had also produced a second contact observation — a woman with cloth stalls at the southern entrance, a transaction involving what appeared to be a document as well as coin. He had noted it and moved on. What he had not noted was that during the transaction she had looked up once, oriented toward the east in a way that was not consistent with the direction of the ambient sound in the market at that moment. Toward where he was standing. For approximately two seconds.</p>
+
+      <p>Then she had returned to the transaction.</p>
+
+      <p>He had not noted it because two seconds of ambient orientation during a transaction was not a confirmation of anything. People looked in random directions. It was behavioral noise. He did not note behavioral noise.</p>
+
+      <p>He turned from the window and sat down at the table.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>The briefing dossier from Varek was thin, which was standard. Varek's briefings were always thin. The relevant facts, the operational constraints, the deadline. Nothing that invited questions about what came before or after the assignment.</p>
+
+      <p>He had been Varek's general for twenty years, which meant he had been the extension of Varek's will in situations Varek preferred not to touch directly. It was not a relationship he had chosen, exactly. It was a relationship that had formed around a fact: when he was eleven years old, Varek's administrators had found him in the secondary territories demonstrating potential, and Varek's administrators had a protocol for that. He had been given training, a position, a code of conduct, and a clear accounting of what he owed in exchange. He had found the accounting reasonable. Twenty years later he still found it reasonable, which he recognized as a specific kind of information about himself that he did not examine closely.</p>
+
+      <p>The extractions were one part of the work — perhaps once a year, when the standard agents had not managed the situation or when the situation required someone with his specific competency. His specific competency was this: he had been doing this for twenty years and had not yet encountered a situation that his model did not correctly predict.</p>
+
+      <p>He read the dossier again by lamplight, not because he needed to — he had memorized it in the first hour, which was habit — but because the act of reading produced a different kind of attention than the act of remembering, and he wanted both.</p>
+
+      <p><em>Forge-marked carrier. Female. Approximately twenty years. Currently resident: district of Vael, southern territories. Mark at Stage Two — reactive, not yet active. Recovery: live. Condition: intact. Window: ten days from date of dispatch before network visibility becomes a liability.</em></p>
+
+      <p>Ten days was tight. Faisable — he had worked faster on cleaner targets — but it assumed a standard extraction profile, which the route change on Tuesday had already suggested might not apply.</p>
+
+      <p>He turned to the second page. The physical description was sparse: height, approximate build, one distinguishing feature — a permanent bandage or binding on the left shoulder, present across all observation periods. The mark. At Stage Two, carriers typically managed it as an injury rather than as what it was. Effective concealment strategy. Most people did not know what a forge mark looked like, and the few who did were not the kind of people you encountered in the lower district of a secondary territory.</p>
+
+      <p>He noted the management method. It told him she was organized, had been organized for a long time, and had learned early that concealment was more reliable than explanation. That was useful information about how she would respond to direct contact.</p>
+
+      <p>The third page was the operational context. Varek's network had flagged the carrier six weeks ago via an informant in the territory administration — a routine cross-reference of unusual medical presentations, the kind of surveillance that caught approximately one carrier per year across the five territories. Standard methodology. Calder had run twelve such extractions over twenty years. Eleven had been straightforward. The twelfth had required two additional days because the target had a brother who complicated the exit route.</p>
+
+      <p>None of those twelve had been at Stage Two for twenty years.</p>
+
+      <p>The average time from mark activation to flag was between eight months and three years. His personal outlier was four years — a carrier in a remote northern settlement with minimal imperial contact. This carrier was twenty years, lower district, active in the information economy, meaning she had regular contact with exactly the kind of people who moved unusual information. Statistically, someone in those networks would have recognized what she carried within the first five years.</p>
+
+      <p>She had not been recognized in twenty years.</p>
+
+      <p>Either she had managed concealment to a degree that was objectively remarkable, or she had been recognized once and had handled that encounter in a way that left no trace in Varek's network. He noted both possibilities. Did not assign weight to either yet.</p>
+
+      <p>He read the operational notes to the end. Then he read the sentence he had read twice already and had filed both times without developing: <em>Stage Two carriers delivered to Varek's facility at Ashmark have not, in the documented record, remained at Stage Two for longer than approximately six weeks post-delivery.</em></p>
+
+      <p>He filed it a third time. Noted the filing. Moved on.</p>
+
+      <p>This was not his problem. His problem was the extraction. What happened at Ashmark was Varek's domain, and Varek's domain was not something Calder had found useful to think about in operational terms, because thinking about it in operational terms produced questions he did not have authorization to ask, and questions without authorization were a specific kind of waste.</p>
+
+      <p>He turned the page. There was no fourth page. He closed the dossier.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>He had been in the east sector of the district on Tuesday morning when she did the mark-check.</p>
+
+      <p>He had positioned himself near the grain stalls, maintaining the behavior pattern he had established over the previous two days: a man with time and no specific destination, the kind of person the district absorbed without noting. He had been watching the east corridor when she moved into the passage behind the cart in the third row.</p>
+
+      <p>Forty-three seconds.</p>
+
+      <p>He had confirmed Stage Two from that single observation. The shoulder adjustment was precise — left arm angled at approximately thirty degrees, right hand moving in the specific way that meant rewrapping rather than inspection, the whole sequence under fifty seconds. She had done it without breaking her external pace, without checking whether she was observed before stepping in, without any of the hesitation that characterized someone who had not fully automated the procedure. Someone who hesitated had not been doing it long enough for the hesitation to disappear. She had been doing it long enough.</p>
+
+      <p>She came back out in forty-three seconds and continued through the east stalls without a change in pace. He tracked her for another twenty minutes, confirmed one contact, confirmed the movement pattern. Then he had withdrawn.</p>
+
+      <p>He had not noted, in the first section, that the mark-check appeared to have been triggered by his own presence in the sector. He had not noted it in the second section either, though the third entry — <em>mark-check timing. East sector. I was in the east sector during this period</em> — contained the observation in compressed form. He had not expanded it. The expansion produced a conclusion he had no framework for, and he did not note conclusions he had no framework for, because noting them gave them weight they had not earned.</p>
+
+      <p>He left the third entry as written and reviewed the notebook.</p>
+
+      <p>The notebook was a standard field notebook — gray cover, heavy paper, the kind that could get wet without losing the ink. He had used the same manufacturer for twelve years, after spending eight testing alternatives. The two-section system had developed in the third year of extractions, when he had started noticing that some observations did not fit the operational category but were nevertheless useful to track. In twelve extractions the second section had been opened during nine of them. In seven of those nine it had contained information that proved operationally relevant within the first three days of contact.</p>
+
+      <p>He had started this assignment's second section on day one. That had happened twice before. Both of those assignments had taken longer than the briefing estimated.</p>
+
+      <p>The first section: complete. Location confirmed. Movement pattern across four periods. Mark-check observed twice, both times in covered spaces, the shoulder adjustment consistent with Stage Two management of long duration. Contact network: minimal, transactional, present. Stage Two confirmed. Contact protocol: direct approach, controlled setting, state the terms.</p>
+
+      <p>The second section had three entries, none of which were what he normally put in a second section before contact. He noted this without arriving at a conclusion about what it meant. He closed the notebook.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>The approach for tomorrow had three options.</p>
+
+      <p>Option one: intercept in the east corridor during the morning market. High foot traffic, good exit geometry. Disadvantage: she had been using the east corridor less than her observed baseline suggested she should. Approaching her there would show her immediately that he had been watching her movements, which would produce fear before he had established any operational footing, and fear in a Stage Two carrier in a crowded market was a containment problem. Frightened carriers made unpredictable decisions. Unpredictable decisions added time.</p>
+
+      <p>Option two: approach at her residence. He had the confirmed address. Direct, no witnesses. Disadvantage: residence contact placed the carrier on their most defensive ground. He had done residence approaches before. They were slower, and they produced a specific kind of entrenchment because you were asking someone to be rational in the place where they felt most physically vulnerable, and people were not consistently rational under those conditions.</p>
+
+      <p>Option three: open contact in a neutral space. Show himself first. Let her assess. See what she did with the assessment.</p>
+
+      <p>He had used option three four times in twenty years — twice in the first five years when his methodology was forming, and twice after, on assignments that had ultimately required more time than the briefing estimated. He did not consider this a coincidence. Option three was what you chose when you suspected the target had more information than the briefing suggested. He suspected it now. The route change. The mark-check location. The two seconds of ambient orientation toward the east on Monday afternoon. Preparation. Not fear.</p>
+
+      <p>He went with option three. Ran the three options on second review. All three held their conclusions from the first review. Decision confirmed.</p>
+
+      <p>The prediction had failed twice in twenty years. Once in the second year, before the model was fully formed, which did not count. Once in the seventh year, when the carrier had not run but had instead walked toward him and asked, in a flat and entirely controlled voice, whether he was going to kill her. He had said no. She had said good, and had cooperated fully with the extraction from that point. He had updated the model. The updated model accounted for carriers who had worked through the fear response and arrived at pragmatism. He had never encountered a carrier who proposed a counter-arrangement. He did not update the model for possibilities that had not occurred. That was good methodology.</p>
+
+      <p>He had a precise and accurate model of what a person in this situation did when confronted with the fact of someone who knew what they carried. The model had been built across twelve extractions and verified against all twelve. It did not require updating for the current assignment, because the current assignment, despite its variables, was structurally identical to all previous assignments at this stage. Stage Two carrier. Direct contact imminent. Standard response profile: assessment, fear, flight. He would be ready for the flight. The flight was manageable.</p>
+
+      <p>She would run. They always ran.</p>
+
+      <p>He put the notebook in his coat pocket. He put the dossier in the interior case under the floorboard, which he had prepared on the first day. He put out the lamp.</p>
+
+      <p>Four hours of sleep was sufficient for what tomorrow required.</p>
+
+      <p>He had finished more difficult assignments in a single morning. He had done so reliably, repeatedly, for twenty years. Tomorrow he would close this one the same way.</p>
+
+      <p>That was what he thought.</p>
+
+    </div>
+
+    <div class="ch-end-rule"></div>
+    <div class="ch-wordcount">Chapter Two · Two Days · 3,333 words</div>
+
+  </div>
+
+  <div class="chapter" id="ch03">
+
+    <div class="ch-eyebrow">
+      Chapter Three <span class="ch-eyebrow-pov">POV Ryn · First person present</span>
+    </div>
+    <div class="ch-number">Three</div>
+    <div class="ch-title">The Deal</div>
+    <div class="ch-rule"></div>
+
+    <div class="prose">
+
+      <p>The mark burned.</p>
+
+      <p>Not warm. Not the elevated heat of Tuesday morning in the east stalls. Burned — the specific quality of sensation she had felt twice in twenty years, both times when something sharp had been within arm's reach, both times when she had moved before she understood why. She stopped walking. The south passage was ordinary behind her. She did not look back at it.</p>
+
+      <p>She looked forward instead at the east corridor entrance and ran the count.</p>
+
+      <p>Eleven people in her eyeline. She eliminated them in under three seconds: the grain vendor opening his stall, too slow and too focused on his crates. The two women with textile bundles moving at the pace of people who had been carrying those bundles for years. The boy who swept the passage entrance every morning — she had watched him do it for two years, and he swept it now. Three market workers at the central scale. A woman from the cloth stalls arriving early with her weekly invoices.</p>
+
+      <p>The man standing at the far edge of the entrance, not quite in the corridor and not quite out of it, with the stillness of someone who was not waiting for anything in particular.</p>
+
+      <p>She stopped there.</p>
+
+      <p>The stillness was the tell. Everyone in the district at the morning hour had a direction. People without direction developed small involuntary movements to replace it: checking a pocket, adjusting a coat, finding something to look at. This man was doing none of those things. He was simply standing, in a position that gave him sightlines to three different approaches, and he was doing it with the economy of someone who had been trained to hold still without the performance that stillness produced in people who hadn't learned how.</p>
+
+      <p>She had been running from the category of person he represented since she was old enough to understand what the mark was. Running in the abstract, that is — positioning herself so that the category had no reason to come looking. She had chosen the district for this reason. She had built her network for this reason. She had changed routes and varied schedules and learned the specific grammar of invisible for this reason. The category had come looking anyway, and she had two seconds to decide what she did about it.</p>
+
+      <p>The mark burned, and under the burning — this was new and she had no time for new but she noted it anyway — there was something else. A secondary signal beneath the alarm, lower and steadier, oriented in a direction she couldn't name. Not the warning frequency she knew. Not the activation she'd read about once in a text she wasn't supposed to have. Something with its own specific quality, running below the burning like a second register she didn't have an instrument for. She set it aside.</p>
+
+      <p>She had been carrying the abstract version of this decision for six years with enough regularity that she knew exactly what she would do when it arrived in the concrete. The concrete version had arrived with a burning mark and a secondary signal and a man with the stillness of someone who had found what he came to find. It did not matter that the concrete version was not the abstract version. The decision was the same.</p>
+
+      <p>She turned and walked toward him.</p>
+
+      <p>The decision felt like nothing in her body. She had expected it to feel like something — fear, or its absence, or the specific adrenaline of a threshold crossed. It felt like a direction. She had chosen a direction and she was walking in it and her body was carrying her the way a body carried you through something you had decided to do before you felt it. She had learned this was how she worked. She noted it, same as everything else.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>He saw her the moment she turned.</p>
+
+      <p>She could tell from the way he didn't move — not the frozen stillness of someone caught, but the chosen stillness of someone who had already run his options and selected one and was now waiting to see if the selection held. He held it. He let her come to him, which was what you did when you were confident and when confidence was the correct tool, and she noted both that he was confident and that he had assessed the situation correctly enough to make confidence the correct tool. That was information.</p>
+
+      <p>She stopped two meters away.</p>
+
+      <p>Thirty, approximately. Dark coat, functional — not warm enough for ornament, too well-made for poverty. He held his shoulders the way people held them when standing at attention had become structural rather than performed, which meant years of it. A small folding knife was open in his right hand, blade pointing down, the kind of thing you brought out during long waits and used for nothing particular — occupying the hands while the mind worked somewhere else. He turned it once without looking at it. The movement of something habitual.</p>
+
+      <p>She catalogued the knife, the coat, the shoulders, the sightlines. She catalogued the way he was holding still and letting her choose the distance between them — not moving to close it, not moving to increase it, simply holding his position and letting her make the approach decision. That was a specific kind of operational patience that took years to develop. She noted it alongside everything else and stopped cataloguing when she reached the distance she wanted.</p>
+
+      <p>"I know why you're here," she said.</p>
+
+      <p>He didn't say anything.</p>
+
+      <p>"Before you do what you came to do," she said, "listen to what I'm proposing."</p>
+
+      <p>He folded the knife closed and was quiet for a moment that was the specific length of someone who was not surprised but was deciding whether to indicate that. Then: "I'm listening."</p>
+
+      <p>His voice was level. Operational. She had expected operational. Operational meant he was in assessment mode, which was better than the version where the decision had already been made before she opened her mouth.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>She had thought about this moment for a long time.</p>
+
+      <p>Not this specific man, not this specific Wednesday, not the knife or the coat or the sightlines. But the shape of it — someone finding her, the decision she would have to make when they did. She had run the options in the abstract for years. When she was fourteen and had understood for the first time that the mark was not an injury. When she was seventeen and a man in the northern district had looked at her shoulder bandage for two seconds too long and she had spent three months running contingencies. When she was nineteen and had moved to this district because its economy and its silence were the best combination she had found for staying invisible.</p>
+
+      <p>The abstract version had never included the secondary signal she couldn't classify. But the logic had always been the same: a carrier who ran had one set of options and a carrier who didn't had a different set, and the second set was worse in the immediate term and the only viable one in every term after that.</p>
+
+      <p>She proposed the deal.</p>
+
+      <p>Ten days. One demonstration per day of what the mark could do — documented, precise, useful to whoever had sent him. Two sessions if the first warranted continuation, at her discretion. At the end of ten days, a voluntary delivery, if the data was worth something to Varek. Which she was betting it was, because if it wasn't, he wouldn't have been sent.</p>
+
+      <p>The mark burned while she spoke. She tracked it the way she tracked everything she couldn't afford to react to — peripheral, filed, not acted on. The secondary signal was still there, lower than the burning, doing something she had no language for while she was making a proposal she had no preparation for in a situation she had spent years telling herself she was ready for. She kept her voice level. She said it like she'd planned it for months. She had planned it for forty seconds, which was the time it had taken to walk from the south passage to where he was standing, and she presented it as prepared because that was the only version that worked. You never let the other person see the gap between what you were offering and what you had actually thought through.</p>
+
+      <p>"The data on a Stage Two mark," he said, "is already documented."</p>
+
+      <p>"The data on a Stage Two mark that cooperates with documentation isn't."</p>
+
+      <p>He was quiet. She watched the closed knife in his hand and she kept her breathing level and she did not look at the shoulder.</p>
+
+      <p>"Voluntary delivery is safer," she said. "For the transport. For the condition on arrival. For the data integrity on the other end. A carrier who cooperates is more useful than one who was taken." She had no certainty that any of it was true. It was the kind of logic that appealed to someone whose work was operational efficiency. His work was clearly operational efficiency.</p>
+
+      <p>"Ten days is outside my window," he said.</p>
+
+      <p>"What's your window?"</p>
+
+      <p>He didn't answer. She had known he wouldn't.</p>
+
+      <p>"What does Varek want with a Stage Two mark?" she said.</p>
+
+      <p>"That's not part of the offer."</p>
+
+      <p>"It's relevant to what I demonstrate."</p>
+
+      <p>"It doesn't affect the demonstrations."</p>
+
+      <p>She noted that he had answered that one. She noted he had answered it quickly. She filed both and kept moving. "Ten days," she said. "Starting tomorrow."</p>
+
+      <p>A silence that was shorter than she expected. "Starting tomorrow," he said.</p>
+
+      <p>The mark burned. Under the burning, the secondary signal settled — almost, as if it had been told it could stand down — and she kept her face still.</p>
+
+      <p>She did not let herself examine what it meant that he had said yes. Not yet. Not here, two meters away, with the mark behaving in ways she had no record of. She would do that later, in a space where she had the bandwidth for it.</p>
+
+      <p>"Then we need a location," she said.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>He said tomorrow and she said tomorrow and then there was a moment where neither of them moved, which was the specific kind of moment that occurred in negotiations when both parties had agreed to something that would require them to be in the same space again. The moment where you assessed each other as the thing you had just agreed to make real.</p>
+
+      <p>She used it to finish her catalog.</p>
+
+      <p>He was taller than she had registered from across the east corridor on the days when the mark had been warm and she had been building a picture of something she hadn't yet located. He held himself like someone who had learned to take up exactly the space he needed and no more. His hands were still now — the knife was pocketed without her noticing the precise moment it moved — and the stillness of his hands was different from the operational stillness of his posture. Less trained, more habitual. A man who was quiet in his body when he wasn't using it for anything.</p>
+
+      <p>She noted it.</p>
+
+      <p>"The building is two minutes north," she said.</p>
+
+      <p>They walked to it without speaking, which was the correct amount of speaking for two people who had just agreed to something neither of them had finished deciding yet. She did not walk ahead and she did not walk behind. She took the route she knew and he followed without asking where they were going, which told her he had already mapped this part of the district. She filed that under: he has been here longer than she knew, and he is better at this than she had assumed, and those two things were the same thing.</p>
+
+      <p>They found a salle.</p>
+
+      <p>A former textile warehouse in the mid-district, partially vacated, the kind of space the district absorbed without asking what it was for. The ground-floor room on the north side had a table, two chairs, a window with adequate light, and no apparent connection to either of them.</p>
+
+      <p>The room itself told her things. The table was clean — not wiped-down clean but unused clean. The two chairs were at a distance from each other that suggested they had been placed deliberately, not left where whoever had last used them had left them. Someone had been in this room before them and had set it up. She looked at Calder. He didn't indicate that he had been here before. She filed: he has prepared this space. She filed: he has been preparing for longer than the conversation that just happened. She filed it alongside everything else.</p>
+
+      <p>They stood in it. Not quite looking at the same thing.</p>
+
+      <p>"The terms," she said.</p>
+
+      <p>"The terms." He took out a notebook — gray cover, small, worn at the edge in the way of something used every day. He opened it to a new section and held his pencil and waited. She noted the tabs on the sections. She noted the new section specifically — the tab was clean, unused, opened today. She noted that this was not the first section in the notebook, which meant the notebook had been in use before this assignment, and she could not see what the first section contained because he had positioned the notebook so she couldn't.</p>
+
+      <p>She filed all of this. She would need it later.</p>
+
+      <p>One session per day. Two if the session warranted continuation — her call, not his. She set the parameters for each session. She decided what she demonstrated. If she stopped, they stopped. No questions about what she was not showing.</p>
+
+      <p>"That limits the usefulness of the data."</p>
+
+      <p>"The data I give you is more than you have now. Take the limit or don't."</p>
+
+      <p>He wrote. She still couldn't see what.</p>
+
+      <p>"I arrive first," she said. "Every session."</p>
+
+      <p>"Agreed."</p>
+
+      <p>"If I miss a session, it doesn't carry forward. The ten days are calendar days, not session days."</p>
+
+      <p>He looked up. "That changes the total available data."</p>
+
+      <p>"That's my condition."</p>
+
+      <p>A pause. "Agreed."</p>
+
+      <p>"If either of us ends a session early, the next session starts fresh. No carry-over expectations."</p>
+
+      <p>"Agreed."</p>
+
+      <p>She pushed one more point. "The documentation stays with you. I don't see it until I ask and you agree to show me."</p>
+
+      <p>"That's standard."</p>
+
+      <p>"I want it said."</p>
+
+      <p>He wrote it. She noted that he had written several of her terms without argument, and noted that a man in his position had no operational reason to make the terms this easy. She filed it.</p>
+
+      <p>She pushed to what mattered most. "In exchange — you tell me what this is." Level voice. No gesture toward the shoulder. She didn't need to. "What it's called. What it does. What stage it's at and what the stages mean."</p>
+
+      <p>"What's relevant for the demonstrations."</p>
+
+      <p>"What's relevant for me to understand what I've been carrying for twenty years."</p>
+
+      <p>He looked up from the notebook. Briefly. Long enough for her to register that the brevity was a choice. Then he looked back down.</p>
+
+      <p>"What's relevant for the demonstrations," he repeated. "That's the offer."</p>
+
+      <p>She ran the calculation. The first negotiation established the frame for everything after it. She could not concede the principle. "What's relevant for the demonstrations includes what I need to understand to run them correctly. If I'm working without accurate information, the data suffers. That's not in your interest."</p>
+
+      <p>The pencil was still.</p>
+
+      <p>"Agreed," he said.</p>
+
+      <p>More than she had expected.</p>
+
+      <p>"Your name," he said.</p>
+
+      <p>"Ryn."</p>
+
+      <p>"Calder."</p>
+
+      <p>Not an introduction. A transaction — her name for his, the same flat register, nothing offered except the word itself. She filed it. Something in how he said it — the absence of anything around it — told her something she didn't have a category for yet. It went in the queue with the secondary signal and the quality of the burning and the knife that had appeared and disappeared without her tracking either moment precisely.</p>
+
+      <p>He closed the notebook and put it in his coat pocket. Then he picked up the folding knife from the table — she had not seen him set it down — opened it once, closed it, and put it away. The movement was automatic. An object that went where he went without his deciding to bring it.</p>
+
+      <p>She noted it. She would need to know what he carried without thinking.</p>
+
+      <p>"Tomorrow," she said.</p>
+
+      <p>"Tomorrow," he said.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>She walked home through the inner passages. The long way. She did not walk it quickly.</p>
+
+      <p>The mark was cold.</p>
+
+      <p>Not the cold of an ordinary morning before anything had registered. Cold in the specific way of a system that had been running at full capacity and had been given permission to stop — the quiet of aftermath, when the threat has resolved and the body hasn't finished processing that fact. She had felt the mark go warm. She had felt it burn. She had never felt it go cold like this, with this particular quality.</p>
+
+      <p>The secondary signal was gone too. Both — the burning and the thing beneath the burning — gone and leaving only the ordinary wrapped weight of a bandaged shoulder she had been managing since she was old enough to manage it. She stood at the corner of the inner passage and ran the mark's behavior against everything she had ever documented about it. Heat in the presence of violence. Burning at proximity to weapons. No record of directed pressure. No record of secondary registers. No record of this cold.</p>
+
+      <p>She kept walking.</p>
+
+      <p>The deal was made. Ten days. She had bought herself ten days and the name of what she had been carrying since before she could remember, and the cost was one session per day in a neutral room with a man named Calder who had a mission and had agreed — for reasons he had not fully disclosed, which she was tracking as its own variable — to delay it. That was the accurate accounting.</p>
+
+      <p>There was one more thing she had noted and not yet developed.</p>
+
+      <p>He had said yes too fast.</p>
+
+      <p>Not the yes to tomorrow — that one had come after a pause of reasonable length. The yes before it, the one that had meant he was agreeing to the conversation at all. She had offered the deal and he had said he was listening before she had properly finished the sentence, which was not how someone said yes to something with operational costs. Someone with operational costs paused. They evaluated. They asked at least one clarifying question. He had done none of that. He had said he was listening and waited, and the whole quality of that wait had been the quality of someone who had already decided before she finished the sentence.</p>
+
+      <p>She had a hypothesis and the hypothesis was not one she was willing to build on yet because it had insufficient data and building on insufficient hypotheses was how you made the kind of mistake she could not afford to make in the next ten days. What she had was a variable. The variable was: he said yes too fast, and the too-fast had a quality she recognized from transactions in the district when someone needed what you were selling more than you knew they needed it before you made the offer. She filed it. She would know more by day three.</p>
+
+      <p>She was going to be very careful about what she did with that information.</p>
+
+      <p>What she had was time. Ten days of it. Ten days was more than she'd had this morning.</p>
+
+      <p>She rolled her right shoulder — the movement of insufficient data and action anyway.</p>
+
+      <p>The ash was coming down in the gap between the inner passage rooftops, fine and gray and entirely indifferent to everything that had just been agreed to. It fell on the window ledges and the cracked stone underfoot and it would fall through all ten days and past them, whatever those days produced.</p>
+
+      <p>She had a plan. The plan was ten days. Ten days was enough to build the next plan.</p>
+
+      <p>The mark was cold and clean against the bandage.</p>
+
+      <p>Tomorrow, the first day.</p>
+
+    </div>
+
+    <div class="ch-end-rule"></div>
+    <div class="ch-wordcount">Chapter Three · The Deal · 3,341 words</div>
+
+  </div>
+
+  <div class="chapter" id="ch04">
+
+    <div class="ch-eyebrow">
+      Chapter Four <span class="ch-eyebrow-pov">POV Ryn · First person present · + section Sera</span>
+    </div>
+    <div class="ch-number">Four</div>
+    <div class="ch-title">Day One — What He Knows</div>
+    <div class="ch-rule"></div>
+
+    <div class="prose">
+
+      <p>She arrived first.</p>
+
+      <p>That had been her condition and she had meant it, so she was in the room when he came through the door — standing at the window with the light behind her, which gave her the better sight angle and the worse silhouette, and she had decided the trade was worth it. She had been in the room for four minutes. She had used them to take the full inventory of the space: the table, the two chairs at their deliberate distance, the window, the exits. She had moved one of the chairs six inches. She had moved it back. She had stood at the window and waited.</p>
+
+      <p>He came in without announcing himself. He didn't need to. She heard the specific quality of his footsteps — not quiet, not loud, the deliberate pace of someone who wasn't trying to be silent because silence was more conspicuous than ordinary sound — and she turned when he was three steps inside the room, which was the correct moment, and she was already in her chair when he reached the table.</p>
+
+      <p>He sat down. He put the notebook on the table. He put the folding knife next to it, opened it once, closed it, set it down. She noted that he had put the knife on the table rather than keeping it in his hand. She filed it under: establishing neutral gesture. Or possibly: habit. The difference between those two categories was significant and she had not yet determined which one applied.</p>
+
+      <p>"The mark," he said.</p>
+
+      <p>"The mark," she agreed.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>He told her what it was.</p>
+
+      <p>Not everything — she had agreed to what was relevant for the demonstrations, and relevant was what she received, and she received it with the quality of attention she gave to information she would need to act on immediately. Which was the specific quality of attention she had been developing since she was seven years old and had first understood that the world rewarded people who paid attention more than it rewarded people who felt things.</p>
+
+      <p>A forge mark. That was the name. Varek — the War God, the title landed in the space between them with the weight of a thing she had always known existed and had never expected to become personally relevant — Varek could imprint a seal into a mortal's lineage at birth. Not a curse. Not a blessing. A weapon, planted in a person and left to develop until it was needed.</p>
+
+      <p>She had been planted. At birth. By a god.</p>
+
+      <p>She noted this. She catalogued it in the same register she catalogued everything else — fact, received, filed for processing. The processing could happen later. Right now there was more to receive.</p>
+
+      <p>What she noticed, in the seconds before she filed it, was that the recataloguing was already happening without her deciding to do it. Twenty years of observations were reordering themselves — every time the mark had burned unexpectedly, every time she had been near a weapon and the heat had spiked before she understood why, every time she had stood too close to a soldier in the market and had to leave before the burning became visible. All of it had been the mark doing exactly what it was designed to do. She had been calling it malfunction. It had been function.</p>
+
+      <p>The stages. Four of them. He explained the first two: dormant, which was what she had been for the first years of her life without knowing it. Reactive, which was what she was now — the mark that responded to proximity to violence, that burned at contact with weapons, that had been generating data she'd been misreading for twenty years. He stopped there.</p>
+
+      <p>"The third stage," she said.</p>
+
+      <p>"We're here for Stage Two."</p>
+
+      <p>"You said what's relevant for the demonstrations. The third stage is relevant."</p>
+
+      <p>He held her look for a moment. The knife was on the table. His right hand was not touching it.</p>
+
+      <p>"Stage Three," he said. "Active. Voluntary activation becomes possible. Extended reach. Real pain — difficult to conceal." Precise, minimal, technically complete. "You are not at Stage Three."</p>
+
+      <p>"What triggers the transition?"</p>
+
+      <p>"Use." He turned to a clean page in the notebook. "Repeated demonstration accelerates it."</p>
+
+      <p>She let that sit. The demonstrations she had agreed to would accelerate her toward a stage he had just described as difficult to conceal. She had assumed the demonstrations would have a cost. She had not known the specific cost until now. The ten days were not neutral. The ten days were a change she had agreed to before she understood its shape. She noted this without showing that she noted it.</p>
+
+      <p>"And Stage Four," she said.</p>
+
+      <p>"Is not in the offer."</p>
+
+      <p>She noted that he had confirmed there was a Stage Four. She noted he had not said she would not reach it.</p>
+
+      <p>"The seal itself," she said. "What does it look like."</p>
+
+      <p>He looked up from the notebook. "You've been looking at it for twenty years."</p>
+
+      <p>"I've been looking at what I thought was a burn injury for twenty years. What does the seal look like."</p>
+
+      <p>A pause. Then: "Military crest. Varek's regimental mark, modified for individual assignment. The upper edge — the part you probably noticed looks different from the rest — is the activation seal. The lower edge is the binding." He said it without looking away. "You've been treating it as damaged tissue. It's not damaged tissue."</p>
+
+      <p>She processed this. The part that had always looked less like a burn and more like something deliberate — because it had been something deliberate. It had been deliberate since before she was born. Since before her parents had understood what she was carrying, since before anyone in her lineage had understood what they were passing on, since before she had learned to wrap it and answer questions about it with the flat competence of someone who had been doing that for a long time.</p>
+
+      <p>She thought about the physician at seven, who had said: cooking accident, here is a compress. She thought about the woman with the salve who had looked at the mark for a long time and said nothing and charged her too much for the jar. She thought about every hour she had spent deciding what to do about this — in the abstract, running contingencies, building toward a situation she could control — and the fact that every one of those hours had been spent on the wrong question. She had been asking: how do I manage this. The correct question had always been: what is this, and what does the person who made it want from it.</p>
+
+      <p>She held the full accounting of that and let herself see the shape of it before she filed it away. Not because dwelling on it was useful. Because seeing the shape of a mistake clearly was the only way to make sure you didn't make it again.</p>
+
+      <p>She looked back at him.</p>
+
+      <p>"All right," she said. "Demonstrate what you need to see."</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>She made the mark warm.</p>
+
+      <p>Not the alarm-warm. Not the burning. The low controllable heat she had discovered in the previous two years — the thing she had never told anyone she could do because she had understood instinctively that the ability to do something was more dangerous to reveal than the thing itself. She brought it up slowly, the way you turned up a lamp, and she stopped at the level where the skin flushed and the surface temperature became measurable.</p>
+
+      <p>This was approximately forty percent of what she could do. She knew this because she had tested it alone, in her rooms, at the small table by the window, over eighteen months — mapping the range by degrees until she understood the full span from baseline to the level she had not pushed past because pushing past it had produced a pain she wasn't ready for and had not tried again. She showed him the low end of the range. She showed him the low end with the care of someone who understood that what you disclosed in the first session established what the other person thought was possible, and what they thought was possible was the ceiling of their expectations, and that ceiling was something she was going to need.</p>
+
+      <p>Calder watched. He had moved his chair to the side of the table rather than across from her — practical choice for observation angle — which meant he was close enough that she could see where his eyes tracked. His eyes tracked the shoulder with the focused attention of someone reading a document, not looking at a person.</p>
+
+      <p>He was not looking at her. He was looking at the mark.</p>
+
+      <p>She had never had anyone look at the mark. Not directly. Not with that quality of attention. She kept her expression neutral and she kept the mark at its controlled level and she did not examine what it meant to have something you had been hiding for twenty years seen by someone who had been sent to use it. That examination was for later.</p>
+
+      <p>The mark was behaving, she noticed, in a way she had not anticipated. Not the secondary signal from the south passage. Not the burn. Just the low warmth she was deliberately holding, and under it — at the very baseline, almost imperceptible — something that oriented in his direction. The way a compass oriented. She had felt this in the previous three days and had filed it under unexplained. She was filing it again. She was maintaining a list of unexplained observations about the mark's behavior in proximity to this specific person and the list was getting longer and she did not have a framework for it yet.</p>
+
+      <p>He wrote in the first section of the notebook. She watched the motion of the pencil without being able to read the words. The pencil moved with the economy of someone who had been doing this for years — fast and small and without wasted motion. She filed: he has been doing this a long time, and the first section contains information he already had before today.</p>
+
+      <p>"Higher," he said.</p>
+
+      <p>"That's the limit for today."</p>
+
+      <p>He looked up. "The documentation of Stage Two reactive includes temperatures significantly—"</p>
+
+      <p>"The limit for today is what I said it was."</p>
+
+      <p>He looked at her for a moment. The pencil was still. Then he wrote something and did not push further.</p>
+
+      <p>She brought the mark back down to baseline. The flush faded. She rewrapped the shoulder out of habit, halfway through the motion before she had decided to do it — the same habit she'd been performing in covered spaces for twenty years — and she was done before she registered that she had done it in front of him.</p>
+
+      <p>Too late to stop. Stopping would have said something she didn't want said. She kept going.</p>
+
+      <p>He did not indicate that he had seen. He had seen. She filed it.</p>
+
+      <p>She ran the session inventory while the mark cooled: what she had shown, what she had held back, what he had documented versus what he had not appeared to document. He had written something when she refused to go higher. She did not know what. She knew the refusal had been expected — he had written immediately rather than pushing again, which meant he had already built in the expectation of limits. That told her something about how he was modeling her. She filed it.</p>
+
+      <p>He closed the notebook — first section, not the second, which meant the second section was still open and still generating. She would need to know what was in the second section.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="sera-section">
+      <p>I watched from the roof of the warehouse opposite.</p>
+
+      <p>The angle gave me the entrance and the window. Not the interior. I saw them arrive separately — she arrived first, which was a condition she had set, which tells me the conditions she set were the ones she actually cared about. I have been noting the difference between stated terms and prioritized terms since I was old enough to negotiate anything. She prioritized arriving first. She prioritized the limits. She prioritized the documentation clause. The man accepted all three without significant resistance, which is its own piece of information.</p>
+
+      <p>The man is what I assessed after two days. Professional, deliberate, the specific quality of someone who has been doing something difficult for a long time and has stopped finding it difficult. His line — I cannot name it yet but I can see its shape in the way he gave her information. He could have given less. He gave what was technically owed and nothing more, which is its own kind of precision. He is not here to harm her. He is here to deliver her. Those are not the same thing and he knows they are not the same thing.</p>
+
+      <p>Ryn I misread yesterday. I have corrected the reading.</p>
+
+      <p>What I thought: she improvised at the south passage. A survival tactic without architecture. Short-term, reactive, the kind of move you make when you have no options and the move becomes the plan.</p>
+
+      <p>What I should have read: she has a plan. The conditions she negotiated are not the conditions of someone buying time. They are the conditions of someone buying a specific kind of time for a specific purpose. She knows what the ten days are for. I do not yet know what she knows. I have been watching her for three years and I did not see the plan. That is the most significant thing I have observed today.</p>
+
+      <p>I will not correct this reading in time. I know this already. I am noting it anyway because noting what you cannot correct is the only record you have that you saw it. The difference between analysis and certainty is that certainty comes later. I have only analysis now.</p>
+
+      <p>My hand found the fragment while I was writing. I had not reached for it. I kept writing.</p>
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>She found Aleth in the early evening in the way you found people in the district who were not looking for you — which was to say, in the usual place, at the usual hour, because the district ran on consistency and the people who survived longest in it had made their consistency uninteresting.</p>
+
+      <p>Aleth was in the grain storage corridor with a ledger that she did not explain and Ryn did not ask about. They had been encountering each other in this corridor for four years without ever having had a conversation that required explanation. Aleth was in her mid-forties, precise in the way that people were precise when they had learned that imprecision cost more than it saved. She saw things and she did not immediately say what she saw. When she decided saying it was useful, she said it in as few words as the usefulness required.</p>
+
+      <p>She looked at Ryn for a moment the way someone looked when they were running a comparison against a previous observation.</p>
+
+      <p>"You look like someone who received a piece of information they're not finished with yet," she said.</p>
+
+      <p>Ryn considered denying it. "Yes."</p>
+
+      <p>Aleth turned back to the ledger. "The people Varek classifies as resources don't tend to receive the same information as the people he classifies as agents." She wrote something. "That distinction is worth being clear on before you decide what to do with whatever you received."</p>
+
+      <p>She said it the way she said most things — without inflection, without looking up, with the quality of someone offering a useful piece of information and expecting you to know what to do with it. She didn't ask what kind of resource. She didn't ask where the information had come from.</p>
+
+      <p>Ryn held the sentence. Resource, not agent. She had not used those words. She had not yet built her framework that far, and here was the framework offered in one sentence without a question asked.</p>
+
+      <p>"Yes," she said. "It is."</p>
+
+      <p>Aleth made a small sound that was not agreement and not disagreement and went back to her ledger.</p>
+
+      <p>Ryn walked back through the district.</p>
+
+      <p>The sentence walked with her.</p>
+
+      <p>Resource had a specific operational meaning in Varek's administration — something that existed to be used rather than directed, that had no stake in its own deployment, that could be expended. She had spent twenty years ensuring she was not in that category. She had managed this with considerable skill. The management had produced nothing, because the category had been assigned before the skill existed.</p>
+
+      <p>She reached her rooms. She sat at the small table by the window. The ash was coming down in the last gray light, fine and indifferent.</p>
+
+      <p>She was a weapon. She had been a weapon since before she knew what weapons were. Someone had put it in her lineage and waited, and now someone had come to collect it, and she had nine days.</p>
+
+      <p>She rolled her right shoulder. Nine days was a number. She had built five years in this district out of less than nothing and it was still standing.</p>
+
+      <p>She changed the bandage — the same forty seconds, the same salve, the same routine she had been running since she was old enough to run it — and she sat with the new information for one more hour and then she went to sleep.</p>
+
+      <p>The mark was quiet. It had been quiet since the session ended.</p>
+
+      <p>She noted that too.</p>
+
+    </div>
+
+    <div class="ch-end-rule"></div>
+    <div class="ch-wordcount">Chapter Four · Day One — What He Knows · 2,886 words</div>
+
+  </div>
+
+  <div class="chapter" id="ch05">
+
+    <div class="ch-eyebrow">
+      Chapter Five <span class="ch-eyebrow-pov">POV Ryn · First person present</span>
+    </div>
+    <div class="ch-number">Five</div>
+    <div class="ch-title">First Demonstration</div>
+    <div class="ch-rule"></div>
+
+    <div class="prose">
+      <p>She had taken a different route this morning.</p>
+
+      <p>Not because she had reason to vary it — the mark was behaving at its unexplained baseline warm, which was becoming so consistent she was almost categorizing it as normal, which was a thing she was choosing not to do yet — but because she had woken up three minutes before her usual time and had found herself doing the walk-planning she usually did the night before. She had changed the route, and then she had changed it back, and then she had left at the same time she always left, through the same passages, and arrived four minutes early the same way she had arrived four minutes early yesterday.</p>
+
+      <p>This was the same as yesterday, which meant it was already a pattern, which meant he would have already factored it in. She noted that. She sat down in her chair — the one she had decided was hers on the first day, the one facing the door — and she put her hands flat on the table and she waited.</p>
+
+      <p>He arrived at the agreed hour. Not a minute before, not a minute after.</p>
+
+      <p>He sat down. He put the notebook on the table. He put the folding knife next to it, blade closed, and left it there. She had observed, over the previous two sessions, that the knife appeared before the notebook was open and disappeared when the notebook was closed, which meant it was associated with the waiting-and-observing portion of his work rather than the documenting portion. She had been building a catalog of his habits with the same methodical attention she gave to everything else, because habits were the most reliable data about a person. Habits were what the body did when the mind was elsewhere.</p>
+
+      <p>She had three items on the habit-catalog so far: the knife, the pencil appearing from the coat's interior left pocket, and the way he positioned the notebook at a slight angle from the table's edge — always the same angle, always the same position, before he opened it. She did not yet know what the angle told her. She noted it.</p>
+
+      <p>"Day two," he said.</p>
+
+      <p>"Day two," she agreed.</p>
+
+      <p>He opened the notebook and turned to a fresh page. The pencil appeared from the left pocket — she had confirmed the location today — and he held it and looked at her and waited.</p>
+
+      <p>She had thought about what to show him today.</p>
+
+      <p>The decision had taken most of the previous evening. The mark at Stage Two had a range of capabilities she had mapped over eighteen months of private testing: warm, burn, orient, direct, and two others she had not yet named because she did not have enough data about their parameters.</p>
+
+      <p>She had a hierarchy for what she was hiding. At the top: the two unnamed capabilities. She had only produced them three times each, in the eighteenth month of testing, and both times the production had been involuntary — triggered by something she had not been able to isolate. She did not know their parameters. She did not know their triggers. She was not going to demonstrate something she could not control. In the middle of the hierarchy: the upper range of the directional capability, which she had tested to its limit once and had stopped testing because the limit had felt like something she needed to be more prepared for before she touched it again. At the bottom of the hierarchy, not because it was the least significant but because she was the most uncertain about it: the baseline warmth. The secondary signal. The thing that oriented in his direction and had been doing it since Tuesday morning. That one was not hidden because it was dangerous. It was hidden because she did not understand it, and she was not going to hand him information she did not understand.</p>
+
+      <p>She was going to show him the directional capacity. Not because it was the most significant thing she could show — it wasn't, by a considerable margin — but because it was the most verifiable. He could measure heat at a specific point on a specific surface. The documentation would show the mark doing something the existing records apparently did not account for, which meant the data she was providing was genuinely new, which meant the deal was delivering what she had promised it would deliver.</p>
+
+      <p>This was how you held a deal together. You delivered early and you delivered something measurable. You made yourself more useful in the first three days than they had expected you to be in ten, so that by day four you were the person who had been exceeding the agreement rather than the person the agreement was barely covering. She had been running this logic in the information economy for five years. It applied here the same way it applied everywhere, with the additional variable that in this case exceeding the agreement had to stay within the forty-percent ceiling she was holding.</p>
+
+      <p>The directional capacity was approximately at the ceiling of what forty percent of her range could produce. Showing him something at the ceiling of forty percent established the ceiling convincingly while leaving the upper sixty percent completely invisible.</p>
+
+      <p>"I'm going to concentrate the heat at a specific point," she said. "Pick a surface."</p>
+
+      <p>He looked at the table. "Here." He put his finger on the edge, near the corner.</p>
+
+      <p>She focused on the mark and she focused on the corner of the table.</p>
+
+      <p>It took four seconds. The mark responded more readily now than it had in the first year of controlled testing. Fact, filed: the demonstrations are already accelerating the transition.</p>
+
+      <p>The corner of the table warmed. She could feel it through the wood — not through her hands, which were flat on the surface two feet away, but through the mark, which had its own quality of feedback that she had spent eighteen months learning to read. The wood didn't smoke. It just became warm at the point she had targeted and nowhere else.</p>
+
+      <p>Calder moved. He put two fingers on the corner of the table, then moved them one inch along the edge.</p>
+
+      <p>"Still warm here," he said.</p>
+
+      <p>"That's the edge of the cone. I can tighten it."</p>
+
+      <p>He took his fingers off the table. "Show me."</p>
+
+      <p>She tightened it. The radius shrank to approximately the size of a coin. The temperature at the point went up to compensate, which she had not intended and noted immediately: the mark maintained total heat output when the area decreased. She would need to account for that when she was deciding what not to show — because if the intensity-per-area relationship held at higher activation levels, the upper range of the directional capability was significantly more destructive than the lower range, and she needed to understand the relationship fully before she demonstrated anything in its vicinity.</p>
+
+      <p>"The point is hotter," he said.</p>
+
+      <p>"Yes."</p>
+
+      <p>He was writing. He had not put his finger back on the surface to verify. He had read the temperature from her face. She filed it under: he reads people accurately and uses it without announcing it.</p>
+
+      <p>She brought the mark back to baseline.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+      <p>"Come closer," she said. "The next part is easier to observe from this side of the table."</p>
+
+      <p>He moved his chair at an angle, which put him approximately eighteen inches from her left shoulder. She had made the offer because she needed him to see the surface of the mark during activation, not because she had been prepared for the specific distance that resulted.</p>
+
+      <p>She activated the mark at low intensity.</p>
+
+      <p>The secondary signal arrived immediately.</p>
+
+      <p>Not the burn. Not the alarm. The orientation — the compass-quality she had been filing under unexplained for three days — steady and directed at a point approximately eighteen inches to her left. She kept her face level. She kept the activation steady. She noted the signal with the clinical detachment of someone who had been maintaining a list of unexplained observations and was adding to it. She noted also that the signal at this range was significantly stronger than it had been at range before. At eighteen inches, the signal was strong enough that she had to allocate active attention to not reacting to it.</p>
+
+      <p>Calder was watching the shoulder. His pencil was moving. She watched his pencil the way he watched the mark — with the focused attention of someone reading a document, not looking at a person. He wrote for approximately thirty seconds without looking up, then stopped and looked at the surface of the mark more carefully, from the angle his repositioned chair gave him.</p>
+
+      <p>He was very still when he looked at the mark directly. She noted this: during observation at this range, the small movements he normally maintained — the minor adjustments of posture, the pencil between his fingers — stopped. She had not seen him fully still before. The quality of his stillness was different from the operational stillness of the south passage. This was the stillness of someone who had noticed something and was in the process of deciding whether to name it.</p>
+
+      <p>She brought the activation slightly higher, enough to produce visible flush at the mark site. The secondary signal strengthened proportionally. She noted that: it scales with activation intensity.</p>
+
+      <p>He stopped writing. He was still watching the shoulder, but the pencil had stopped.</p>
+
+      <p>She noted the moment the pencil stopped with the precision of someone who had been waiting for it. She had known, from the pattern of the previous two sessions, that there was a threshold at which his documenting behavior changed. She had not known what the threshold was. Now she knew: it was somewhere in the range between first and second intensity, in close proximity. When the mark crossed that threshold, he stopped writing.</p>
+
+      <p>She noted that stopping writing was not the same as stopping observing. He was still watching the shoulder with the same focused attention. He had simply stopped putting the observation into words.</p>
+
+      <p>She brought the mark back down.</p>
+
+      <p>"That's the limit for today," she said.</p>
+
+      <p>He looked up. He looked at her for a moment — not at the shoulder, at her face — and then he looked back at the notebook and wrote something. Short entry. One line, possibly two. He put a mark at the end of it. She couldn't see what kind.</p>
+
+      <p>She had seen him put that same mark twice now. The same unfinished notation. It was near the top of her list of things she needed to know.</p>
+
+      <p>"The directionality," he said, "is not in any documentation I have."</p>
+
+      <p>"I know."</p>
+
+      <p>"How long have you been able to do it."</p>
+
+      <p>"That's relevant to the demonstrations."</p>
+
+      <p>He looked up. "Yes," he said.</p>
+
+      <p>"Two years. Approximately."</p>
+
+      <p>He wrote.</p>
+
+      <p>"The warm at a distance," she said. "The directionality. Both developed in the past two years without deliberate activation. They came in without me doing anything to produce them."</p>
+
+      <p>He wrote something longer. She noted: that piece of information was significant to him. She noted that she had not decided in advance to give it, and she noted that she had given it anyway, and she noted that she was going to have to examine why and whether it had been correct.</p>
+
+      <p>That examination was for later.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+      <p>The session ended without a second demonstration.</p>
+
+      <p>She had shown him the directionality. She had shown him the scaling. She had given him the two-year timeline. That was sufficient for day two.</p>
+
+      <p>He closed the notebook. He picked up the folding knife from the table, opened it, and turned it once in his hand.</p>
+
+      <p>She had been watching for this. The knife had been on the table for the full duration of both demonstrations. He had not touched it. She had observed in the previous sessions that he touched it during waiting and observation. During the demonstrations, he had not touched it.</p>
+
+      <p>She was going to track it precisely across all remaining sessions.</p>
+
+      <p>"The documentation doesn't account for the development timeline," he said. He was not looking at her. He was looking at the notebook, closed in front of him. "It doesn't account for the directionality. It doesn't account for the scaling differential."</p>
+
+      <p>"I know," she said.</p>
+
+      <p>"The data you're providing is new."</p>
+
+      <p>"I know."</p>
+
+      <p>He was quiet for a moment. The knife turned once more. "Tomorrow," he said.</p>
+
+      <p>She stood up. She picked up her coat. She was almost at the door when he said: "You should bring water. The activation produces visible perspiration above the third intensity level."</p>
+
+      <p>She stopped.</p>
+
+      <p>She turned back.</p>
+
+      <p>He was still looking at the notebook. He said it the way he said most things — as a practical observation, entirely accurate, delivered without any apparent awareness of the fact that she had been managing visible perspiration from the mark for twenty years and the suggestion that she could address it by bringing water was the least useful piece of information anyone had ever offered her on the subject. It was correct. It was also the kind of advice you gave someone who had been dealing with this condition for three days rather than twenty years, which told her something about how he was modeling her situation that she had not known before he said it.</p>
+
+      <p>She should not laugh. There was no reason to laugh. The observation was correct. The delivery was impeccable. He had no idea why she was standing in the doorway not moving.</p>
+
+      <p>She managed to not laugh for approximately two seconds.</p>
+
+      <p>"Thank you," she said, and left.</p>
+
+      <p>She laughed in the passage outside.</p>
+
+      <p>It lasted about four steps and then she stopped because the district was not a place where you laughed alone in passages without a visible reason, and the laugh had surprised her more than it had come from her. She stood at the corner of the inner corridor and she noted the laugh the way she noted everything — fact, filed, implication pending — and then she noted that the implication was going directly to the later-list and she was not looking at it.</p>
+
+      <p>The later-list had grown today. The items, in approximate order of urgency: the secondary signal scaling with proximity and intensity, the unfinished notation at the end of his entries, the second section of the notebook, the knife pattern during demonstrations, the reason she had volunteered the two-year development timeline without deciding to, the thing she had seen in his stillness when he looked at the mark directly, and the laugh.</p>
+
+      <p>The laugh was at the bottom of the list because it was the least urgent and the most inconvenient. She was keeping it there.</p>
+
+      <p>The district looked the way it always looked at the mid-morning hour — the market in its second wave, the vendors settling into the steady middle of the day. She walked through it with the specific quality of attention that was not alertness and was not distraction but something between them: present, cataloguing, not looking for anything in particular and therefore available to notice anything that was there.</p>
+
+      <p>She was, she noted, doing the counting. She had not consciously decided to run the full count — every person in eyeline, every entrance and exit, everything that had changed from the day before. She was doing it because she had been doing it for five years and it had become automatic, and it was only now, walking home from the second session, that she noticed she was doing it and also noticed that she was not concerned about anything she was counting. She was counting out of habit. The mark was warm and calm at its unexplained baseline and she was counting the market because that was what she did, and neither of those things required active attention, which meant she had attention left over for the later-list.</p>
+
+      <p>She had eight days left. The mark was warm all the way home.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+      <p>Eight days.</p>
+
+      <p>She changed the bandage. She sat at the small table. She ran the day.</p>
+
+      <p>Directional demonstration — new documentation produced. Goal met. He had written something and marked it with the unfinished notation she had now seen twice. She still did not know what kind of mark it was.</p>
+
+      <p>Secondary signal — scaled with activation intensity at close range. Strong enough at second intensity level to require active management of her expression. Cost to factor into remaining sessions. She noted also: his stillness during high-intensity observation was qualitatively different from his stillness during low-intensity observation. She noted it and added it to the list.</p>
+
+      <p>Knife pattern — confirmed across two demonstrations. He did not touch the knife during demonstrations.</p>
+
+      <p>She noted, separately, that he had stopped moving the pencil during the higher activation. She noted that the two things — the knife and the pencil — had stopped at the same intensity level.</p>
+
+      <p>She went to sleep.</p>
+
+      <p>The mark was still warm.</p>
+
+      <p>She stopped noting it for the night.</p>
+
+    </div>
+
+    <div class="ch-end-rule"></div>
+    <div class="ch-wordcount">Chapter Five · First Demonstration · 2,811 words</div>
+
+  </div>
+
+  <div class="chapter" id="ch06">
+
+    <div class="ch-eyebrow">
+      Chapter Six <span class="ch-eyebrow-pov">POV Calder · Third person present</span>
+    </div>
+    <div class="ch-number">Six</div>
+    <div class="ch-title">Day Three — What the Documentation Doesn't Say</div>
+    <div class="ch-rule"></div>
+
+    <div class="prose">
+
+      <p>Calder reviewed his notes in the two hours before the session.</p>
+
+      <p>This was standard practice. He reviewed notes before contact, confirmed the previous session's data against the running documentation, identified gaps. What was not standard practice was the number of gaps he was identifying.</p>
+
+      <p>Two sessions. Two properties not present in Varek's documentation.</p>
+
+      <p>The first: directional concentration of the mark's heat output, confirmed at close range with measurable variation in temperature across a surface area of less than five centimeters. The documentation described Stage Two reactive as ambient — heat distributed outward from the mark site, not concentrated. The ambient description was inaccurate.</p>
+
+      <p>The second: speed of initial activation. The documentation gave Stage Two activation latency as approximately ninety seconds from decision to measurable output. He had observed four seconds. He had not been certain after the first demonstration — possible that the carrier had pre-activated before the stated start point. He had watched the second demonstration for signs of pre-activation. There were none. Four seconds was accurate.</p>
+
+      <p>He wrote both discrepancies in the first section of the notebook, in the margin beside the original entries, with the date and the observed value and the documented value. Standard annotation procedure. What was not standard was that both discrepancies were in the same direction: the mark was more capable, faster, and more precise than the documentation indicated. In twelve extractions over twenty years, he had encountered documentation errors. They had generally been errors of omission or ambiguity. He had not encountered a pattern where the errors consistently underestimated the subject.</p>
+
+      <p>He considered two explanations. First: the documentation had been compiled from previous carriers who were genuinely less capable, and this carrier was an outlier. Second: the documentation had been compiled from previous carriers who were actively concealing their capabilities, and this carrier was also concealing them, but in different areas or less effectively. The second explanation was more consistent with the behavior he had observed. It had a corollary, which was: if she was concealing strategically, she had reasons for what she was showing and reasons for what she was not, and the reasons were hers, not his, and he did not know what they were.</p>
+
+      <p>He noted this gap alongside the others. He had been building a catalog of things he did not know about this assignment. He reviewed the catalog. It was longer than he expected it to be at this stage.</p>
+
+      <p>He put the notebook in his coat pocket and went to the district before the session.</p>
+
+      <p>He had one hour. He walked the district in the patterns that intersected its traffic without following it. Not tracking the carrier — she would arrive at the session room four minutes early, as she had the previous two days. He was walking the district because the district was a variable he had not fully resolved, and because walking gave him the quality of attention that sitting did not.</p>
+
+      <p>He passed the grain storage corridor. He noted Davan in the east end of the market — the same careful movement, the same purposeful directionlessness he had been observing since day one. He had not determined Davan's relationship to the carrier, nor whether Davan knew what the carrier was carrying, nor whether Davan knew Calder was in the district. Three distinct questions. No answers to any of them. He noted this as a gap that had not been operationally relevant yet, and noted that gaps tended to become relevant at the worst possible moment.</p>
+
+      <p>He passed the passage where she had done the mark-check on day two of his surveillance. Forty-three seconds. He had been in the east sector when that had happened. He had put an entry in the second section — <em>mark-check timing. East sector. I was in the east sector during this period</em> — and had not developed it. He had been not-developing that entry for five days.</p>
+
+      <p>He noted, walking, that he was thinking about the mark-check again. He noted that this was not operationally relevant. He filed it and kept walking.</p>
+
+      <p>He arrived at the session room seven minutes before the agreed time. She was already there. She had moved one of the chairs slightly and moved it back, which was something she did at the start of each session and which he had noted as: testing whether he would respond to small changes in the space. He had not responded in previous sessions. He did not respond now. He sat down and put the notebook on the table and put the knife next to it and waited.</p>
+
+      <p>"Day three," he said.</p>
+
+      <p>"Day three," she agreed.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>The third property presented itself eleven minutes into the demonstration.</p>
+
+      <p>Ryn had been running a sustained activation — the same low-intensity directed output she had shown him on day two, held steady over approximately four minutes. He had been documenting the rate of heat maintenance. The answer was: more consistently than documented. Stage Two reactive was described as variable under sustained conditions — output fluctuating, carrier showing fatigue indicators within three minutes. She was showing no fatigue indicators at four minutes. He noted: <em>sustained output at L1 without degradation at 4 min. Documentation predicts degradation at 3 min. Discrepancy: +1 min minimum, upper limit unknown.</em></p>
+
+      <p>The session had a quality today that the previous two had not had. He had been noting this since approximately the seven-minute mark without identifying what it was. By the time she produced the carrier-initiated transition, he had the identification: she was more present today than in the previous sessions. Not more controlled — she had been controlled in every session. More present, in the sense that her attention was less divided. She had decided she was satisfied with what she had shown him yesterday, and she was operating from that satisfaction without the cognitive overhead of maintaining uncertainty about it.</p>
+
+      <p>He noted this and did not note its implication, which was: she was becoming more comfortable in the space. He put it in the second section.</p>
+
+      <p>Then she increased the intensity.</p>
+
+      <p>Not at his request. She increased it on her own — smoothly, without announcing it, the way you turned up a lamp by a single increment when the light had been sufficient but you had decided you wanted more. The mark went from the flush-and-warm of the previous two demonstrations to something visibly different at the surface: deeper color, heat she hadn't been producing before, and she had produced it in less than a second.</p>
+
+      <p>He stopped writing.</p>
+
+      <p>She brought it back down to the previous level in approximately the same time. She did not look at him. She was looking at the corner of the table she had been targeting.</p>
+
+      <p>"You didn't ask for that," he said.</p>
+
+      <p>"No." She kept her eyes on the table. "I wanted to see how long the transition took."</p>
+
+      <p>He looked at the mark. He looked at what the mark had just done. He wrote: <em>transition from L1 to L2 in <1 second. Undocumented. Carrier-initiated.</em> Underneath: <em>documentation assumption: carrier cannot initiate level change without external prompt. Assumption invalid.</em></p>
+
+      <p>He held the pencil. He put it down.</p>
+
+      <p>"The documentation I'm working from," he said, "was compiled how."</p>
+
+      <p>She looked up. "How would I know that."</p>
+
+      <p>"It would have been compiled from previous carriers. Stage Two. How many Stage Two carriers have been documented."</p>
+
+      <p>A pause. "You have the documentation. I don't."</p>
+
+      <p>He had the documentation. It referenced four previous Stage Two carriers, none of whom had shown anything he had observed in two days. Four was a sample that could produce a standard that was simply wrong — sample too narrow, or tests not systematic, or whoever compiled it recording what they expected rather than what was there. He noted that his entire operational framework for this assignment had been built on documentation that was, at minimum, significantly incomplete.</p>
+
+      <p>"The activation timeline," he said. "The documentation gives ninety seconds. You did it in four."</p>
+
+      <p>She was quiet for a moment. "The documentation says ninety seconds?"</p>
+
+      <p>"From decision to measurable output."</p>
+
+      <p>"It's faster than that when I'm not trying to hide it," she said. "I've been managing the speed since I was fourteen."</p>
+
+      <p>He wrote: <em>carrier has been actively suppressing observable indicators for approximately six years. Documentation reflects suppressed baseline. Actual baseline unknown.</em></p>
+
+      <p>He thought about what the implication chain from <em>actual baseline unknown</em> produced, if he followed it. The chain was: the documentation had been compiled from a suppressed baseline. Varek's plan for the mark had been designed around the documented baseline. The documented baseline was inaccurate. Therefore the plan had been designed around a carrier who was less capable than the carrier Varek actually had. Which meant the plan's predicted outcomes — the timeline for activation, the scope of the deployment, the manageable risk thresholds — were all calculated against the wrong inputs.</p>
+
+      <p>He stopped following the chain there. The next step was not in the first section of the notebook.</p>
+
+      <p>"What else have you been managing," he said.</p>
+
+      <p>She looked at him. A direct look — the kind she gave when she was evaluating how much of what she knew she was going to say. He had been cataloguing the evaluations. They were getting shorter. In the first session she had taken several seconds. Now she took one.</p>
+
+      <p>"What's in the offer," she said.</p>
+
+      <p>"I'm asking what else you've been managing that isn't in the offer. For my documentation."</p>
+
+      <p>"Your documentation says what I show you," she said. "That's the deal."</p>
+
+      <p>He looked at her for a moment. He wrote: <em>carrier maintains concealment discipline under direct questioning. Does not concede scope of concealment. Consistent with strategic concealment framework.</em> He closed the first section.</p>
+
+      <p>He picked up the folding knife from the table. He had not touched it at any point during the demonstration. Third session in a row. He noted this in the second section and left the entry without a conclusion.</p>
+
+      <p>She picked up her coat and left. He watched her go. She did not look at him when she left.</p>
+
+      <p>He noted this. He had been noting it across three sessions. She did not look at him when she left. She did not look at him when she arrived. She looked at him during the demonstrations — at specific moments, and he had been cataloguing which moments. She looked at him when she was deciding how much to say. She looked at him when he said something she had not expected. She did not look at him at the beginning or the end, which were the moments when looking would have had a social function. She only looked at him when the look was for information. He noted that this was accurate, efficient, and consistent with how she ran everything else. He noted that he had been observing the pattern across three sessions.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>He stopped at the corner before the inner passage on the walk back and ran the day's data.</p>
+
+      <p>Three new observations for the second section. The carrier-initiated transition. The suppressed-baseline implication. And the face.</p>
+
+      <p>The face was the expression she had made when he told her the documentation gave ninety seconds. Not fear, not calculation. Something more specific — the expression of someone receiving new data that required restructuring something they had previously arranged. He had seen that expression twice: once when he told her the mark was not damaged tissue. Once just now. Both times she had held it for exactly as long as she needed to hold it, and then it was gone.</p>
+
+      <p>He noted that he was constructing reasoning to justify where he put this entry in the notebook, and that constructing reasoning to justify categorization was unusual. He noted it as a data point about the entry rather than about the notebook.</p>
+
+      <p>He thought about the face once more on the walk. The expression when she heard ninety seconds. He had been in the field for twenty years and he had seen many expressions on carriers when they received new information about what they were carrying — fear, most often, in various configurations. Occasionally relief, which was the response of someone who had been building toward this conversation for a long time and was finally having it. This was neither. He had no category for it. He had noted it in the second section under a category heading he had created specifically for this assignment, which was: <em>observations that require a category I don't have yet.</em></p>
+
+      <p>He passed the south corridor where she had changed her route on Tuesday evening. He thought about the model he had built — she would run — and what had happened instead. She had turned and walked toward him and proposed a deal and he had said yes quickly, and he had been noting the quickness in the second section since day one without arriving at a conclusion.</p>
+
+      <p>He arrived at his room. He lit the lamp. He read the first section from the beginning. Twelve pages of data that contradicted the documentation at every testable point.</p>
+
+      <p>He turned to the second section. Nine entries now.</p>
+
+      <p>He closed the notebook.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>He wrote Varek's report in the evening.</p>
+
+      <p>Thirty-eight minutes. Twenty-three minutes longer than standard. The writing took fifteen minutes. The delay was in the review.</p>
+
+      <p>The report confirmed the operational timeline and contained the directionality data from day two and the transition speed data from day three, both framed as Stage Two capabilities within documented range. He described the carrier-initiated level change as a demonstration variant. He noted the sustained activation duration as within documented parameters. All of these statements were technically accurate.</p>
+
+      <p>He did not include: the activation speed discrepancy against the documented baseline. Six years of active suppression. The phrase <em>actual baseline unknown.</em> The second section of the notebook and its nine entries.</p>
+
+      <p>He reviewed the report once. He sent it.</p>
+
+      <p>He thought about the six-week number.</p>
+
+      <p><em>Stage Two carriers delivered to Varek's facility at Ashmark have not, in the documented record, remained at Stage Two for longer than approximately six weeks post-delivery.</em> He had read this five times. Filed it five times. Not developed it five times.</p>
+
+      <p>The reason he had not developed it was that developing it required answering the question of what happened to Stage Two carriers after six weeks at Ashmark. The documentation was silent on what came after. He knew from the nature of the plan that what came after was not the carrier living a comfortable life. What came after was the carrier being used as the delivery mechanism for an activation that was, in the documented record, lethal to the carrier if not managed correctly.</p>
+
+      <p>He had held this for four days under the categorization: not his problem.</p>
+
+      <p>He noted, for the first time with any precision, that this categorization had been doing significant work, and that it was starting to have cracks in it. He did not name the cracks. He noted that they were there. He noted that he had been aware of them since day one and had not named them, and that the not-naming was a choice he was making.</p>
+
+      <p>He thought about <em>actual baseline unknown</em> one more time. He thought about it in the specific way he thought about things he was not ready to resolve — not pursuing the implications, just holding the phrase and letting it sit. He had learned this practice in his third year working for Varek. The holding was a skill. You held something until the moment when the authorization arrived or the holding became untenable.</p>
+
+      <p>He noted that the holding had been going on for four days.</p>
+
+      <p>He noted that four days was within the range of normal holding periods for complex operational variables.</p>
+
+      <p>He noted that he was tracking how long he had been holding it, which was not something he normally tracked.</p>
+
+      <p>He also noted — and this was the entry he had been approaching for four days without making — that the information he was holding was about a person, not a variable. He had held operational variables before for longer than four days without this quality of attention to the holding. The quality of attention was new. He noted that it was new. He did not draw a conclusion from the newness. He put the pencil down and picked it up and looked at the second section of the notebook and thought about whether the entry he was about to write belonged in the first section or the second, and put it in the second, and noted that he had made that categorization decision in approximately two seconds.</p>
+
+      <p>He picked up the pencil. He held it over the second section of the notebook. He put it down. He picked it up again. He wrote something on the line below the unfinished entry and its question mark. Compact notation. He looked at what he had written.</p>
+
+      <p>He closed the second section without reading it again.</p>
+
+      <p>He put the notebook in his coat pocket and sat in the dark room with the lamp off for approximately twelve minutes before he decided to sleep.</p>
+
+      <p>Four hours. Demain, jour quatre.</p>
+
+    </div>
+
+    <div class="ch-end-rule"></div>
+    <div class="ch-wordcount">Chapter Six · Day Three — What the Documentation Doesn't Say · 2,836 words</div>
+
+  </div>
+
+  <div class="chapter" id="ch07">
+
+    <div class="ch-eyebrow">
+      Chapter Seven <span class="ch-eyebrow-pov">POV Calder · Third person present · 🔴 PIC 1</span>
+    </div>
+    <div class="ch-number">Seven</div>
+    <div class="ch-title peak">The Line</div>
+    <div class="ch-rule peak"></div>
+
+    <div class="prose">
+
+      <p>Day four. She arrived four minutes early. He arrived at the agreed hour.</p>
+
+      <p>This was the established pattern. He noted it without developing it. He sat down and put the notebook on the table and put the knife next to it. She sat across from him — the chair facing the door, the one she had chosen on day one and had not varied. He had noted, early in the sessions, that she always chose the chair facing the door. He had noted it and had not noted what it told him about the first twenty years of her life, because that was not the first section of the notebook and he had been keeping things in the first section of the notebook.</p>
+
+      <p>The first section had thirteen pages now.</p>
+
+      <p>"Day four," he said.</p>
+
+      <p>"Day four," she said. Then: "What does Varek want with the mark after delivery."</p>
+
+      <p>He had been waiting for this question since day one. He had known she would ask it eventually because she was the kind of person who asked the questions she needed to ask, and she had not asked it in three sessions, which meant she had been deciding when to ask it rather than whether. He had known, since day one, that the question would arrive on the day when she had accumulated enough data to understand the answer. She was systematic — she collected information before she asked for more. She had spent three sessions building the framework and she was asking now because she had decided the framework was sufficient. He noted the precision of the timing. He also noted that the precision of the timing told him something about how she had been using the sessions that he had not fully accounted for: she had been building toward this question. Every demonstration, every limit she set and held, every piece of information she had disclosed and withheld — all of it had been organized around arriving at a position where she could ask this question and understand the answer.</p>
+
+      <p>He had underestimated the architecture.</p>
+
+      <p>He had built models for extraction targets across twenty years of this work, and the models had always been sufficient. The model he had built for this carrier had been wrong about the most fundamental thing: that she was an extraction target in the standard sense. She was not. She was someone who had been building toward the current situation for a long time before he arrived, who had a plan that was older than the deal, who had organized twenty years of management around arriving at a position where she could negotiate rather than be taken. He had underestimated the architecture because the architecture had been designed to be underestimated. He noted this with the specific quality of attention he reserved for things that had corrected his model significantly.</p>
+
+      <p>He calculated what he could say.</p>
+
+      <p>The honest answer was: Varek wants the mark at Stage Four. Stage Four is activation complete — the weapon deployed at full capacity. Stage Four is what the mark was designed for, what the twenty years of dormancy and the six-week post-delivery timeline and the entire structure of the plan had been building toward. Stage Four was lethal to the carrier if not managed correctly, and Varek's documentation suggested he considered this an acceptable outcome because the outcome he wanted was the activation, and the carrier was the mechanism, and mechanisms were expendable.</p>
+
+      <p>He did not say the honest answer.</p>
+
+      <p>He said: "Varek wants the mark activated under controlled conditions."</p>
+
+      <p>She was quiet for a moment. She was looking at him with the focused attention she gave to information she was filing, not information she was reacting to. He watched her face run the implication. He had learned her face over four sessions — learned the specific quality of her attention, the way certain information landed differently than other information. He watched the implication of controlled conditions land.</p>
+
+      <p>Not fear. Something more specific. The recataloguing expression — the one he had no category for. But different this time. This one had the quality of someone receiving information they had already calculated and did not want confirmed.</p>
+
+      <p>She said: "Controlled conditions meaning his conditions."</p>
+
+      <p>"Yes."</p>
+
+      <p>"Meaning at a time of his choosing."</p>
+
+      <p>"Yes."</p>
+
+      <p>She looked at the table. She was quiet for approximately four seconds. He counted them.</p>
+
+      <p>She said: "Controlled conditions meaning he decides when the weapon goes off and what it's aimed at."</p>
+
+      <p>He did not answer. He had already answered. He watched her work through the rest of it. He watched her face hold the expression and then resolve it — the specific process of someone running new information against their existing model. She was fast at this. She had been fast at it in every session.</p>
+
+      <p>"And what happens to the carrier," she said, "when the weapon goes off."</p>
+
+      <p>He said: "That depends on the activation conditions."</p>
+
+      <p>"Does it."</p>
+
+      <p>He held her look. He said: "The documentation on Stage Four activation is incomplete."</p>
+
+      <p>She understood what that meant. He watched her understand it. She did not show what she did with the understanding, except in the way she held very still for a moment — the stillness of someone who had just received the confirmation of something they had already calculated.</p>
+
+      <p>"Seven days," she said. Not a question. A note to herself. A recalibration of the timeline and what it contained.</p>
+
+      <p>"Seven days," he said.</p>
+
+      <p>She was quiet again. He let the quiet hold. He did not fill it. He had learned in four sessions that she used silence productively and that filling her silences was counterproductive. He had adjusted accordingly. He noted, in the second section of the notebook, that he had adjusted his behavior across four sessions to accommodate her use of silence — something he had not done before for a target, and something that was in the second section rather than the first precisely because he did not know what category it belonged in.</p>
+
+      <p>She picked up the small scoring tool she had been carrying since day two — something she used to mark a line in the table edge at the start of each session as a positioning reference. She scored the line. She put the tool down. She rolled her right shoulder — the involuntary gesture, the one she made when she was running calculations with insufficient data — and she looked back at him.</p>
+
+      <p>"The demonstration," she said. "Are we doing it."</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>They did the demonstration.</p>
+
+      <p>He watched her run a sustained activation at middle intensity, directing the mark's output toward a target he had set up — a piece of cloth pinned to the far wall, six feet away. She had not shown him range like this before. The previous sessions had been close-range work: the table edge, the surface in front of her. This was different. This was the mark reaching across the room to a specific point, holding the output at that point without variation, browning the cloth edges with the deliberate precision of something she had practiced alone and for a long time.</p>
+
+      <p>He wrote in the first section with the focused economy of someone who had been doing this for twenty years: directional range confirmed at 6 ft. Documentation range: under 1 m. Discrepancy: significant. He wrote the temperature estimate, the surface area affected, the duration. He wrote all of this while watching her face.</p>
+
+      <p>The mark at the shoulder site was running at a temperature he had not seen in the previous sessions — visible from the outside as a deepening of the color at the surface through the cloth of her coat, a heat he could detect at three feet of distance without touching anything. This was different from day one and day two. This was the mark at what he estimated was its third or fourth intensity level, held with precision, directed at a target across the room, without any visible cost to her.</p>
+
+      <p>He wrote: sustained L3-4 at range. Carrier shows no fatigue indicators. Documentation predicts visible effort signs at L2 sustained. He looked at what he had written. He thought about what it said about the sixty percent she was not showing him.</p>
+
+      <p>Her face was level. She had brought the activation up to a sustained middle intensity — higher than the previous demonstrations, still far below what he had determined was her likely maximum — and she was holding it steady without apparent effort, without the fatigue indicators the documentation said she should be showing. He knew her face. It was not difficult. She was not working at the upper range of what she considered comfortable.</p>
+
+      <p>He put that in the second section: she is not working at the upper range of what she considers comfortable. He thought about what it implied about what lay above the comfortable range.</p>
+
+      <p>He was watching her the way he had watched every carrier in twelve extractions — with the detached precision of someone building a record. He knew, because he had been honest with himself about this since the second session, that the detachment was not as complete as it had been in previous extractions. He was building a record and he was also watching her face and he had been watching her face across four sessions with an attention that had its own specific quality — not the attention of someone building a record but something adjacent to it, something in the second section of the notebook rather than the first.</p>
+
+      <p>He noted this. He noted that he had been noting it for four sessions and had not concluded from it and that the not-concluding was a choice he was making and not an absence of information.</p>
+
+      <p>He was writing. He was writing and he was watching her face and he was thinking about what she had said — seven days — and he was thinking about the documentation and the six-week number and the phrase controlled conditions and he was thinking about the line.</p>
+
+      <p>He had not thought about the line in three sessions.</p>
+
+      <p>The line was this: he was not an instrument of instrumental death. That was his rule. He had held it for twenty years across missions that had never required him to apply it to a Varek target, because Varek's targets were generally people who had done specific things that warranted specific consequences, and Varek's extraction protocol was capture-and-contain, not elimination. He had never been asked to deliver someone to a use that would consume them.</p>
+
+      <p>He had come close once — the eastern territories, second year. An intelligence extraction where the briefing had been specific about the methods. He had completed the mission. He had delivered the target. He had filed a report that documented his concerns in precise operational language. Varek had read it and had not responded, which was Varek's method of acknowledgment on matters he considered resolved. The target had survived. Calder had needed to know whether the line applied to processes where survival was the outcome. The answer had been no. The line was not about discomfort or cost or the use of force. The line was about the death-as-resource calculation — the use of a person's life as a mechanism, the deliberate delivery of someone to a process where their death was not a side effect but the product, where their ending was the value the transaction was designed to produce.</p>
+
+      <p>What Varek planned for Ryn was exactly that.</p>
+
+      <p>He looked at the cloth. The edges had browned evenly — precision of control at six feet. He wrote the observation. He did not write what he was thinking about.</p>
+
+      <p>She brought the activation down. She looked at the cloth. She rolled her shoulder.</p>
+
+      <p>"You stopped writing," she said.</p>
+
+      <p>"I'm writing," he said, and wrote something.</p>
+
+      <p>She looked at him. He had learned her evaluations over four sessions — their specific duration, the quality of attention they contained. This evaluation was different from the previous ones. It was longer than average and the quality of attention was not the standard information evaluation. She was reading something specific in his face.</p>
+
+      <p>He did not know what she was reading. He was aware that she was reading it. He held still and let her read it.</p>
+
+      <p>He had become aware, over four sessions, that she watched him the way he watched her — with the focused attention of someone cataloguing data, not performing observation. She was building her own documentation. He did not know what her documentation contained. He noted that he did not know, and noted that this was a gap he had not been tracking with the same precision he had been tracking other gaps.</p>
+
+      <p>The evaluation continued. She was looking at his face the way she had looked at the cloth during the demonstration — with the specific quality of someone taking a precise reading. He considered what she was reading. He had felt the line settle into place during the demonstration — the specific quality of a decision that was final — and he had kept writing and had said I'm writing and had continued the session. He had kept the decision off his face, or he had believed he was keeping it off his face. The evaluation she was running suggested she had found something. He did not know what she had found. He noted that she had found something and he did not know what it was, which was a gap in his model of her, and this was the first gap he had identified in her model of him.</p>
+
+      <p>She did not name what she found. She looked back at the cloth.</p>
+
+      <p>"That's the limit for today," she said.</p>
+
+      <p>He noted in the second section: evaluation ran long, approximately one and a half seconds. She read something in his face at the moment of interruption. She did not name it. She called the limit earlier than the previous two sessions.</p>
+
+      <p>He left these as facts and did not conclude from them.</p>
+
+      <p>She picked up her coat. She left without looking at him.</p>
+
+      <p>He sat with the notebook open and he listened to her footsteps leave the passage. He sat with the silence after.</p>
+
+    </div>
+
+    <div class="scene-break">· ·</div>
+
+    <div class="prose">
+
+      <p>He ran the calculation.</p>
+
+      <p>The line applied. That was the first fact. The line applied to this situation and the line was not a guideline and it was not a preference and it was not something he had ever set aside in twenty years and he was not going to set it aside now. He was not going to deliver Ryn to an activation process that was designed to consume her. That was a fact. It had been accumulating in the second section of the notebook for four days in the form of entries he had not finished, and it was now finished, and it was a fact.</p>
+
+      <p>The second fact: the market still held. Seven days remained. The data was still accumulating. The deal that Ryn had proposed was still operative, and at the end of ten days there would be a decision. The decision was still seven days away and he now had a constraint on what the decision could be.</p>
+
+      <p>The third fact: Varek's documentation was wrong about the mark. Wrong about its capabilities, wrong about its range, wrong about the carrier's relationship to it. If the documentation was wrong about everything testable, it was possibly wrong about the six-week figure — possibly wrong about what Stage Four activation required and what it cost, possibly wrong in ways that made the plan inapplicable to this carrier.</p>
+
+      <p>He noted the third fact. He did not conclude from it yet.</p>
+
+      <p>The fourth fact was the one that had no category. He had been putting it in the second section under observations that require a category I don't have yet, and it had been filling that category for four days, and the category was still not named. The fourth fact was the one that had started on the day she turned and walked toward him in the south corridor instead of running. It was the one that had been getting longer with each session — more entries, no category, no conclusion.</p>
+
+      <p>He noted, for the first time in the calculation, that the second section of the notebook was now longer than the first section.</p>
+
+      <p>The first section had thirteen pages of operational data. The second section had been four entries on day one of the sessions. It now had fourteen entries, covering four days of observations that did not belong in the first section, filed under a category heading he had created specifically for this assignment because no existing category fit.</p>
+
+      <p>This was the fourth fact. The fourth fact was that something had been accumulating in the second section faster than it had ever accumulated in any second section he had maintained across twelve extractions in twenty years, and the something had no category and had been growing since the day she turned and walked toward him in the south corridor instead of running, and the second section was now longer than the first, and he had begun writing her name at the top of a new page.</p>
+
+      <p>He did not conclude from the fourth fact yet. He had been not-concluding from it for four days. He would continue to not-conclude from it until the calculation made the conclusion available. The calculation was not there yet. Seven days.</p>
+
+      <p>He held the line. He held it the way he held decisions that were final. The line applied. He was not going to deliver her. He was going to continue the sessions, continue the documentation, and at the end of ten days he was going to do something other than deliver her to Varek.</p>
+
+      <p>He did not know yet what the other thing was. He had seven days to determine it. Seven days was a workable amount of time to construct something from a position that currently had no structure.</p>
+
+      <p>He also noted that he had, in approximately the last thirty seconds of the demonstration, stopped thinking about the documentation entirely.</p>
+
+      <p>He had been thinking about the line. He had been thinking about the fourth fact. He had been watching her face with an attention that was no longer splitting itself between the documentation and the face.</p>
+
+      <p>He noted this. The documentation had been his operational anchor since day one — thirteen pages of evidence that the documentation was wrong, a case he had been committed to building. In the last thirty seconds of the demonstration, he had stopped. The line had replaced it.</p>
+
+      <p>He noted that this was significant. He noted that he was not ready to determine what it was significant of.</p>
+
+      <p>He picked up the notebook. He opened it. He read the unfinished entry: Mark reaction during proximity at second intensity level: consistent with standard Stage Two alarm? Insufficient data to rule out—</p>
+
+      <p>He read the question mark.</p>
+
+      <p>He wrote the rest of the sentence. He looked at what he had written for some time.</p>
+
+      <p>He turned to a new page. He wrote her name at the top. He wrote the date. He wrote: new variable in the calculation.</p>
+
+      <p>He looked at what he had written one more time: her name and the date and new variable in the calculation.</p>
+
+      <p>He had written her name in the second section of the notebook. He had not written the names of targets in the second section before. He had written them in the first section, under subject, with the operational identifiers. This was the second section. He had written her name here and he had been aware, when he wrote it, that he was not writing it as an operational identifier.</p>
+
+      <p>He noted this. He did not conclude from it. He closed the notebook and put it in his coat pocket.</p>
+
+      <p>He had also noted, without yet concluding from it, that the second section of the notebook had become the more important section. The first section contained the operational record — useful, accurate, increasingly at odds with the documentation. The second section contained the other thing. The thing that had no category. The thing that had started as four entries and was now fourteen. He had never, in twenty years of extractions, had a second section that was longer than the first section. He had never had a second section that mattered more than the first.</p>
+
+      <p>He would have a name for what the second section was recording by the end of the ten days. He was certain of this. He did not know if he would write the name down.</p>
+
+      <p>He sat in the empty room for one more minute and then he stood up and left.</p>
+
+      <p>The door closed behind him. The ash was coming down through the window in the gray afternoon light, the way it always came down, indifferent and steady and entirely unconcerned with what had just changed in the room it was falling past.</p>
+
+    </div>
+
+    <div class="ch-end-rule peak"></div>
+    <div class="ch-wordcount">Chapter Seven · The Line · 3,474 words · PIC 1</div>
+
+  </div>
+
+  <!-- ACT II -->
+  <div class="act-marker">
+    <span class="act-marker-label">Act II — The Ten Days — Chapters 8 to 17 — ~33,000 words</span>
+  </div>
+
+  <div class="chapter-placeholder" id="ch08">
+    <div class="placeholder-inner">
+      <div class="ch-number">Eight</div>
+      <div class="ch-title">Day Four</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch09">
+    <div class="placeholder-inner">
+      <div class="ch-number">Nine</div>
+      <div class="ch-title">Documentation</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch10">
+    <div class="placeholder-inner">
+      <div class="ch-number">Ten</div>
+      <div class="ch-title">Day Six</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch11">
+    <div class="placeholder-inner">
+      <div class="ch-eyebrow">Chapter Eleven <span class="ch-eyebrow-pov">🔴 PIC 2</span></div>
+      <div class="ch-number">Eleven</div>
+      <div class="ch-title peak">The Anomaly</div>
+      <p class="placeholder-note">À rédiger — PIC 2. L'anomalie devient visible. La marque pulse différemment. Ni l'un ni l'autre ne le nomme. La session se termine normalement.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch12">
+    <div class="placeholder-inner">
+      <div class="ch-number">Twelve</div>
+      <div class="ch-title">Sera Section</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch13">
+    <div class="placeholder-inner">
+      <div class="ch-number">Thirteen</div>
+      <div class="ch-title">Day Eight</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch14">
+    <div class="placeholder-inner">
+      <div class="ch-number">Fourteen</div>
+      <div class="ch-title">What He Hides</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch15">
+    <div class="placeholder-inner">
+      <div class="ch-number">Fifteen</div>
+      <div class="ch-title">Day Nine</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch16">
+    <div class="placeholder-inner">
+      <div class="ch-number">Sixteen</div>
+      <div class="ch-title">The Proximity</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch17">
+    <div class="placeholder-inner">
+      <div class="ch-number">Seventeen</div>
+      <div class="ch-title">Day Ten</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <!-- ACT III -->
+  <div class="act-marker">
+    <span class="act-marker-label">Act III — The Fracture — Chapters 18 to 24 — ~23,000 words</span>
+  </div>
+
+  <div class="chapter-placeholder" id="ch18">
+    <div class="placeholder-inner">
+      <div class="ch-number">Eighteen</div>
+      <div class="ch-title">The Second Agent</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch19">
+    <div class="placeholder-inner">
+      <div class="ch-eyebrow">Chapter Nineteen <span class="ch-eyebrow-pov">🔴 PIC 3</span></div>
+      <div class="ch-number">Nineteen</div>
+      <div class="ch-title peak">The Flight</div>
+      <p class="placeholder-note">À rédiger — PIC 3. La fuite. L'erreur réelle de Ryn. Son calcul sur le second agent expose Davan — irréversible.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch20">
+    <div class="placeholder-inner">
+      <div class="ch-number">Twenty</div>
+      <div class="ch-title">What Is Named</div>
+      <p class="placeholder-note">À rédiger — La bascule nommée. Dans l'état de vulnérabilité du Ch.19.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch21">
+    <div class="placeholder-inner">
+      <div class="ch-number">Twenty-One</div>
+      <div class="ch-title">Sera Section · End</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch22">
+    <div class="placeholder-inner">
+      <div class="ch-number">Twenty-Two</div>
+      <div class="ch-title">The Agent Neutralized</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch23">
+    <div class="placeholder-inner">
+      <div class="ch-number">Twenty-Three</div>
+      <div class="ch-title">Outside Orders</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch24">
+    <div class="placeholder-inner">
+      <div class="ch-number">Twenty-Four</div>
+      <div class="ch-title">What Varek Knows</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <!-- ACT IV -->
+  <div class="act-marker">
+    <span class="act-marker-label">Act IV — The Decision — Chapters 25 to 30 — ~21,000 words</span>
+  </div>
+
+  <div class="chapter-placeholder" id="ch25">
+    <div class="placeholder-inner">
+      <div class="ch-number">Twenty-Five</div>
+      <div class="ch-title">The Declaration</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch26">
+    <div class="placeholder-inner">
+      <div class="ch-number">Twenty-Six</div>
+      <div class="ch-title">What It Changes</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch27">
+    <div class="placeholder-inner">
+      <div class="ch-number">Twenty-Seven</div>
+      <div class="ch-title">Last Demonstration</div>
+      <p class="placeholder-note">À rédiger.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch28">
+    <div class="placeholder-inner">
+      <div class="ch-number">Twenty-Eight</div>
+      <div class="ch-title">The Physical Scene</div>
+      <p class="placeholder-note">À rédiger — La scène d'ancrage physique. Exactement assez loin.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch29">
+    <div class="placeholder-inner">
+      <div class="ch-number">Twenty-Nine</div>
+      <div class="ch-title">The Day After</div>
+      <p class="placeholder-note">À rédiger — POV Calder. Le carnet fermé définitivement.</p>
+    </div>
+  </div>
+
+  <div class="chapter-placeholder" id="ch30">
+    <div class="placeholder-inner">
+      <div class="ch-eyebrow">Chapter Thirty <span class="ch-eyebrow-pov">POV Calder · 🔴 PIC 4 · Cliffhanger</span></div>
+      <div class="ch-number">Thirty</div>
+      <div class="ch-title peak">The Decision</div>
+      <p class="placeholder-note">À rédiger — PIC 4. Le choix irréversible. Varek vient en personne. Dernière ligne scellée : "He closed the second section of the notebook and put it in his coat, next to where her name had lived for ten days. Varek was coming. He started walking."</p>
+    </div>
+  </div>
+
+</div><!-- /corpus -->
+
+</body>
+</html>

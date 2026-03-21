@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORGED IN ASH — Bible Tome 1 : The Mark v1.0</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --black: #06080a;
+  --deep: #0c1014;
+  --card: #111518;
+  --border: #1e2830;
+  --border-bright: #2a3a48;
+  --steel: #4a8ab0;
+  --steel-dim: #2a5a78;
+  --steel-pale: rgba(74,138,176,0.06);
+  --steel-glow: rgba(74,138,176,0.12);
+  --ember: #d4621a;
+  --ember-dim: #8a3808;
+  --gold: #b8903a;
+  --gold-dim: #6a5020;
+  --ash: #607080;
+  --text: #d8e4ee;
+  --text-dim: #8090a0;
+  --text-faint: #384858;
+  --white: #eef4f8;
+  --seal-red: #8a2828;
+  --seal-red-bright: #c04040;
+  --green: #2a6840;
+  --green-bright: #40a060;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 16.5px;
+  line-height: 1.9;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(74,138,176,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 80% 90%, rgba(212,98,26,0.03) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0;
+  width: 225px;
+  height: 100vh;
+  background: #080b0e;
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 1rem;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.nav-series {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.25em;
+  color: var(--steel-dim);
+  text-transform: uppercase;
+  display: block;
+}
+.nav-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--gold);
+  display: block;
+  margin: 0.2rem 0 0.1rem;
+}
+.nav-tome {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--ember);
+  display: block;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-section {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  color: var(--steel-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin: 1.2rem 0 0.3rem;
+}
+
+nav a {
+  display: block;
+  font-size: 0.67rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.18rem 0.4rem;
+  border-radius: 2px;
+  transition: all 0.15s;
+  font-family: 'Source Serif 4', serif;
+  line-height: 1.5;
+}
+nav a:hover { color: var(--steel); background: var(--steel-pale); padding-left: 0.7rem; }
+
+/* ── MAIN ── */
+main {
+  margin-left: 225px;
+  padding: 0 4rem 8rem;
+  max-width: 980px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── COVER ── */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 0 4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.cover-parent {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--steel-dim);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.cover-series {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--gold);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.cover h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  color: var(--white);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.cover-tome {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--steel);
+  font-style: italic;
+  margin-bottom: 2.5rem;
+}
+
+.cover-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--steel), var(--gold), transparent);
+  margin-bottom: 2rem;
+}
+
+.cover-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--text-faint);
+  letter-spacing: 0.1em;
+  line-height: 2.2;
+}
+
+.cover-stats {
+  display: flex;
+  gap: 3rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+.stat .n { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--steel); display: block; line-height: 1; }
+.stat .l { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; color: var(--text-faint); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.2rem; }
+
+/* ── SECTIONS ── */
+.section { padding: 4rem 0 0; }
+.section-mark {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--steel-dim);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--white);
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+
+h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--steel);
+  margin: 2.5rem 0 0.8rem;
+  font-style: italic;
+}
+
+h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 1.8rem 0 0.5rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+p { margin-bottom: 0.8rem; font-size: 0.92rem; color: var(--text-dim); line-height: 1.85; }
+p strong { color: var(--text); }
+p em { color: var(--steel); font-style: italic; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1.8rem 2rem;
+  margin: 1.3rem 0;
+  position: relative;
+}
+.card-top { position: absolute; top: 0; left: 0; width: 100%; height: 2px; border-radius: 3px 3px 0 0; }
+.card.blue .card-top { background: linear-gradient(90deg, var(--steel), transparent); }
+.card.amber .card-top { background: linear-gradient(90deg, var(--ember), transparent); }
+.card.gold .card-top { background: linear-gradient(90deg, var(--gold), transparent); }
+.card.ash .card-top { background: linear-gradient(90deg, var(--ash), transparent); }
+.card-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.3rem; }
+.card.blue .card-lbl { color: var(--steel); }
+.card.amber .card-lbl { color: var(--ember); }
+.card.gold .card-lbl { color: var(--gold); }
+.card-ttl { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.8rem; }
+
+/* ── PRINCIPE ── */
+.principe {
+  background: #0a1018;
+  border: 1px solid var(--steel-dim);
+  border-left: 4px solid var(--steel);
+  border-radius: 0 3px 3px 0;
+  padding: 1.8rem 2.2rem;
+  margin: 1.3rem 0;
+}
+.principe p { color: var(--text); margin-bottom: 0.5rem; }
+.principe p:last-child { margin-bottom: 0; }
+.principe strong { color: var(--steel); }
+
+/* ── SEALED ── */
+.sealed {
+  border: 1px solid var(--steel);
+  background: rgba(74,138,176,0.06);
+  border-radius: 3px;
+  padding: 1rem 1.4rem;
+  margin: 0.8rem 0;
+}
+.sealed-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--steel);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.sealed-lbl::before { content: '🔒 '; }
+.sealed p { color: var(--text); margin-bottom: 0; font-size: 0.9rem; }
+
+/* ── RULES ── */
+.rule { padding: 0.5rem 1rem; margin: 0.35rem 0; font-size: 0.86rem; border-radius: 0 3px 3px 0; }
+.rule.non { background: rgba(138,40,40,0.07); border-left: 3px solid var(--seal-red-bright); color: var(--text-dim); }
+.rule.non::before { content: '✗ '; color: var(--seal-red-bright); }
+.rule.oui { background: rgba(42,104,64,0.07); border-left: 3px solid var(--green-bright); color: var(--text-dim); }
+.rule.oui::before { content: '✓ '; color: var(--green-bright); }
+
+/* ── CHAPTER STRUCTURE ── */
+.acte {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  margin: 1.5rem 0;
+  overflow: hidden;
+}
+.acte-header {
+  background: #0e1418;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.acte-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--steel);
+  line-height: 1;
+  opacity: 0.4;
+}
+.acte-info { flex: 1; }
+.acte-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: var(--white);
+  display: block;
+}
+.acte-chapters {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--text-faint);
+  letter-spacing: 0.12em;
+  display: block;
+  margin-top: 0.1rem;
+}
+.acte-body { padding: 1.2rem 1.5rem; }
+
+.ch-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  gap: 0.8rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(30,40,48,0.8);
+  align-items: start;
+}
+.ch-row:last-child { border-bottom: none; }
+.ch-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--steel-dim);
+  padding-top: 0.1rem;
+}
+.ch-content { }
+.ch-title {
+  font-family: 'Source Serif 4', serif;
+  font-size: 0.88rem;
+  color: var(--white);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.ch-desc { font-size: 0.82rem; color: var(--text-dim); margin: 0; line-height: 1.6; }
+.ch-pov {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  color: var(--text-faint);
+  text-align: right;
+  padding-top: 0.15rem;
+}
+.ch-pov.ryn { color: var(--ember); }
+.ch-pov.calder { color: var(--steel); }
+.ch-pov.sera { color: var(--gold-dim); font-style: italic; }
+.ch-pov.both { color: var(--ash); }
+.ch-row.pic .ch-title::before { content: '🔴 '; }
+
+/* ── TIMELINE ── */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  margin: 1.5rem 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 1px;
+  background: linear-gradient(180deg, var(--steel), var(--ember), transparent);
+}
+.tl-item {
+  position: relative;
+  padding: 0 0 1.5rem 1.5rem;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -0.35rem;
+  top: 0.5rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--steel);
+  border: 1px solid var(--black);
+}
+.tl-item.amber::before { background: var(--ember); }
+.tl-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--steel);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.tl-item.amber .tl-label { color: var(--ember); }
+.tl-item p { font-size: 0.85rem; margin: 0; }
+
+/* ── VOIX EX ── */
+.voix-ex {
+  background: #080c10;
+  border-left: 3px solid var(--steel-dim);
+  border-radius: 0 3px 3px 0;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.8;
+}
+.voix-ex .attr {
+  display: block;
+  font-style: normal;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  color: var(--text-faint);
+  margin-top: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── TABLE ── */
+table { width: 100%; border-collapse: collapse; margin: 1.2rem 0 1.8rem; font-size: 0.84rem; }
+thead tr { background: #0e1418; }
+thead th { padding: 0.6rem 1rem; text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--steel); font-weight: 500; }
+tbody tr { border-bottom: 1px solid var(--border); }
+tbody tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+td { padding: 0.55rem 1rem; color: var(--text-dim); vertical-align: top; line-height: 1.6; }
+td:first-child { color: var(--text); }
+td strong { color: var(--steel); }
+
+/* ── PICS GRID ── */
+.pics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1.2rem 0;
+}
+.pic-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1.3rem 1.4rem;
+}
+.pic-card.major { border-color: var(--steel-dim); }
+.pic-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--steel);
+  line-height: 1;
+  display: block;
+  margin-bottom: 0.3rem;
+  opacity: 0.5;
+}
+.pic-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--white); margin-bottom: 0.3rem; display: block; }
+.pic-ch { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; color: var(--text-faint); letter-spacing: 0.12em; display: block; margin-bottom: 0.6rem; }
+.pic-card p { font-size: 0.82rem; margin: 0; }
+
+/* ── FOOTER ── */
+.doc-footer {
+  text-align: center;
+  padding: 4rem 0 2rem;
+  border-top: 1px solid var(--border);
+  margin-top: 5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--text-faint);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 2.2;
+}
+
+hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-series">Forged in Ash · Bible Tome</span>
+  <span class="nav-title">The Mark</span>
+  <span class="nav-tome">Tome 1 · Bible v1.0</span>
+
+  <div class="nav-section">I. Fondations</div>
+  <a href="#position">Position dans la série</a>
+  <a href="#pitch">Pitch & promesse</a>
+  <a href="#scelles">Éléments à sceller</a>
+
+  <div class="nav-section">II. Personnages T1</div>
+  <a href="#ryn-t1">Ryn au début du T1</a>
+  <a href="#calder-t1">Calder au début du T1</a>
+  <a href="#sera-t1">Sera au début du T1</a>
+  <a href="#aleth-t1">Aleth dans le T1</a>
+
+  <div class="nav-section">III. Structure</div>
+  <a href="#ouverture">Ouverture — Ch.1</a>
+  <a href="#actes">Les 4 actes</a>
+  <a href="#pics">Les 4 pics</a>
+  <a href="#cliffhanger">Cliffhanger final</a>
+
+  <div class="nav-section">IV. Mécanique</div>
+  <a href="#marche">Le marché — Ch.3</a>
+  <a href="#marque-t1">La marque dans le T1</a>
+  <a href="#ligne">La ligne de Calder</a>
+  <a href="#anomalie">L'anomalie</a>
+
+  <div class="nav-section">V. À sceller</div>
+  <a href="#derniere">Dernière ligne</a>
+  <a href="#geste">Geste de Ryn</a>
+  <a href="#objet">Objet de Calder</a>
+
+  <div class="nav-section">VI. Règles T1</div>
+  <a href="#voix-t1">Voix par chapitre</a>
+  <a href="#regles-t1">Règles spécifiques</a>
+  <a href="#decisions-t1">Décisions scellées</a>
+</nav>
+
+<main>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-parent">Forged in Ash · Kaerath Universe · Bible Tome</div>
+  <div class="cover-series">Forged in Ash</div>
+  <h1>The Mark</h1>
+  <div class="cover-tome">Tome 1 · Bible de Conception v1.0</div>
+  <div class="cover-line"></div>
+  <div class="cover-meta">
+    Vera Draye · Mars 2026 · Confidentiel<br>
+    Développe la Bible Générale FIA v1.0<br>
+    À lire conjointement avec la Bible Générale<br>
+    ~100 000 mots · 4 actes · ~30 chapitres
+  </div>
+  <div class="cover-stats">
+    <div class="stat"><span class="n">~30</span><span class="l">Chapitres</span></div>
+    <div class="stat"><span class="n">4</span><span class="l">Actes</span></div>
+    <div class="stat"><span class="n">4</span><span class="l">Pics émotionnels</span></div>
+    <div class="stat"><span class="n">10</span><span class="l">Jours de marché</span></div>
+    <div class="stat"><span class="n">−7 ans</span><span class="l">Avant BIA T1</span></div>
+  </div>
+</div>
+
+<!-- ══ I. FONDATIONS ══ -->
+<div class="section" id="position">
+  <span class="section-mark">Section I</span>
+  <h2>Fondations du Tome 1</h2>
+
+  <h3>Position dans la série</h3>
+  <p>The Mark est le tome d'installation. Il pose tous les fondements sur lesquels T2 et T3 construisent. Son objectif unique : <strong>capturer le lecteur dans les dix premiers chapitres et l'empêcher de poser le livre</strong>.</p>
+  <p>T1 ne résout rien. Il crée la tension, la nomme sans la régler, et ferme sur un choix irréversible qui rend T2 obligatoire. Le lecteur qui finit T1 à 23h achète T2 immédiatement — c'est l'objectif commercial de ce tome.</p>
+
+  <h3 id="pitch">Pitch du tome</h3>
+  <div class="principe">
+    <p>Ryn a caché la marque sur son épaule pendant vingt ans. Elle s'est débrouillée. Le general que Varek a envoyé pour la récupérer la trouve en deux jours — il est efficace. Elle a deux secondes pour décider ce qu'elle fait. Elle propose un marché : dix jours. Il accepte. Ni l'un ni l'autre ne comprend encore pourquoi la marque réagit différemment quand il est dans la pièce.</p>
+  </div>
+
+  <h3>Promesse du tome au lecteur</h3>
+  <div class="card blue">
+    <div class="card-top"></div>
+    <div class="card-lbl">Ce que le lecteur reçoit dans T1</div>
+    <p><strong>La tension :</strong> une FMC vulnérable qui fait de vraies erreurs, un MMC qui résiste à quelque chose qu'il refuse de nommer, une marque qui fait des choses non documentées.</p>
+    <p><strong>La bascule :</strong> le moment en fin de tome où le lecteur comprend que quelque chose a changé entre eux — pas résolu, juste nommé. Inévitable.</p>
+    <p><strong>Le cliffhanger :</strong> Calder fait un choix qui ne se défait pas. Varek répond. Le tome se ferme sur une décision, pas une résolution.</p>
+    <p><strong>Ce que le lecteur ne reçoit pas :</strong> la déclaration romantique (T3), la résolution de la marque (T3), la destruction de Varek (T3). Tout ça est promis, pas livré. C'est le contrat du T1.</p>
+  </div>
+
+  <h3 id="scelles">Ce qui doit être scellé avant la rédaction du Ch.1</h3>
+  <div class="sealed">
+    <span class="sealed-lbl">Obligation pré-rédaction — ne pas commencer sans ces quatre éléments</span>
+    <p>1. La dernière ligne du tome · 2. Le geste physique de Ryn (défini pendant la rédaction du Ch.1 et documenté immédiatement) · 3. L'objet-symbole de Calder (défini pendant la rédaction du Ch.3 et documenté immédiatement) · 4. La ligne que Calder ne franchit pas — précisée dans le texte du Ch.7, scellée ici avant</p>
+  </div>
+</div>
+
+<!-- ══ II. PERSONNAGES T1 ══ -->
+<div class="section" id="perso-t1">
+  <span class="section-mark">Section II</span>
+  <h2>Personnages au début du Tome 1</h2>
+
+  <h3 id="ryn-t1">Ryn — état au Ch.1</h3>
+  <div class="card amber">
+    <div class="card-top"></div>
+    <div class="card-lbl">Ryn · 20 ans · Ch.1 · Ce qu'elle est quand le tome s'ouvre</div>
+    <p>Ryn est au bout de quelque chose. Pas une crise — l'accumulation de vingt ans de gestion précaire qui approche d'un point de non-retour. Elle vit dans le district de Vael, elle fait ce qu'il faut faire pour exister sans être repérée. La marque a chauffé trois fois cette semaine. Elle a changé ses bandages deux fois. Elle commence à ne plus pouvoir prédire les déclencheurs.</p>
+    <p><strong>Ce qu'elle ne sait pas encore :</strong> Calder est à Vael depuis trois jours. Son réseau a déjà localisé le district. Elle a jusqu'au lendemain matin.</p>
+    <p><strong>Son état psychologique :</strong> fonctionnelle, épuisée sous la surface, avec l'humour involontaire de quelqu'un qui a transformé la peur en plaisanterie parce que c'est la seule façon de l'habiter.</p>
+  </div>
+
+  <h4>Ce qu'elle ne sait pas au début du T1 — et quand elle l'apprend</h4>
+  <div class="timeline">
+    <div class="tl-item">
+      <span class="tl-label">Ch.1 — Elle ne sait pas</span>
+      <p>Que Calder est à Vael. Que la marque a un nom. Que Varek la cherche personnellement.</p>
+    </div>
+    <div class="tl-item">
+      <span class="tl-label">Ch.3 — Elle apprend</span>
+      <p>Que Calder sait exactement ce qu'elle porte. Qu'elle ne peut pas fuir. Qu'elle peut peut-être négocier.</p>
+    </div>
+    <div class="tl-item">
+      <span class="tl-label">Ch.7-8 — Elle découvre</span>
+      <p>La ligne que Calder ne franchit pas. Ce que ça change pour la dynamique du marché.</p>
+    </div>
+    <div class="tl-item amber">
+      <span class="tl-label">Ch.12 — Premier choc</span>
+      <p>La marque fait quelque chose d'activement différent en présence de Calder. Elle le cache. Il l'a vu.</p>
+    </div>
+    <div class="tl-item amber">
+      <span class="tl-label">Ch.final — Ce qu'elle réalise</span>
+      <p>Que le marché a changé de nature sans que ni l'un ni l'autre ne le décide. La dernière ligne.</p>
+    </div>
+  </div>
+
+  <h3 id="calder-t1">Calder — état au Ch.3 (première apparition)</h3>
+  <div class="card blue">
+    <div class="card-top"></div>
+    <div class="card-lbl">Calder · 30 ans · Ch.3 · Ce qu'il est quand il entre dans la scène</div>
+    <p>Calder arrive avec un ordre clair et une exécution planifiée. Il a fait ce travail vingt fois. Les porteurs de marque de Varek ont un profil — ils se cachent, ils fuient, ils cèdent. Il a la description, l'adresse du district, et une fenêtre de trois jours avant que Varek lui demande un rapport de situation.</p>
+    <p><strong>Ce qu'il n'a pas prévu :</strong> qu'elle propose un marché au lieu de fuir. Que la marque réagisse à sa présence d'une façon qui n'est pas dans la documentation. Que la ligne qu'il ne franchit pas devient pertinente dans les deux heures.</p>
+    <p><strong>Son état psychologique :</strong> professionnel, efficace, avec la distance d'un homme qui a appris depuis longtemps à ne pas poser de questions sur ce qui attend les cibles à l'autre bout. Il va devoir commencer à poser des questions.</p>
+  </div>
+
+  <h4>Ce qu'il sait que Ryn ne sait pas — asymétrie d'information</h4>
+  <p>Calder entre dans le T1 avec une avance d'information significative sur Ryn. Cette asymétrie est l'une des tensions principales du tome. Elle se réduit progressivement à mesure que Ryn comprend sa situation réelle.</p>
+  <table>
+    <thead><tr><th>Ce que Calder sait</th><th>Ce que Ryn sait</th><th>Quand l'écart se réduit</th></tr></thead>
+    <tbody>
+      <tr><td>Le nom de la marque et sa nature</td><td>Qu'elle a une brûlure sur l'épaule</td><td>Ch.3-4, pendant le marché</td></tr>
+      <tr><td>Ce que Varek prévoit pour elle</td><td>Qu'il la veut — pas pourquoi</td><td>Ch.8-9, progressivement</td></tr>
+      <tr><td>Les stades de la marque et leurs effets</td><td>Que ça chauffe et brûle</td><td>Ch.10-14, par démonstration</td></tr>
+      <tr><td>Que l'anomalie est réelle</td><td>Que la marque "fait quelque chose"</td><td>Jamais complètement — T1 laisse ouvert</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="sera-t1">Sera — présence dans le T1</h3>
+  <div class="card gold">
+    <div class="card-top"></div>
+    <div class="card-lbl">Sera · 17 ans · Sections courtes intercalées · Max 3-4 dans T1</div>
+    <p>Sera a 17 ans dans le T1. Sa voix analytique est présente mais brute. Elle vit dans le même district que Ryn. Elle observe l'arrivée de Calder avec la précision caractéristique — mais elle rate une lecture importante. C'est intentionnel.</p>
+    <p><strong>Ses 3-4 sections dans le T1 :</strong> Ch.1 ou Ch.2 (avant l'arrivée de Calder — elle perçoit que quelque chose a changé dans le district sans encore savoir quoi), Ch.4-5 (pendant le marché — elle lit Calder plus précisément que Ryn mais rate la lecture de Ryn), Ch.12-14 (l'anomalie — elle observe la marque réagir différemment, note, ne tire pas encore la bonne conclusion), Ch.final (le départ — brève, sobre).</p>
+  </div>
+
+  <div class="sealed">
+    <span class="sealed-lbl">Erreur de lecture scellée pour le T1</span>
+    <p>Sera rate une lecture dans le T1 — à définir lors du plan scène par scène. Le lecteur de BIA la voit. Sera ne la voit pas encore. Cette erreur doit être visible, pas catastrophique.</p>
+  </div>
+
+  <h3 id="aleth-t1">Aleth dans le T1</h3>
+  <div class="card ash">
+    <div class="card-top"></div>
+    <div class="card-lbl">Aleth · Vivante · Présence sobre et précise</div>
+    <p>Aleth vit dans le district. Elle est présente dans 2-3 scènes du T1 — jamais au centre de l'action, toujours en périphérie de celle de Sera ou de Ryn. Elle n'explique pas ses actions. Elle observe Sera observer. Le lecteur de BIA note quelque chose.</p>
+    <p>Elle ne sait pas encore que Calder est à Vael pour une cible — elle apprendra l'existence de la situation par la réaction de Sera, pas par information directe. Sa réponse sera sobre et précise. Elle ne dramatise pas.</p>
+    <div class="rule non">Aleth ne connaît pas Ryn directement dans le T1 — elle connaît Sera, qui connaît Ryn</div>
+    <div class="rule non">Aleth ne parle jamais du fragment ni du pouvoir de Sera dans le T1</div>
+    <div class="rule oui">Aleth est la seule personne que Sera laisse voir ce qu'elle observe — et encore, pas tout</div>
+  </div>
+</div>
+
+<!-- ══ III. STRUCTURE ══ -->
+<div class="section" id="structure-t1">
+  <span class="section-mark">Section III</span>
+  <h2>Structure — Les 4 Actes</h2>
+
+  <h3 id="ouverture">L'ouverture — Ch.1</h3>
+  <div class="principe">
+    <p><strong>In medias res.</strong> Le Ch.1 s'ouvre sur Ryn dans son district — la marque qui chauffe pour une raison qu'elle ne comprend pas encore. Pas d'exposition du monde. L'univers se révèle à travers ce que Ryn fait pour survivre, pas à travers une description.</p>
+    <p>Le Ch.1 établit : la voix de Ryn, la réalité physique de la marque, la texture du district de Vael, le fragment dans la poche de Sera (visible en section intercalée ou en observation brève). Le lecteur sait en 10 pages qu'il est dans quelque chose de différent.</p>
+  </div>
+
+  <h3 id="actes">Les quatre actes</h3>
+
+  <div class="acte">
+    <div class="acte-header">
+      <div class="acte-num">I</div>
+      <div class="acte-info">
+        <span class="acte-name">L'arrivée — La trouvaille</span>
+        <span class="acte-chapters">Ch.1–7 · ~25 000 mots</span>
+      </div>
+    </div>
+    <div class="acte-body">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem">Ryn dans son district. La marque qui chauffe. Calder qui arrive. Le marché proposé au Ch.3. Les premières démonstrations. La révélation de la ligne de Calder au Ch.7.</p>
+
+      <div class="ch-row">
+        <div class="ch-num">Ch.1</div>
+        <div class="ch-content">
+          <span class="ch-title">Le district un mardi</span>
+          <p class="ch-desc">Ryn dans son quotidien — la marque qui chauffe pour la troisième fois cette semaine. Elle gère. Elle note. Le lecteur comprend en dix pages ce qu'est sa vie. Section Sera : elle perçoit un changement dans le district. Quelqu'un qu'elle n'a pas encore vu est là.</p>
+        </div>
+        <div class="ch-pov ryn">Ryn<br>+ section Sera</div>
+      </div>
+
+      <div class="ch-row">
+        <div class="ch-num">Ch.2</div>
+        <div class="ch-content">
+          <span class="ch-title">Deux jours</span>
+          <p class="ch-desc">POV Calder — il a trouvé le district en deux jours. Il a la description. Il vérifie l'adresse. Il planifie l'approche du lendemain. Il note quelque chose dans la façon dont le district s'organise qui produit une pensée qu'il ne termine pas.</p>
+        </div>
+        <div class="ch-pov calder">Calder</div>
+      </div>
+
+      <div class="ch-row">
+        <div class="ch-num">Ch.3</div>
+        <div class="ch-content">
+          <span class="ch-title">Le marché</span>
+          <p class="ch-desc">Calder entre. La marque brûle — différemment. Ryn a deux secondes. Elle propose le marché : dix jours. Il accepte. Pas pour les raisons qu'il dit. Fin de chapitre : ils sont dans le même espace, le contrat est posé, aucun des deux ne comprend encore ce qu'il vient de faire.</p>
+        </div>
+        <div class="ch-pov ryn">Ryn</div>
+      </div>
+
+      <div class="ch-row">
+        <div class="ch-num">Ch.4</div>
+        <div class="ch-content">
+          <span class="ch-title">Jour un — ce qu'il sait</span>
+          <p class="ch-desc">Calder commence à expliquer ce qu'est la marque. Pas tout. Ce qui est nécessaire pour les dix jours. Ryn reçoit les informations avec la qualité de quelqu'un qui re-catalogue tout ce qu'elle croyait savoir. Section Sera : elle lit Calder depuis la distance. Sa lecture est précise sur lui, incomplète sur Ryn.</p>
+        </div>
+        <div class="ch-pov both">Ryn<br>+ section Sera</div>
+      </div>
+
+      <div class="ch-row">
+        <div class="ch-num">Ch.5–6</div>
+        <div class="ch-content">
+          <span class="ch-title">Les démonstrations — jours deux et trois</span>
+          <p class="ch-desc">Ryn montre. La marque réagit. Chaque démonstration révèle quelque chose que la documentation de Calder n'avait pas prévu. La tension physique de la proximité commence à être visible — pas nommée. Calder note. Il ne dit pas ce qu'il note.</p>
+        </div>
+        <div class="ch-pov both">Ryn + Calder alternés</div>
+      </div>
+
+      <div class="ch-row pic">
+        <div class="ch-num">Ch.7</div>
+        <div class="ch-content">
+          <span class="ch-title">🔴 PIC 1 — La ligne</span>
+          <p class="ch-desc">La révélation de la ligne que Calder ne franchit pas. Ce qu'il ne fera pas même sur ordre. Ryn comprend pourquoi il a accepté le marché. Le lecteur comprend que Calder n'est pas ce qu'il présentait. Ce pic change la nature de tout ce qui vient après.</p>
+        </div>
+        <div class="ch-pov calder">Calder</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acte">
+    <div class="acte-header">
+      <div class="acte-num">II</div>
+      <div class="acte-info">
+        <span class="acte-name">Les dix jours — La découverte</span>
+        <span class="acte-chapters">Ch.8–17 · ~30 000 mots</span>
+      </div>
+    </div>
+    <div class="acte-body">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem">Le cœur du slow burn. Chaque jour révèle une limite de la marque et une limite entre eux. La tension monte. L'anomalie devient visible. Le marché tient mais change de nature.</p>
+
+      <div class="ch-row">
+        <div class="ch-num">Ch.8–10</div>
+        <div class="ch-content">
+          <span class="ch-title">Jours quatre à six — les limites</span>
+          <p class="ch-desc">Trois démonstrations successives. Chacune pousse la marque un peu plus loin. Chacune révèle une propriété non documentée. Calder note. Ryn observe Calder noter. La documentation qu'il a apportée est insuffisante — il commence à construire la sienne.</p>
+        </div>
+        <div class="ch-pov both">Alternance Ryn / Calder</div>
+      </div>
+
+      <div class="ch-row pic">
+        <div class="ch-num">Ch.11–12</div>
+        <div class="ch-content">
+          <span class="ch-title">🔴 PIC 2 — L'anomalie</span>
+          <p class="ch-desc">La marque fait quelque chose d'activement différent en présence de Calder — pas la chaleur ordinaire, pas l'activation violente. Une pulsation, un signal. Ryn le cache. Calder l'a vu. Ni l'un ni l'autre ne le dit. Section Sera : elle observe depuis la distance. Elle note l'anomalie. Sa conclusion est incomplète — c'est son erreur de lecture du T1.</p>
+        </div>
+        <div class="ch-pov ryn">Ryn<br>+ section Sera</div>
+      </div>
+
+      <div class="ch-row">
+        <div class="ch-num">Ch.13–16</div>
+        <div class="ch-content">
+          <span class="ch-title">Jours sept à neuf — la proximité</span>
+          <p class="ch-desc">La tension physique devient impossible à ignorer. Pas expliquée — présente dans les choix de placement dans l'espace, dans les silences, dans ce que chacun regarde quand l'autre parle. L'erreur de jugement de Ryn (son défaut central, la confiance trop rapide) commence à se mettre en place. Elle opère pour la première fois avec des conséquences réelles au Ch.19 — son calcul sur le second agent expose Davan. Ce n'est pas catastrophique mais irréversible dans le tome : Davan a été exposé, Varek a une information qu'il n'aurait pas dû avoir. Ryn le porte jusqu'à la fin.</p>
+        </div>
+        <div class="ch-pov both">Ryn majoritaire</div>
+      </div>
+
+      <div class="ch-row">
+        <div class="ch-num">Ch.17</div>
+        <div class="ch-content">
+          <span class="ch-title">Le dixième jour — fin du marché</span>
+          <p class="ch-desc">Le marché est terminé. Elle a montré tout ce qu'elle peut. Il a tout expliqué. Le contrat est rempli. Il devrait la livrer maintenant. Ce qui se passe à la place est le tournant de l'Acte II vers l'Acte III.</p>
+        </div>
+        <div class="ch-pov calder">Calder</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acte">
+    <div class="acte-header">
+      <div class="acte-num">III</div>
+      <div class="acte-info">
+        <span class="acte-name">La rupture — Le choix</span>
+        <span class="acte-chapters">Ch.18–24 · ~25 000 mots</span>
+      </div>
+    </div>
+    <div class="acte-body">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem">Calder ne livre pas Ryn. La décision irréversible. Varek envoie un second agent. Les conséquences commencent.</p>
+
+      <div class="ch-row">
+        <div class="ch-num">Ch.18</div>
+        <div class="ch-content">
+          <span class="ch-title">Le second agent</span>
+          <p class="ch-desc">Calder voit l'agent de Varek dans le district. Il comprend ce que sa présence signifie — Varek ne lui faisait pas entièrement confiance. L'agent n'est pas là pour escorter, il est là pour exécuter. Calder prend une décision. Elle ne se défait pas.</p>
+        </div>
+        <div class="ch-pov calder">Calder</div>
+      </div>
+
+      <div class="ch-row pic">
+        <div class="ch-num">Ch.19–21</div>
+        <div class="ch-content">
+          <span class="ch-title">🔴 PIC 3 — La bascule nommée</span>
+          <p class="ch-desc">Ryn, Calder, Sera et Davan — movement dans le district pour éviter l'agent. La dynamique change : plus de marché, plus de mission. Deux personnes avec un ennemi commun. Dans la tension de cette fuite, quelque chose entre Ryn et Calder est nommé — pas résolu. Le lecteur attendait ce moment depuis le Ch.5. Calder le savait depuis le Ch.7. Ryn vient de comprendre.</p>
+        </div>
+        <div class="ch-pov ryn">Ryn<br>+ section Sera</div>
+      </div>
+
+      <div class="ch-row">
+        <div class="ch-num">Ch.22–24</div>
+        <div class="ch-content">
+          <span class="ch-title">Hors des ordres</span>
+          <p class="ch-desc">Calder sans mission est un personnage nouveau. Il n'a pas de cadre pour ce qu'il fait. La tension avec Ryn se gère différemment. L'agent de Varek est neutralisé — mais Varek sait maintenant ce que Calder a fait. La fenêtre est courte.</p>
+        </div>
+        <div class="ch-pov both">Alternance</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acte">
+    <div class="acte-header">
+      <div class="acte-num">IV</div>
+      <div class="acte-info">
+        <span class="acte-name">Le cliffhanger — Ce qui vient</span>
+        <span class="acte-chapters">Ch.25–30 · ~20 000 mots</span>
+      </div>
+    </div>
+    <div class="acte-body">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem">La réponse de Varek. Ce qu'elle implique. Le choix irréversible de Calder. La dernière ligne.</p>
+
+      <div class="ch-row">
+        <div class="ch-num">Ch.25–27</div>
+        <div class="ch-content">
+          <span class="ch-title">La réponse de Varek</span>
+          <p class="ch-desc">Varek envoie une déclaration — pas un agent cette fois. Une annonce formelle dans les canaux de l'empire. Ce qu'elle dit change la nature de la menace. Ryn comprend que fuir ne résout rien. Calder comprend que sa désobéissance a des conséquences qu'il n'avait pas complètement calculées.</p>
+        </div>
+        <div class="ch-pov both">Ryn + Calder</div>
+      </div>
+
+      <div class="ch-row">
+        <div class="ch-num">Ch.28–29</div>
+        <div class="ch-content">
+          <span class="ch-title">Scène d'ancrage physique 1</span>
+          <p class="ch-desc">La première scène d'ancrage physique mémorable — celle que le lecteur TikTok va citer. Elle arrive ici parce que la tension a tenu depuis le Ch.3 et que le lecteur l'attend depuis cent pages. Elle ne résout pas la tension romantique — elle la nomme physiquement pour la première fois.</p>
+        </div>
+        <div class="ch-pov ryn">Ryn</div>
+      </div>
+
+      <div class="ch-row pic">
+        <div class="ch-num">Ch.30</div>
+        <div class="ch-content">
+          <span class="ch-title">🔴 PIC 4 / Cliffhanger — La décision</span>
+          <p class="ch-desc">Calder fait le choix final du T1 — celui qui définit tout le T2. Pas un sacrifice héroïque : une décision logique qui suit exactement son code, appliqué pour la première fois à quelqu'un d'autre que lui-même. La dernière ligne du tome. Le tome se ferme sur cette décision, pas sur une résolution.</p>
+        </div>
+        <div class="ch-pov calder">Calder</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ IV. PICS ══ -->
+<div class="section" id="pics">
+  <span class="section-mark">Section IV</span>
+  <h2>Les 4 Pics Émotionnels</h2>
+
+  <div class="pics-grid">
+    <div class="pic-card major">
+      <span class="pic-num">1</span>
+      <span class="pic-name">La ligne de Calder</span>
+      <span class="pic-ch">Ch.7 · POV Calder</span>
+      <p>La révélation de ce qu'il ne fera pas même sur ordre. Ce moment change la nature du marché rétrospectivement — le lecteur relit mentalement les Ch.3-6 avec cette information. C'est le premier moment où le lecteur comprend que Calder n'est pas juste un exécutant.</p>
+    </div>
+    <div class="pic-card">
+      <span class="pic-num">2</span>
+      <span class="pic-name">L'anomalie de la marque</span>
+      <span class="pic-ch">Ch.11-12 · POV Ryn + section Sera</span>
+      <p>La marque pulse différemment en présence de Calder. Ni l'un ni l'autre ne le dit. Le lecteur le voit. Sera le note mais tire la mauvaise conclusion. C'est un pic de tension interne — pas d'action, juste le moment où quelque chose bascule silencieusement.</p>
+    </div>
+    <div class="pic-card major">
+      <span class="pic-num">3</span>
+      <span class="pic-name">La bascule nommée</span>
+      <span class="pic-ch">Ch.19-21 · POV Ryn</span>
+      <p>Ce qui existe entre eux est nommé. Pas résolu — nommé. C'est le moment que BookTok cite dans les vidéos "I am not okay". Il fonctionne parce que tout le tome l'a rendu inévitable. Si le lecteur ne l'a pas vu venir depuis le Ch.5, ce chapitre a été mal préparé.</p>
+    </div>
+    <div class="pic-card">
+      <span class="pic-num">4</span>
+      <span class="pic-name">Le choix irréversible</span>
+      <span class="pic-ch">Ch.30 · POV Calder · Cliffhanger</span>
+      <p>Calder applique son propre code pour la première fois à quelqu'un d'autre que lui-même. La décision est logique selon ses valeurs. Elle est irréversible dans ses conséquences. T2 commence parce que ce choix a été fait.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ V. MÉCANIQUE ══ -->
+<div class="section" id="mecanique">
+  <span class="section-mark">Section V</span>
+  <h2>Mécaniques Clés du Tome 1</h2>
+
+  <h3 id="marche">Le marché — Ch.3 · Construction exacte</h3>
+  <div class="principe">
+    <p>Le marché doit fonctionner comme un <em>bargain forcé</em> crédible — Ryn propose quelque chose de réel, Calder accepte pour une raison qui n'est pas celle qu'il dit. Voici la mécanique :</p>
+    <p><strong>Ce que Ryn propose :</strong> dix jours de démonstrations documentées de ce que la marque peut faire. Si les données valent quelque chose à Varek, Calder peut négocier une livraison volontaire au lieu d'une capture — ce qui est plus sûr pour tout le monde.</p>
+    <p><strong>Ce que Calder entend :</strong> une offre logique qui lui donne le temps de comprendre pourquoi la marque réagit différemment à sa présence avant de livrer quelque chose qu'il ne comprend pas entièrement.</p>
+    <p><strong>Ce que le lecteur comprend :</strong> que Ryn achète du temps. Que Calder le sait. Et qu'il accepte quand même.</p>
+  </div>
+
+  <h3 id="marque-t1">La marque dans le T1 — stades et limites</h3>
+  <p>Dans le T1, la marque est au stade 2 (réactif) en début de tome et touche au stade 3 (actif) lors des dernières démonstrations. Elle n'atteint jamais le stade 4 (arme de masse) dans ce tome — c'est l'enjeu du T3.</p>
+
+  <table>
+    <thead><tr><th>Démonstration</th><th>Acte</th><th>Ce qui est révélé</th><th>Ce qui n'est pas révélé</th></tr></thead>
+    <tbody>
+      <tr><td>1ère — Ch.5</td><td>I</td><td>La marque peut chauffer volontairement à faible intensité</td><td>Qu'elle peut faire beaucoup plus</td></tr>
+      <tr><td>2ème — Ch.8</td><td>II</td><td>Elle peut être dirigée vers un objet spécifique</td><td>La portée réelle</td></tr>
+      <tr><td>3ème — Ch.10</td><td>II</td><td>Elle s'active plus facilement que prévu — et plus vite</td><td>Le déclencheur réel</td></tr>
+      <tr><td>L'anomalie — Ch.12</td><td>II</td><td>[Cachée par Ryn]</td><td>Que la marque pulse différemment avec Calder</td></tr>
+      <tr><td>Dernière — Ch.25</td><td>IV</td><td>La limite haute du stade 3</td><td>Ce que le stade 4 ferait</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="ligne">La ligne de Calder — Ch.7</h3>
+  <div class="sealed">
+    <span class="sealed-lbl">À définir précisément avant la rédaction du Ch.7</span>
+    <p>La ligne que Calder ne franchit pas est la clé du personnage. Elle doit être : spécifique (pas vague), crédible dans son code militaire, et suffisamment sérieuse pour que son application à la situation de Ryn change tout. Candidat : il ne livre pas quelqu'un à une mort qui n'est pas une exécution — c'est-à-dire une mort instrumentale, utilisée comme ressource plutôt que comme punition. Ce que Varek prévoit pour Ryn est une activation instrumentale. C'est sa ligne.</p>
+  </div>
+
+  <h3 id="anomalie">L'anomalie — règles d'usage dans le T1</h3>
+  <div class="rule non">L'anomalie n'est pas expliquée dans le T1 — ni par le texte, ni par les personnages</div>
+  <div class="rule non">Calder ne mentionne pas l'anomalie à Ryn dans le T1 — il l'a vue, il la note, il attend</div>
+  <div class="rule non">Sera ne tire pas la bonne conclusion sur l'anomalie — c'est son erreur de lecture du T1</div>
+  <div class="rule oui">L'anomalie est visible pour le lecteur — les deux personnages la perçoivent, ni l'un ni l'autre ne la nomme</div>
+  <div class="rule oui">L'explication partielle arrive en T2 — pas en T1</div>
+</div>
+
+<!-- ══ VI. À SCELLER ══ -->
+<div class="section" id="sceller">
+  <span class="section-mark">Section VI</span>
+  <h2>Éléments à Sceller Avant ou Pendant le Ch.1</h2>
+
+  <h3 id="derniere">La dernière ligne du T1</h3>
+  <div class="sealed">
+    <span class="sealed-lbl">Dernière ligne — à sceller avant la rédaction du Ch.1</span>
+    <p>La dernière ligne est la cible narrative. Tout le tome s'écrit vers elle. POV Calder. <strong>Scellée v1.1 :</strong> <em>"He closed the second section of the notebook and put it in his coat, next to where her name had lived for ten days. Varek was coming. He started walking."</em><br>Trois phrases. Le carnet (He Falls First), la menace (Varek arrive), l'action sans hésitation (il part). Cette ligne doit circuler seule sur BookTok sans contexte et produire une sensation immédiate.</p>
+  </div>
+
+  <h3 id="geste">Le geste physique de Ryn</h3>
+  <div class="sealed">
+    <span class="sealed-lbl">À définir pendant la rédaction du Ch.1 — verrouiller immédiatement</span>
+    <p>Un geste corporel précis que Ryn fait quand elle prend une décision ou calcule une situation risquée. Ce geste traverse les trois tomes. Il revient en miroir aux moments de pivot avec une variation qui signale le changement de Ryn. À identifier lors de la rédaction du Ch.1 et documenté ici dès qu'il apparaît. Règle absolue : le geste ne s'explique jamais.</p>
+  </div>
+
+  <h3 id="objet">L'objet-symbole de Calder</h3>
+  <div class="sealed">
+    <span class="sealed-lbl">À définir pendant la rédaction du Ch.3 — verrouiller immédiatement</span>
+    <p>Un objet que Calder porte ou une action qu'il fait qui révèle indirectement sa ligne. Quelque chose de physique et de précis — pas métaphorique. Il revient aux moments où son code est testé. À identifier lors de la rédaction du Ch.3 et documenté ici dès qu'il apparaît.</p>
+  </div>
+</div>
+
+<!-- ══ VII. RÈGLES T1 ══ -->
+<div class="section" id="regles-t1">
+  <span class="section-mark">Section VII</span>
+  <h2>Règles Spécifiques au Tome 1</h2>
+
+  <h3 id="voix-t1">Distribution des POV par acte</h3>
+  <table>
+    <thead><tr><th>Acte</th><th>POV dominant</th><th>Sections Sera</th><th>Justification</th></tr></thead>
+    <tbody>
+      <tr><td>Acte I (Ch.1-7)</td><td>Ryn 60% / Calder 40%</td><td>Ch.1, Ch.4</td><td>Installation — le lecteur doit connaître Ryn avant tout</td></tr>
+      <tr><td>Acte II (Ch.8-17)</td><td>Ryn 50% / Calder 50%</td><td>Ch.12</td><td>Les dix jours — l'alternance construit le He Falls First</td></tr>
+      <tr><td>Acte III (Ch.18-24)</td><td>Ryn 65% / Calder 35%</td><td>Ch.19-21</td><td>La bascule doit être dans la tête de Ryn — sa découverte</td></tr>
+      <tr><td>Acte IV (Ch.25-30)</td><td>Ryn 40% / Calder 60%</td><td>Aucune</td><td>Le cliffhanger est le choix de Calder — il doit être dans sa tête</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Règles spécifiques au T1</h3>
+  <div class="rule non">Pas de POV Sera dans l'Acte IV — la fin appartient à Ryn et Calder</div>
+  <div class="rule non">Pas de révélation de la nature de l'anomalie dans le T1</div>
+  <div class="rule non">Pas de scène romantique résolue avant le Ch.28 — la tension doit tenir tout le tome</div>
+  <div class="rule non">Pas de dialogue explicatif sur l'univers Kaerath — tout arrive par l'action et la nécessité</div>
+  <div class="rule non">Pas d'introduction de Kael dans le T1 — il est une rumeur du district, pas plus</div>
+  <div class="rule oui">La marque chauffe dans au moins une scène par acte — c'est le rappel physique de l'enjeu</div>
+  <div class="rule oui">Le fragment est dans la poche de Sera dans chaque section Sera — présent, jamais commenté</div>
+  <div class="rule oui">Davan est visible dans le district — il observe, il est là, il ne fait pas encore partie du centre de l'action</div>
+  <div class="rule oui">Le geste de Ryn (défini au Ch.1) revient au moins 3 fois dans le T1 avant le Ch.30</div>
+  <div class="rule oui">L'humour involontaire de Calder arrive au moins deux fois — jamais dans les scènes de tension maximale</div>
+
+  <h3 id="decisions-t1">Décisions scellées pour le T1</h3>
+  <table>
+    <thead><tr><th>Élément</th><th>Décision scellée</th></tr></thead>
+    <tbody>
+      <tr><td>Ouverture</td><td>In medias res — Ryn dans le district, la marque qui chauffe. Pas d'exposition.</td></tr>
+      <tr><td>Le marché</td><td>Proposé par Ryn au Ch.3 — pas au Ch.1 ni au Ch.5</td></tr>
+      <tr><td>Pic 1</td><td>La ligne de Calder — Ch.7 — POV Calder</td></tr>
+      <tr><td>Pic 2</td><td>L'anomalie de la marque — Ch.11-12 — POV Ryn + section Sera</td></tr>
+      <tr><td>Pic 3</td><td>La bascule nommée — Ch.19-21 — POV Ryn</td></tr>
+      <tr><td>Pic 4</td><td>Le choix irréversible de Calder — Ch.30 — POV Calder — Cliffhanger</td></tr>
+      <tr><td>Scène physique 1</td><td>Ch.28-29 — première scène d'ancrage mémorable</td></tr>
+      <tr><td>Erreur de Sera</td><td>Une erreur de lecture visible dans le T1 — à définir au plan</td></tr>
+      <tr><td>Aleth</td><td>2-3 scènes, vivante, sobre, jamais centrale</td></tr>
+      <tr><td>Kael dans le T1</td><td>Rumeur du district — jamais vu en personne</td></tr>
+      <tr><td>Sections Sera</td><td>Ch.1, Ch.4, Ch.12, Ch.19-21 — maximum 4</td></tr>
+      <tr><td>Résolution romantique</td><td>Absente — bascule nommée en Ch.19-21, pas résolue</td></tr>
+      <tr><td>Cliffhanger</td><td>La décision de Calder — Varek va répondre. T2 obligatoire.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="doc-footer">
+  Forged in Ash · The Mark · Bible Tome 1 v1.0 · Mars 2026 · Vera Draye<br>
+  Univers Kaerath · Développe la Bible Générale FIA v1.0<br>
+  Prochaine étape : Plan scène par scène · ~30 chapitres
+</div>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORGED IN ASH — Plan T1 : The Mark · Scène par Scène</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --black: #06080a;
+  --deep: #0b0f12;
+  --card: #10151a;
+  --card-alt: #0d1216;
+  --border: #1a2530;
+  --border-bright: #253545;
+  --steel: #4a8ab0;
+  --steel-dim: #2a5a78;
+  --steel-pale: rgba(74,138,176,0.06);
+  --steel-glow: rgba(74,138,176,0.1);
+  --ember: #d4621a;
+  --ember-dim: #8a3808;
+  --ember-pale: rgba(212,98,26,0.06);
+  --gold: #b8903a;
+  --gold-dim: #6a5020;
+  --ash: #506070;
+  --text: #ccdde8;
+  --text-dim: #7a90a0;
+  --text-faint: #334454;
+  --white: #eef4f8;
+  --red: #c04040;
+  --red-pale: rgba(192,64,64,0.08);
+  --green: #40a060;
+  --green-pale: rgba(64,160,96,0.07);
+  --sera-color: #9a7a40;
+  --kael-hint: rgba(74,106,176,0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.85;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 30% at 15% 5%, rgba(74,138,176,0.04) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0;
+  width: 210px; height: 100vh;
+  background: #070b0e;
+  border-right: 1px solid var(--border);
+  padding: 1.3rem 0.9rem;
+  overflow-y: auto; z-index: 100;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.nav-brand { margin-bottom: 1.2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.nav-series { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; color: var(--text-faint); letter-spacing: 0.2em; text-transform: uppercase; display: block; }
+.nav-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--gold); display: block; margin: 0.2rem 0 0.05rem; }
+.nav-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--steel-dim); display: block; }
+
+.nav-act { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; color: var(--ember-dim); text-transform: uppercase; letter-spacing: 0.15em; margin: 1rem 0 0.25rem; padding-bottom: 0.2rem; border-bottom: 1px solid var(--border); }
+
+nav a { display: block; font-size: 0.64rem; color: var(--text-dim); text-decoration: none; padding: 0.15rem 0.35rem; border-radius: 2px; transition: all 0.15s; font-family: 'Source Serif 4', serif; line-height: 1.5; }
+nav a:hover { color: var(--steel); background: var(--steel-pale); padding-left: 0.6rem; }
+nav a.pic { color: var(--ember-dim); }
+nav a.pic:hover { color: var(--ember); }
+
+/* ── MAIN ── */
+main { margin-left: 210px; padding: 0 3.5rem 8rem; max-width: 980px; position: relative; z-index: 1; }
+
+/* ── COVER ── */
+.cover {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; padding: 5rem 0 4rem;
+  border-bottom: 1px solid var(--border);
+}
+.cover-parent { font-family: 'JetBrains Mono', monospace; font-size: 0.56rem; color: var(--text-faint); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 0.8rem; }
+.cover-series { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--gold); font-style: italic; margin-bottom: 0.3rem; }
+.cover h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; color: var(--white); font-weight: 900; line-height: 1; margin-bottom: 0.2rem; }
+.cover-subtitle { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--steel); font-style: italic; margin-bottom: 2.5rem; }
+.cover-line { width: 70px; height: 1px; background: linear-gradient(90deg, var(--steel), var(--gold), transparent); margin-bottom: 1.8rem; }
+.cover-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.56rem; color: var(--text-faint); letter-spacing: 0.1em; line-height: 2.2; }
+.cover-stats { display: flex; gap: 2.5rem; margin-top: 2.8rem; flex-wrap: wrap; }
+.stat .n { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--steel); display: block; line-height: 1; }
+.stat .l { font-family: 'JetBrains Mono', monospace; font-size: 0.48rem; color: var(--text-faint); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.15rem; }
+
+/* ── ACT HEADER ── */
+.act-header {
+  position: sticky; top: 0; z-index: 50;
+  background: #070b0e;
+  border-bottom: 1px solid var(--border);
+  padding: 1.2rem 0;
+  margin-bottom: 0;
+  display: flex; align-items: center; gap: 1.5rem;
+}
+.act-num { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--steel); opacity: 0.2; line-height: 1; }
+.act-info {}
+.act-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--white); display: block; }
+.act-range { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--text-faint); letter-spacing: 0.12em; }
+.act-desc { font-size: 0.82rem; color: var(--text-dim); max-width: 600px; margin-left: auto; font-style: italic; }
+
+/* ── CHAPTER ── */
+.chapter {
+  border-left: 2px solid var(--border);
+  margin: 2.5rem 0 0;
+  padding: 0 0 0 1.5rem;
+  position: relative;
+}
+.chapter::before {
+  content: '';
+  position: absolute;
+  left: -1px; top: 0;
+  width: 2px; height: 3rem;
+  background: linear-gradient(180deg, var(--steel-dim), transparent);
+}
+.chapter.pic-chapter { border-left-color: var(--ember-dim); }
+.chapter.pic-chapter::before { background: linear-gradient(180deg, var(--ember-dim), transparent); }
+
+.ch-meta {
+  display: flex; align-items: baseline; gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.ch-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--steel); opacity: 0.3; line-height: 1; min-width: 2.5rem; }
+.chapter.pic-chapter .ch-num { color: var(--ember); }
+.ch-head { flex: 1; }
+.ch-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); display: block; font-weight: 700; }
+.ch-tags { display: flex; gap: 0.5rem; margin-top: 0.3rem; flex-wrap: wrap; }
+.tag { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; padding: 0.1rem 0.4rem; border-radius: 2px; letter-spacing: 0.1em; text-transform: uppercase; }
+.tag.pov-ryn { background: var(--ember-pale); color: var(--ember); border: 1px solid var(--ember-dim); }
+.tag.pov-calder { background: var(--steel-pale); color: var(--steel); border: 1px solid var(--steel-dim); }
+.tag.pov-sera { background: rgba(154,122,64,0.1); color: var(--sera-color); border: 1px solid var(--gold-dim); font-style: italic; }
+.tag.pic { background: rgba(212,98,26,0.12); color: var(--ember); border: 1px solid var(--ember-dim); }
+.tag.mots { background: transparent; color: var(--text-faint); border: 1px solid var(--border); }
+.tag.sera-section { background: rgba(154,122,64,0.08); color: var(--sera-color); border: 1px solid var(--gold-dim); }
+
+.ch-function { font-size: 0.78rem; color: var(--steel-dim); font-style: italic; margin-bottom: 1rem; font-family: 'Source Serif 4', serif; }
+
+/* ── SCENES ── */
+.scenes { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1rem; }
+
+.scene {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1rem 1.3rem;
+}
+.scene.sera-insert {
+  background: rgba(154,122,64,0.04);
+  border-color: var(--gold-dim);
+  border-left: 3px solid var(--sera-color);
+  border-radius: 0 3px 3px 0;
+}
+.scene-num { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; color: var(--text-faint); display: block; margin-bottom: 0.3rem; }
+.scene-name { font-family: 'Source Serif 4', serif; font-size: 0.88rem; color: var(--white); font-weight: 600; display: block; margin-bottom: 0.4rem; }
+.scene p { font-size: 0.83rem; color: var(--text-dim); margin: 0; line-height: 1.7; }
+.scene-note { font-size: 0.76rem; color: var(--text-faint); margin-top: 0.4rem; font-style: italic; }
+
+/* ── END LINE ── */
+.ch-end {
+  background: #0a0e12;
+  border-left: 3px solid var(--steel-dim);
+  border-radius: 0 3px 3px 0;
+  padding: 0.6rem 1rem;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+.ch-end strong { color: var(--steel); }
+.chapter.pic-chapter .ch-end { border-left-color: var(--ember-dim); }
+.chapter.pic-chapter .ch-end strong { color: var(--ember); }
+
+/* ── FOOTER ── */
+.doc-footer {
+  text-align: center; padding: 4rem 0 2rem;
+  border-top: 1px solid var(--border); margin-top: 5rem;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.53rem;
+  color: var(--text-faint); letter-spacing: 0.15em; text-transform: uppercase; line-height: 2.2;
+}
+
+hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <span class="nav-series">FIA · Plan T1</span>
+    <span class="nav-title">The Mark</span>
+    <span class="nav-subtitle">Scène par scène · v1.0</span>
+  </div>
+
+  <div class="nav-act">Acte I — Ch.1–7</div>
+  <a href="#ch1">Ch.1 — Le district un mardi</a>
+  <a href="#ch2">Ch.2 — Deux jours</a>
+  <a href="#ch3">Ch.3 — Le marché</a>
+  <a href="#ch4">Ch.4 — Jour un</a>
+  <a href="#ch5">Ch.5 — Première démonstration</a>
+  <a href="#ch6">Ch.6 — Jour trois</a>
+  <a href="#ch7" class="pic">Ch.7 — 🔴 PIC 1 · La ligne</a>
+
+  <div class="nav-act">Acte II — Ch.8–17</div>
+  <a href="#ch8">Ch.8 — Jour quatre</a>
+  <a href="#ch9">Ch.9 — Documentation</a>
+  <a href="#ch10">Ch.10 — Jour six</a>
+  <a href="#ch11" class="pic">Ch.11 — 🔴 PIC 2 · L'anomalie</a>
+  <a href="#ch12">Ch.12 — Section Sera</a>
+  <a href="#ch13">Ch.13 — Jour huit</a>
+  <a href="#ch14">Ch.14 — Ce qu'il cache</a>
+  <a href="#ch15">Ch.15 — Jour neuf</a>
+  <a href="#ch16">Ch.16 — La proximité</a>
+  <a href="#ch17">Ch.17 — Jour dix</a>
+
+  <div class="nav-act">Acte III — Ch.18–24</div>
+  <a href="#ch18">Ch.18 — Le second agent</a>
+  <a href="#ch19" class="pic">Ch.19 — 🔴 PIC 3 · La fuite</a>
+  <a href="#ch20">Ch.20 — Ce qui est nommé</a>
+  <a href="#ch21">Ch.21 — Section Sera · fin</a>
+  <a href="#ch22">Ch.22 — L'agent neutralisé</a>
+  <a href="#ch23">Ch.23 — Hors des ordres</a>
+  <a href="#ch24">Ch.24 — Ce que Varek sait</a>
+
+  <div class="nav-act">Acte IV — Ch.25–30</div>
+  <a href="#ch25">Ch.25 — La déclaration</a>
+  <a href="#ch26">Ch.26 — Ce que ça change</a>
+  <a href="#ch27">Ch.27 — Dernière démonstration</a>
+  <a href="#ch28">Ch.28 — La scène physique</a>
+  <a href="#ch29">Ch.29 — Le lendemain</a>
+  <a href="#ch30" class="pic">Ch.30 — 🔴 PIC 4 · La décision</a>
+</nav>
+
+<main>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-parent">Forged in Ash · Kaerath Universe · Plan Tome</div>
+  <div class="cover-series">Forged in Ash</div>
+  <h1>The Mark</h1>
+  <div class="cover-subtitle">Tome 1 · Plan Scène par Scène · v1.0</div>
+  <div class="cover-line"></div>
+  <div class="cover-meta">
+    Vera Draye · Mars 2026 · Confidentiel<br>
+    En cohérence avec : Bible Générale FIA v1.0 · Bible T1 v1.0<br>
+    30 chapitres · 4 actes · ~100 000 mots
+  </div>
+  <div class="cover-stats">
+    <div class="stat"><span class="n">30</span><span class="l">Chapitres</span></div>
+    <div class="stat"><span class="n">4</span><span class="l">Actes</span></div>
+    <div class="stat"><span class="n">4</span><span class="l">Pics émotionnels</span></div>
+    <div class="stat"><span class="n">4</span><span class="l">Sections Sera</span></div>
+    <div class="stat"><span class="n">~3 300</span><span class="l">Mots/chapitre</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- ACTE I -->
+<!-- ══════════════════════════════════════════════════ -->
+
+<div id="acte1" class="act-header" style="margin-top:0">
+  <div class="act-num">I</div>
+  <div class="act-info">
+    <span class="act-title">L'arrivée — La trouvaille</span>
+    <span class="act-range">Ch.1–7 · ~25 000 mots · Ryn 60% / Calder 40%</span>
+  </div>
+  <div class="act-desc">Ryn dans son district. La marque. Calder qui arrive. Le marché au Ch.3. Les premières démonstrations. La révélation de la ligne au Ch.7.</div>
+</div>
+
+<!-- Ch.1 -->
+<div id="ch1" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">1</div>
+    <div class="ch-head">
+      <span class="ch-title">Le district un mardi</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag sera-section">+ section Sera</span>
+        <span class="tag mots">~3 400 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Installation de Ryn, du district, de la marque. Première section Sera. Le lecteur comprend en dix pages dans quoi il entre.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Ouverture in medias res</span>
+      <span class="scene-name">La marque chauffe</span>
+      <p>Ryn dans le district, un mardi matin — le marché extérieur, la foule ordinaire. La marque chauffe. Troisième fois cette semaine. Elle ne comprend pas le déclencheur. Ce n'est pas la violence — il n'y en a pas. Elle s'arrête dans une ruelle, débande rapidement l'épaule, vérifie. Stade 2 : chaud, rouge, pas encore brûlure. Elle rebande. Elle continue. Le lecteur comprend : c'est sa routine depuis vingt ans.</p>
+      <p class="scene-note">Establir : la voix de Ryn (instinctive, économe, humour inadapté), la réalité physique de la marque, le district comme espace connu et maîtrisé.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · La journée ordinaire</span>
+      <span class="scene-name">Ce que Ryn fait pour vivre</span>
+      <p>Ryn dans son économie duale — elle fait quelque chose dans la zone grise du district (information, transit de biens, services de discrétion). Pas illégal au sens militaire, pas légal au sens administratif. C'est comment le district fonctionne. Davan passe, note quelque chose, repart sans s'arrêter. Elle note qu'il a noté. Ils ne se parlent pas — ils n'ont pas besoin.</p>
+      <p class="scene-note">Installer Davan comme présence de fond. Ne pas l'expliquer. La relation Sera/Davan se révèle à travers leurs comportements, pas par exposition.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · La marque encore</span>
+      <span class="scene-name">Quelque chose a changé dans le district</span>
+      <p>Fin d'après-midi. La marque pulse à nouveau — brièvement, sans raison visible. Ryn s'arrête. Elle fait le tour du district mentalement. Rien de différent en surface. Mais la marque ne ment pas. Elle décide de changer sa route pour rentrer.</p>
+      <p class="scene-note">Premier signal — quelque chose de nouveau est dans le district sans que Ryn puisse encore l'identifier. Le lecteur comprend avant elle : Calder est là depuis trois jours.</p>
+    </div>
+    <div class="scene sera-insert">
+      <span class="scene-num">Section Sera — intercalée en italique</span>
+      <span class="scene-name">Un mardi, quelqu'un que je n'ai pas encore vu</span>
+      <p><em>Section courte (300-400 mots). Sera observe le district depuis sa position habituelle. Elle a noté quelque chose hier et avant-hier — une présence qui ne correspond pas aux patterns du district. Pas une menace immédiate. Une anomalie dans la façon dont les gens se déplacent autour d'un point fixe qu'elle n'a pas encore localisé. Elle note. Elle attendit de voir si le pattern se confirme. Le fragment est dans sa poche — sa main le trouve en notant, sans qu'elle décide de le tenir.</em></p>
+      <p class="scene-note">Voix de Sera à 17 ans : analytique mais brute. Elle perçoit l'anomalie sans la localiser encore — pas d'erreur ici, juste une information incomplète qu'elle gère correctement. Le fragment : présent, jamais commenté.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ryn rentre par une route différente. La marque est froide. Tout va bien. Elle ne croit pas que tout va bien.</div>
+</div>
+
+<!-- Ch.2 -->
+<div id="ch2" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">2</div>
+    <div class="ch-head">
+      <span class="ch-title">Deux jours</span>
+      <div class="ch-tags">
+        <span class="tag pov-calder">POV Calder</span>
+        <span class="tag mots">~3 200 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Première entrée dans la tête de Calder. Asymétrie d'information maximale. Le lecteur voit tout ce que Ryn ne voit pas.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Calder dans le district</span>
+      <span class="scene-name">Il a trouvé l'adresse en deux jours</span>
+      <p>POV Calder. Il est dans le district depuis trois jours — les deux premiers à localiser, aujourd'hui à confirmer. Il a la description, l'adresse probable, les horaires de la cible. Il fait ce qu'il fait depuis vingt ans : vérifier les faits avant d'agir. Le district correspond à sa description dans les dossiers de Varek — économie duale, pas de garnison permanente, personnes sans lignée qui savent ne pas poser de questions.</p>
+      <p class="scene-note">Voix de Calder : dense, factuelle, chaînes de causalité. L'émotion dans ce qu'il choisit de ne pas dire. Son humour involontaire : il note quelque chose dans la façon dont le district s'organise qui produit une pensée qu'il ne termine pas — quelque chose sur l'efficacité des gens qui n'ont pas de filet de sécurité.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · La documentation</span>
+      <span class="scene-name">Ce que Varek lui a donné comme briefing</span>
+      <p>Calder relit le dossier de la mission. Porteur de marque de forge, femme, vingt ans, district de Vael. La marque est au stade 2 — réactive, pas encore active. Varek veut la récupération vivante. Le délai : dix jours avant que son réseau devienne visible. Calder note que c'est serré mais faisable. Il note aussi — sans développer — que les porteurs de marque au stade 2 ne survivent généralement pas longtemps après la livraison à Varek. Il classe cette information dans la catégorie : pas son problème.</p>
+      <p class="scene-note">Premier signal de la ligne de Calder — il note quelque chose et refuse de le développer. Le lecteur voit la suppression. Calder n'en est pas encore conscient.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · La planification</span>
+      <span class="scene-name">Demain matin</span>
+      <p>Calder planifie l'approche du lendemain. Il a plusieurs options. Il choisit la plus directe — entrer dans le district, se montrer à la cible, voir comment elle réagit. Les porteurs de marque fuient, en règle générale. La fuite crée des opportunités. Il ne planifie pas au-delà de la première réaction parce que la première réaction donne toutes les informations nécessaires.</p>
+      <p class="scene-note">La planification de Calder est juste — mais elle est basée sur ses expériences précédentes. Ryn ne va pas fuir. Le décalage entre sa planification et ce qui va se passer est le moteur du Ch.3.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Calder éteint la lampe. Il dormira quatre heures. Demain matin, il finit la mission en une journée. C'est ce qu'il pense.</div>
+</div>
+
+<!-- Ch.3 -->
+<div id="ch3" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">3</div>
+    <div class="ch-head">
+      <span class="ch-title">Le marché</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag mots">~3 500 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Le déclencheur de toute la série. Le bargain forcé s'active ici. Tout le tome existe parce que cette scène fonctionne.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · La marque brûle</span>
+      <span class="scene-name">Il est là avant qu'elle le voie</span>
+      <p>Ryn dans sa routine du matin. La marque brûle — pas chauffe, brûle. Elle s'arrête. Quelque chose dans le couloir du district est différent. Elle voit Calder avant qu'il la voie. Elle sait immédiatement ce qu'il est — pas à cause de la marque, à cause de la façon dont les gens de sa catégorie occupent l'espace. Elle a deux secondes.</p>
+      <p class="scene-note">Ryn lit correctement la situation (c'est un agent de Varek) mais la marque réagit d'une façon qu'elle ne reconnaît pas — pas seulement l'alarme habituelle. Elle note ça et le met de côté. Elle a deux secondes pour décider.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Le marché proposé</span>
+      <span class="scene-name">Dix jours</span>
+      <p>Ryn ne fuit pas. Elle se retourne et lui fait face. Ce qu'elle dit : "Je sais pourquoi tu es là. Avant de faire ce que tu es venu faire, écoute ce que je propose." Elle propose le marché : dix jours de démonstrations documentées. Si les données valent quelque chose à Varek, une livraison volontaire est plus sûre pour tout le monde. Elle dit ça avec le calme de quelqu'un qui a pensé à ce moment depuis des années.</p>
+      <p class="scene-note">La voix de Ryn ici est précise et courageuse — pas héroïque, pragmatique. C'est son instinct de survie appliqué à une situation sans précédent. Elle improvise un plan qu'elle vient d'inventer en deux secondes et le présente comme si elle l'avait préparé.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · L'acceptation</span>
+      <span class="scene-name">Il dit oui</span>
+      <p>Calder écoute. Il évalue. L'offre est logique — si les données sont utiles, Varek aura plus de valeur d'une livraison coopérative. Et la marque réagit différemment en sa présence, ce qu'il ne comprend pas encore mais qu'il a noté dans la seconde où il l'a vue. Dix jours pour comprendre ce que la documentation ne lui dit pas. Il dit oui. La raison qu'il donne à Ryn est la raison stratégique. La vraie raison, il ne la nomme pas encore.</p>
+      <p class="scene-note">POV Ryn — elle ne sait pas ce qu'il ne dit pas. Le lecteur le voit dans la façon dont Calder répond : trop vite, trop facilement. Le He Falls First commence ici, bien avant que l'un ou l'autre le comprenne.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 4 · Les termes</span>
+      <span class="scene-name">Ce que chacun accepte</span>
+      <p>Ils négocient les termes du marché. Dix jours. Une démonstration par jour, ou deux si la session est productive. Calder documente. Ryn a le droit de fixer les limites de chaque session. En échange, il lui explique ce qu'est réellement la marque — pas tout, ce qui est nécessaire pour les démonstrations. Ils fixent un lieu : une salle dans le district, ni chez l'un ni chez l'autre.</p>
+      <p class="scene-note">La négociation révèle leurs caractères : Ryn pousse sur les limites de session (elle se protège), Calder accepte facilement (il n'a pas besoin de la pousser — il veut voir ce qui se passe naturellement). Fin de chapitre : le contrat est posé. Aucun des deux ne comprend encore ce qu'il vient de faire.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ils se séparent. Ryn rentre. La marque est froide — vraiment froide cette fois, pas l'alarme habituelle. Elle ne sait pas ce que ça signifie. Demain, premier jour.</div>
+</div>
+
+<!-- Ch.4 -->
+<div id="ch4" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">4</div>
+    <div class="ch-head">
+      <span class="ch-title">Jour un — ce qu'il sait</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag sera-section">+ section Sera</span>
+        <span class="tag mots">~3 300 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Réduction de l'asymétrie d'information. Ryn apprend ce qu'est la marque. La section Sera introduit son erreur de lecture du T1.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Ce que Calder lui dit</span>
+      <span class="scene-name">La marque de forge — version officielle</span>
+      <p>Premier jour de marché. Calder explique ce qu'est la marque de forge — ce qui est nécessaire pour les démonstrations, pas plus. Le nom. La nature du sceau. Le fait que Varek peut marquer des individus à la naissance. Les stades : dormant, réactif, actif. Elle est au stade 2. Ce qu'il ne lui dit pas encore : ce que Varek prévoit de faire avec elle. Ce que le stade 4 signifie.</p>
+      <p class="scene-note">Ryn reçoit ces informations avec la qualité de quelqu'un qui re-catalogue tout ce qu'elle croyait savoir sur elle-même. Vingt ans de "j'ai une brûlure inexpliquée" se réorganisent en "je suis une arme que quelqu'un a plantée dans ma lignée". Elle ne montre pas ce que ça lui fait. Calder le voit quand même.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce qu'elle choisit de montrer</span>
+      <span class="scene-name">Démonstration zéro</span>
+      <p>Pas encore une vraie démonstration — une calibration. Ryn fait chauffer la marque volontairement, au minimum. Calder observe. Il note quelque chose sur un carnet. Elle observe ce qu'il note. Il ne lui montre pas le carnet.</p>
+    </div>
+    <div class="scene sera-insert">
+      <span class="scene-num">Section Sera — intercalée</span>
+      <span class="scene-name">Je lis l'homme. Je rate Ryn.</span>
+      <p><em>Sera a observé l'échange de loin. Elle lit Calder avec précision : agent professionnel, ligne intérieure non négociable (elle le perçoit sans encore la nommer), mission clairement définie. Ce qu'elle lit mal : Ryn. Elle calcule que Ryn a proposé le marché par panique — que c'est une tactique de survie à court terme sans plan réel. Elle a tort. Ryn a un plan. Sera vient de rater la lecture la plus importante du chapitre. Le fragment est dans sa poche. Sa main le tient pendant qu'elle observe.</em></p>
+      <p class="scene-note">C'est l'erreur de lecture scellée du T1. Sera lit Calder correctement et Ryn incorrectement. Le lecteur de BIA voit l'erreur. Sera ne le verra pas avant qu'il soit trop tard pour que ça compte dans ce tome.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Ce que Aleth dit</span>
+      <span class="scene-name">Sobre, sans questions</span>
+      <p>Le soir. Ryn croise Aleth — pas planifié, une rencontre ordinaire dans le district. Aleth voit quelque chose sur Ryn. Elle ne demande pas ce que c'est. Elle dit une chose précise et utile — sur la façon dont les gens de l'empire traitent ceux qu'ils considèrent comme des ressources — et repart. Ryn tient la phrase le reste de la soirée.</p>
+      <p class="scene-note">Aleth dans sa première scène substantielle : économe, précise, jamais explicative. Le lecteur de BIA note quelque chose dans la façon dont elle parle.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ryn dans son espace. Elle tient ce qu'elle sait maintenant. Neuf jours restants. C'est un délai. Elle a travaillé avec moins.</div>
+</div>
+
+<!-- Ch.5 -->
+<div id="ch5" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">5</div>
+    <div class="ch-head">
+      <span class="ch-title">Première démonstration</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag mots">~3 200 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Première vraie démonstration. La marque révèle sa première propriété non documentée. La tension physique de la proximité commence à exister.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · La démonstration</span>
+      <span class="scene-name">La marque peut être dirigée</span>
+      <p>Jour deux. Première démonstration planifiée. Ryn montre que la marque peut chauffer volontairement à faible intensité et être orientée vers un objet spécifique — elle concentre la chaleur sur un bord de table. Pas beaucoup. Assez pour que ce soit mesurable. Calder note dans son carnet avec la précision d'un homme qui catalogue une anomalie — parce que la documentation ne mentionnait pas cette capacité directionnelle.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · La proximité commence</span>
+      <span class="scene-name">La distance entre eux</span>
+      <p>Calder s'approche pour observer de plus près. La marque pulse — différemment, brièvement, imperceptiblement pour lui mais pas pour Ryn. Elle ne dit rien. Elle note mentalement. Il note dans son carnet. Ce qu'ils notent chacun n'est pas la même chose.</p>
+      <p class="scene-note">Premier signal de l'anomalie — trop bref pour être clairement identifiable. Une demi-ligne dans le carnet de Calder. Un fait dans la liste de Ryn qu'elle ne sait pas encore comment interpréter.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · L'humour involontaire</span>
+      <span class="scene-name">Calder dit quelque chose de parfaitement littéral</span>
+      <p>Après la démonstration, Calder dit quelque chose d'entièrement pratique et précis dans un moment où Ryn attendait — sans s'en rendre compte — une réaction humaine quelconque. La phrase est juste. Elle est dépourvue de tout sous-texte. C'est ce qui la rend involontairement drôle. Ryn rit malgré elle. Calder ne comprend pas pourquoi.</p>
+      <p class="scene-note">Premier moment d'humour involontaire de Calder — scellé dans la Bible Générale : au moins deux par tome, jamais dans les scènes de tension maximale.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ils se séparent. Calder relit ses notes. Une ligne lui pose problème — pas la démonstration, quelque chose dans la façon dont la marque a réagi à sa proximité. Il ne développe pas la pensée. Il la marque d'un point d'interrogation.</div>
+</div>
+
+<!-- Ch.6 -->
+<div id="ch6" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">6</div>
+    <div class="ch-head">
+      <span class="ch-title">Jour trois — ce que la documentation ne dit pas</span>
+      <div class="ch-tags">
+        <span class="tag pov-calder">POV Calder</span>
+        <span class="tag mots">~3 100 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">POV Calder — il commence à construire sa propre documentation parce que la documentation de Varek est insuffisante. He Falls First s'installe sans qu'il le sache.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Calder relit ses notes</span>
+      <span class="scene-name">Le point d'interrogation</span>
+      <p>Calder confronte ses notes avec la documentation de Varek. Deux propriétés déjà non documentées en deux jours. C'est statistiquement inhabituel — les rapports précédents sur les porteurs de marque étaient plus complets. Soit les rapports sont incomplets, soit ce porteur est différent. Il ne tranche pas encore. Il ajoute des notes marginales. Le point d'interrogation sur la réaction de la marque à sa proximité reste sans réponse.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Deuxième démonstration</span>
+      <span class="scene-name">La marque s'active plus vite que prévu</span>
+      <p>La deuxième démonstration révèle une troisième propriété : la marque s'active plus rapidement que les données de Varek ne l'indiquent. Ryn met moins de trente secondes là où la documentation prévoyait plusieurs minutes. Calder note. Il commence à comprendre que son délai de dix jours — calculé sur la documentation — était basé sur des données fausses. La marque est plus avancée que Varek ne le savait.</p>
+      <p class="scene-note">Ceci modifie la pression narrative : si Varek a sous-estimé la marque, ses plans pour Ryn sont peut-être différents de ce que Calder a compris.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Ce qu'il commence à se demander</span>
+      <span class="scene-name">La question qu'il n'avait pas posée avant</span>
+      <p>Le soir. Calder seul avec ses notes. Pour la première fois depuis le début d'une mission, il pose une question sur ce qui attend la cible à l'autre bout. Pas par empathie — par logique : si la marque est plus avancée que documenté, l'activation instrumentale que Varek prévoit peut avoir des conséquences imprévues. Il s'arrête. Il classe la pensée. Ce n'est pas son problème. Il essaie de croire ça.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Calder ne termine pas la pensée. Mais il ne la supprime pas non plus, ce qui est différent de sa pratique habituelle. Il laisse le point d'interrogation ouvert. Il dormira quatre heures. Demain, jour quatre.</div>
+</div>
+
+<!-- Ch.7 — PIC 1 -->
+<div id="ch7" class="chapter pic-chapter">
+  <div class="ch-meta">
+    <div class="ch-num">7</div>
+    <div class="ch-head">
+      <span class="ch-title">La ligne</span>
+      <div class="ch-tags">
+        <span class="tag pov-calder">POV Calder</span>
+        <span class="tag pic">🔴 PIC 1</span>
+        <span class="tag mots">~3 500 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">La révélation de la ligne que Calder ne franchit pas. Ce moment change rétrospectivement tout ce qui précède. C'est le premier pic émotionnel du tome.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · La question de Ryn</span>
+      <span class="scene-name">Ce que Varek lui réserve</span>
+      <p>Jour quatre. Ryn pose la question qu'elle repoussait depuis le Ch.3 : ce que Varek prévoit de faire avec elle après la livraison. Calder ne répond pas immédiatement. Il calcule ce qu'il peut dire. Il dit quelque chose de vrai mais incomplet — que Varek veut activer la marque dans des conditions contrôlées.</p>
+      <p class="scene-note">Ryn entend "conditions contrôlées" et comprend ce que ça signifie pour elle. Pas une exécution — une utilisation. Une mort instrumentale à un moment de son choix à lui.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce que Calder fait</span>
+      <span class="scene-name">La ligne</span>
+      <p>Calder regarde Ryn recevoir cette information. Il observe ce que son visage fait — pas de panique, pas de larmes, la qualité d'une personne qui re-catalogue. Il se souvient du point d'interrogation dans ses notes. Et quelque chose dans la classification habituelle — "pas mon problème" — ne fonctionne plus. La ligne qu'il ne franchit pas s'applique ici. Il ne livre pas quelqu'un à une mort instrumentale. C'est sa règle. Il l'a tenu vingt ans parce qu'elle ne s'était jamais appliquée à une cible de Varek avant.</p>
+      <p class="scene-note">La ligne de Calder est : il n'est pas un instrument d'exécution instrumentale. Ce que Varek prévoit pour Ryn est exactement ça. Calder comprend en trente secondes que le marché a changé de nature — que ce n'est plus une mission qu'il peut exécuter proprement. Il ne le dit pas à Ryn. Il continue la session.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Ce que Ryn voit</span>
+      <span class="scene-name">Quelque chose a changé</span>
+      <p>POV Calder — mais il observe Ryn observer lui. Ryn a vu quelque chose dans sa façon de recevoir la pensée — pas de l'empathie, quelque chose de plus précis. Elle ne nomme pas ce qu'elle a vu. Elle finit la session. Elle repart. Calder reste dans la pièce vide avec ce qu'il vient de comprendre.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 4 · Ce que ça signifie</span>
+      <span class="scene-name">Le calcul nouveau</span>
+      <p>Calder seul. Il recalcule la situation avec la nouvelle variable : la ligne s'applique. Ce qu'il peut faire : continuer à collecter les données (le marché tient), décider à la fin des dix jours quoi faire avec elles. Ce qu'il ne peut pas faire : livrer Ryn à une activation instrumentale. Il ne résout pas la contradiction — il la documente et continue.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre (PIC 1) :</strong> Calder relit ses notes. Le point d'interrogation a maintenant une réponse partielle — ce n'est pas la marque qui réagit différemment. C'est lui. Ce qu'il fait de cette information : il ouvre une nouvelle page dans le carnet.</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- ACTE II -->
+<!-- ══════════════════════════════════════════════════ -->
+
+<div id="acte2" class="act-header">
+  <div class="act-num">II</div>
+  <div class="act-info">
+    <span class="act-title">Les dix jours — La découverte</span>
+    <span class="act-range">Ch.8–17 · ~30 000 mots · Ryn 50% / Calder 50%</span>
+  </div>
+  <div class="act-desc">Le cœur du slow burn. Chaque jour révèle une limite de la marque et une limite entre eux. L'anomalie devient visible. Le He Falls First se construit.</div>
+</div>
+
+<!-- Ch.8 -->
+<div id="ch8" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">8</div>
+    <div class="ch-head">
+      <span class="ch-title">Jour quatre — propriété non documentée</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag mots">~3 200 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">La documentation de Calder est insuffisante. Ryn commence à comprendre qu'elle en sait plus sur sa propre marque qu'il ne le pensait.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · La portée</span>
+      <span class="scene-name">La marque peut atteindre loin</span>
+      <p>Deuxième vraie démonstration. Ryn montre que la marque peut être dirigée vers une cible à distance — deux mètres, puis trois. Calder note avec l'intensité de quelqu'un dont la documentation vient d'être invalidée sur un point central. La portée dans son briefing : quelques centimètres. La portée réelle : plusieurs mètres, peut-être plus.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce que Ryn décide de cacher</span>
+      <span class="scene-name">Elle a montré 40% de ce qu'elle peut faire</span>
+      <p>Ryn a montré assez pour rendre les données utiles, pas assez pour révéler l'étendue réelle. Elle calcule — si elle montre trop, elle perd l'avantage de surprise. Elle garde la portée complète, l'intensité maximale, et l'anomalie en réserve. C'est sa négociation silencieuse du marché.</p>
+      <p class="scene-note">Le défaut central de Ryn commence à se mettre en place indirectement : elle décide de faire confiance à son propre calcul ici. C'est juste. Mais le même défaut — confiance rapide basée sur un minimum d'information — va la faire se tromper ailleurs.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Calder observe</span>
+      <span class="scene-name">Il sait qu'elle cache quelque chose</span>
+      <p>POV Ryn — elle observe Calder observer. Il sait qu'elle ne montre pas tout. Il ne le dit pas. Il écrit dans le carnet. La façon dont il écrit — l'angle du stylo, la durée — lui dit qu'il a noté son omission sans la confronter. C'est une façon de continuer le marché qui lui laisse l'espace dont elle a besoin. Elle ne sait pas si c'est de la stratégie ou autre chose.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ryn rentre. La marque est silencieuse. Six jours restants. Elle recalcule ce qu'elle montrera dans l'ordre.</div>
+</div>
+
+<!-- Ch.9 -->
+<div id="ch9" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">9</div>
+    <div class="ch-head">
+      <span class="ch-title">Documentation</span>
+      <div class="ch-tags">
+        <span class="tag pov-calder">POV Calder</span>
+        <span class="tag mots">~3 000 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">POV Calder — il construit sa propre documentation. He Falls First se développe sans qu'il le nomme.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Le carnet</span>
+      <span class="scene-name">Ce qu'il écrit sur la marque</span>
+      <p>Calder réorganise ses notes. La documentation de Varek est désormais une référence insuffisante — il construit sa propre cartographie de la marque, avec les démonstrations observées, les propriétés confirmées, les points d'interrogation ouverts. C'est du travail professionnel. Il est bon dans ce travail.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce qu'il écrit sur la cible</span>
+      <span class="scene-name">Ce qu'il ne devrait pas noter</span>
+      <p>Il y a une deuxième section dans le carnet. Il y note des observations sur Ryn — pas ses capacités, ses patterns de décision. Ce qu'elle cache. Ce qu'elle ne cache pas. La façon dont elle calcule. Il justifie ces notes professionnellement : comprendre la cible aide à la livraison. Il ne questionne pas pourquoi ces notes sont plus longues que celles sur la marque.</p>
+      <p class="scene-note">He Falls First en action : Calder documente Ryn avec une précision qui n'est pas nécessaire à sa mission. Il n'en est pas encore conscient. Le lecteur l'est.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Le rapport à Varek</span>
+      <span class="scene-name">Ce qu'il envoie — et ce qu'il n'envoie pas</span>
+      <p>Calder doit envoyer un rapport de situation à Varek. Il écrit le rapport. Il y met les données sur la marque — les propriétés non documentées, la progression. Il n'y met pas la réaction de la marque à sa propre présence. Il classe cette omission comme non pertinente pour le rapport. Ce n'est pas entièrement vrai et il le sait.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Calder envoie le rapport. Il relit la deuxième section du carnet — celle sur Ryn. Il hésite. Il ne la supprime pas. Il ferme le carnet.</div>
+</div>
+
+<!-- Ch.10 -->
+<div id="ch10" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">10</div>
+    <div class="ch-head">
+      <span class="ch-title">Jour six — la vitesse d'activation</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag mots">~3 200 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Troisième démonstration — la marque s'active plus vite que prévu. La tension physique devient impossible à ignorer sans être nommée.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · La démonstration de vitesse</span>
+      <span class="scene-name">Trente secondes au lieu de cinq minutes</span>
+      <p>Ryn montre la vitesse d'activation. Calder chronomètre. Le résultat est deux fois plus rapide que la documentation de Varek. Il pose le chronomètre. Il regarde Ryn. Il dit quelque chose de précis et factuel sur l'inadéquation de la documentation. C'est la deuxième fois qu'il est involontairement drôle — la façon dont il formule "inadéquation de la documentation" comme si c'était la faute du document et non de Varek.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · La proximité physique</span>
+      <span class="scene-name">Il s'est rapproché sans décider de le faire</span>
+      <p>Pendant la démonstration, Calder s'est rapproché pour observer l'activation. Il ne s'en est pas rendu compte immédiatement. Ryn l'a remarqué. La marque pulse — différemment encore. Pas l'alarme, pas l'activation. Quelque chose d'autre. Ryn continue la démonstration comme si de rien n'était. Calder recule légèrement. Il note quelque chose dans le carnet. Elle observe ce qu'il note de biais — pas la marque cette fois. Elle.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Le dîner dans le district</span>
+      <span class="scene-name">Ils mangent dans le même espace</span>
+      <p>Après la session, ils se retrouvent dans le même endroit du district par coïncidence logistique. Ils mangent dans le même espace — pas ensemble, mais dans la même pièce. Ryn observe Calder observer les gens du district. Il les lit différemment d'elle — menaces potentielles, non alliés potentiels. Elle voit comment il voit le monde. C'est différent de comment elle voit le monde. Elle ne sait pas si ça lui plaît.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ryn rentre seule. La marque est silencieuse. Quatre jours restants. Elle pense à la façon dont Calder a reculé quand il a réalisé sa proximité — une fraction de seconde, délibéré. Elle classe ça dans la catégorie : information utile plus tard.</div>
+</div>
+
+<!-- Ch.11 — PIC 2 -->
+<div id="ch11" class="chapter pic-chapter">
+  <div class="ch-meta">
+    <div class="ch-num">11</div>
+    <div class="ch-head">
+      <span class="ch-title">L'anomalie</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag pic">🔴 PIC 2</span>
+        <span class="tag mots">~3 400 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">L'anomalie devient visible. La marque pulse différemment avec Calder. Ni l'un ni l'autre ne le dit. C'est le pic de tension interne le plus puissant de l'Acte II.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Le test Ryn avait prévu</span>
+      <span class="scene-name">Ce qu'elle voulait vérifier</span>
+      <p>Ryn avait prévu de tester l'anomalie aujourd'hui — observer si ce qu'elle ressent en présence de Calder est reproductible. Elle crée les conditions : démonstration de faible intensité, Calder à distance normale, elle maintient une attention divisée entre la marque et ses propres réactions.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce qui se passe</span>
+      <span class="scene-name">La pulsation — pas de l'alarme</span>
+      <p>La marque pulse. Pas la chaleur ordinaire, pas l'activation. Un signal distinct — régulier, orienté. Orienté vers Calder. Ryn maintient la démonstration sans changer d'expression. Elle note mentalement : c'est réel, c'est reproductible, ce n'est pas dans la documentation. Calder a vu quelque chose changer dans ses yeux. Il ne dit rien. Il note dans le carnet. Elle ne peut pas voir ce qu'il écrit.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Le silence après</span>
+      <span class="scene-name">Ni l'un ni l'autre ne nomme ce qui vient de se passer</span>
+      <p>La session se termine. Ils rangent. La pièce a la qualité de quelque chose qui vient de changer sans que personne l'ait décidé. Ryn fait une remarque pratique sur le planning du lendemain. Calder répond sur le planning. Ils se séparent. Le lecteur a vu ce qu'ils ont choisi de ne pas dire.</p>
+      <p class="scene-note">C'est le pic 2 — tension interne maximale, pas d'action, juste le moment où quelque chose bascule silencieusement. Si ce chapitre est réussi, le lecteur ressent de la frustration et du désir simultanément.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre (PIC 2) :</strong> Ryn seule. La marque est silencieuse. Elle ouvre la main — elle tenait quelque chose sans s'en rendre compte. Elle ne sait pas encore quoi faire de ce qu'elle sait.</div>
+</div>
+
+<!-- Ch.12 -->
+<div id="ch12" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">12</div>
+    <div class="ch-head">
+      <span class="ch-title">Section Sera — l'erreur de lecture</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag sera-section">+ section Sera</span>
+        <span class="tag mots">~3 200 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">La section Sera de l'Acte II. Elle observe l'anomalie et tire la mauvaise conclusion — c'est son erreur de lecture scellée du T1.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Ryn et Davan</span>
+      <span class="scene-name">Ce qu'elle lui dit — ce qu'elle lui cache</span>
+      <p>Ryn croise Davan dans le district. La conversation est oblique — ils ne parlent pas directement de Calder ni de la marque, mais Davan sait qu'il se passe quelque chose. Il ne pousse pas. Il reste à portée. Ryn lui dit assez pour qu'il comprenne le niveau de risque. Pas assez pour qu'il puisse intervenir si elle se trompe. C'est son choix. Elle le fait consciemment.</p>
+    </div>
+    <div class="scene sera-insert">
+      <span class="scene-num">Section Sera — intercalée</span>
+      <span class="scene-name">L'anomalie — je note. Je conclus mal.</span>
+      <p><em>Sera a observé la session d'hier depuis une position extérieure. Elle a vu ce que la marque a fait en présence de Calder. Sa lecture : l'anomalie indique que la marque est plus avancée que Calder ne le croit — que la pulsation qu'elle a observée est une forme d'activation partielle vers la cible la plus proche, en l'occurrence Calder. Elle en conclut que Ryn est en danger plus immédiat qu'elle ne le pense. C'est une erreur. La pulsation n'est pas une activation partielle vers une cible — c'est quelque chose de différent que ni la documentation de Varek ni Sera ne peuvent encore nommer. Elle a la bonne observation et la mauvaise conclusion. Le fragment est dans sa poche pendant qu'elle note. Sa main le tient plus fort que d'habitude — elle n'en est pas consciente.</em></p>
+      <p class="scene-note">L'erreur de lecture de Sera est visible pour le lecteur de BIA — qui sait ce qu'est réellement l'anomalie, ou peut le deviner. Pour le lecteur de FIA, c'est simplement une information incomplète sur un personnage secondaire fascinant.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Aleth et Sera</span>
+      <span class="scene-name">Ce que la mère dit sans demander</span>
+      <p>Sera rentre et croise Aleth. Aleth voit que Sera porte quelque chose d'inhabituel — pas l'inquiétude normale, quelque chose de plus concentré. Elle ne demande pas ce que c'est. Elle dit une chose sur la différence entre observer correctement et comprendre correctement. Puis elle part. Sera tient la phrase. Elle ne fait pas encore le lien avec son erreur de lecture.</p>
+      <p class="scene-note">Aleth dans sa deuxième scène — sobre, précise, une phrase qui porte plus qu'elle n'en a l'air. Le lecteur de BIA reconnaît la qualité dans cette façon de parler.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ryn pense à la conversation avec Davan. Deux jours restants dans le marché. Elle tient ce qu'elle sait et ce qu'elle ne sait pas. La ligne entre les deux devient moins nette.</div>
+</div>
+
+<!-- Ch.13 -->
+<div id="ch13" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">13</div>
+    <div class="ch-head">
+      <span class="ch-title">Jour huit — ce que Ryn voit dans Calder</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag mots">~3 100 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Ryn commence à voir Calder différemment — pas la mission, la personne. La tension de la proximité est désormais impossible à ignorer même pour elle.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · La quatrième démonstration</span>
+      <span class="scene-name">Ce qu'elle montre cette fois</span>
+      <p>Ryn montre la réaction défensive de la marque — ce qui se passe quand elle ne contrôle pas l'activation. C'est la démonstration la plus risquée qu'elle a faite. Elle la fait parce qu'elle a décidé de faire confiance à la ligne de Calder — sa conclusion sur le Ch.7 était juste et elle s'en sert maintenant.</p>
+      <p class="scene-note">Le défaut central de Ryn (confiance trop rapide) commence à opérer correctement ici — elle fait confiance à Calder sur la base de son observation de sa ligne, et cette fois-ci c'est la bonne décision. L'ironie est que le même mécanisme va lui coûter quelque chose dans le T2 dans une situation où l'observation était moins fiable.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce qu'elle voit</span>
+      <span class="scene-name">Calder est différent de ce qu'elle avait calculé</span>
+      <p>Pendant la démonstration, Calder fait quelque chose qu'elle n'avait pas prévu — il recule d'un pas quand la marque s'active défensivement, ce qui est la bonne réponse tactique, mais il revient immédiatement parce que sa position d'observation était la bonne position. Il choisit de rester dans le rayon d'une marque en activation défensive parce que la documentation de ce qu'il observe est plus importante que sa sécurité personnelle. Ryn note ça. Elle ne sait pas encore ce qu'elle en pense.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · L'espace entre eux</span>
+      <span class="scene-name">Ce qui se passe dans les silences</span>
+      <p>La session finit. Calder range. Ryn attend — pas de raison particulière, elle attend. La pièce a cette qualité particulière des espaces partagés où les deux personnes sont conscientes de la présence de l'autre sans avoir de raison fonctionnelle d'y rester. Ryn part la première. Elle ne se retourne pas.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ryn marche dans le district. La marque est silencieuse et chaude en même temps — pas l'alarme, pas l'anomalie. Quelque chose de plus ordinaire et donc de plus déstabilisant.</div>
+</div>
+
+<!-- Ch.14 -->
+<div id="ch14" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">14</div>
+    <div class="ch-head">
+      <span class="ch-title">Ce qu'il cache — jours huit et neuf</span>
+      <div class="ch-tags">
+        <span class="tag pov-calder">POV Calder</span>
+        <span class="tag mots">~3 200 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">POV Calder — il résiste à ce qu'il ressent avec la précision d'un homme qui ne dispose pas du vocabulaire pour ce qui lui arrive.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Le carnet — section deux</span>
+      <span class="scene-name">Les notes sur Ryn sont devenues longues</span>
+      <p>Calder relit le carnet. La première section — données sur la marque — est dense, précise, professionnelle. La deuxième section — observations sur Ryn — est deux fois plus longue. Il note ça. Il ne tire pas de conclusion. Il ajoute une note sur la cinquième démonstration prévue demain.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce qu'il fait avec la distance</span>
+      <span class="scene-name">Il maintient la distance professionnelle</span>
+      <p>Calder recalibre sa façon d'occuper l'espace pendant les sessions. Plus de pas involontaires vers la cible. Distance constante, position d'observation optimale, ni plus ni moins. Il le fait avec la précision d'un homme qui corrige une erreur tactique. L'erreur tactique était de s'être rapproché involontairement. La correction est efficace. Ce qu'elle ne corrige pas : la section deux du carnet.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · La pensée qu'il ne finit pas</span>
+      <span class="scene-name">Le troisième jour d'une pensée incomplète</span>
+      <p>Calder a une pensée sur Ryn — sur ce qu'elle fait après les sessions, sur où elle va dans le district, sur ce que Davan représente pour elle. Il arrête la pensée. C'est la troisième fois cette semaine qu'il arrête cette pensée. Il note dans le carnet (section deux) qu'il a arrêté la pensée trois fois. Il ne développe pas.</p>
+      <p class="scene-note">Le He Falls First à son état le plus précis : Calder documente sa propre résistance sans encore nommer ce à quoi il résiste. Le lecteur voit tout.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Calder ferme le carnet. Demain, jour neuf. Un jour après demain, le marché se termine. Il ne pense pas à ce qui vient après. Il essaie de ne pas penser à ce qui vient après.</div>
+</div>
+
+<!-- Ch.15 -->
+<div id="ch15" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">15</div>
+    <div class="ch-head">
+      <span class="ch-title">Jour neuf — ce que la marque fait maintenant</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag mots">~3 100 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Cinquième démonstration — la marque touche au stade 3. Ce que ça coûte physiquement à Ryn. Calder voit ça.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · La cinquième démonstration</span>
+      <span class="scene-name">Le stade 3 — la première fois</span>
+      <p>Ryn pousse la marque au stade 3 pour la première fois — activation active, volontaire, portée étendue. Elle avait prévu d'attendre le dixième jour. Elle décide de le faire maintenant parce que le délai de un jour ne change rien aux données et que Calder a besoin de voir l'étendue complète pour que les données aient de la valeur.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce que ça coûte</span>
+      <span class="scene-name">La douleur réelle</span>
+      <p>Le stade 3 fait mal. Ryn ne le montrait pas au stade 2 — au stade 3, la douleur est différente, plus profonde, difficile à masquer entièrement. Calder voit ce que ça lui coûte. Il note. Il ne dit rien sur la douleur. Il dit quelque chose de précis sur la durée de l'activation et sur la récupération nécessaire. Sa façon de noter la durée est la façon dont il gère ce qu'il vient de voir.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Après</span>
+      <span class="scene-name">Ce qu'il fait et ce qu'il ne fait pas</span>
+      <p>Après la démonstration, Calder reste dans la pièce pendant que Ryn récupère. Il ne s'approche pas. Il est simplement là — à distance professionnelle, carnet ouvert, mais le crayon n'écrit pas. Ryn voit que le crayon n'écrit pas. Elle ne dit rien. Ils restent dans la pièce pendant dix minutes sans se parler.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ryn rentre. La marque est froide et silencieuse après le stade 3 — épuisée, pas calme. Demain, jour dix. Après-demain, le marché est terminé.</div>
+</div>
+
+<!-- Ch.16 -->
+<div id="ch16" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">16</div>
+    <div class="ch-head">
+      <span class="ch-title">La proximité — ce que ni l'un ni l'autre ne gère bien</span>
+      <div class="ch-tags">
+        <span class="tag pov-calder">POV Calder</span>
+        <span class="tag mots">~3 100 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">POV Calder — la résistance s'effrite. La section deux du carnet devient un problème qu'il ne peut plus classifier comme non pertinent.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Ce qu'il a vu hier</span>
+      <span class="scene-name">Le crayon qui n'écrivait pas</span>
+      <p>Calder relit ses notes du jour neuf. La section marque est complète et précise. La section deux contient une entrée : "Stade 3 — coût physique visible. Récupération observée. Dix minutes." Ce n'est pas suffisant pour couvrir les dix minutes. Il sait pourquoi il n'a pas écrit plus. Il ne l'écrit toujours pas.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Jour dix — avant la session</span>
+      <span class="scene-name">Ce qu'il décide de faire du marché</span>
+      <p>C'est le dernier jour. Calder a décidé la nuit dernière qu'il ne pouvait pas livrer Ryn à Varek — la ligne s'applique, il l'a accepté au Ch.7. Ce qu'il n'a pas encore décidé : ce qu'il fait à la place. Il entre dans la session du jour dix sans plan pour l'après. C'est une situation inhabituelle pour lui.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Pendant la session</span>
+      <span class="scene-name">Il n'écrit pas dans le carnet</span>
+      <p>Ryn fait la dernière démonstration. La limite haute du stade 3 — tout ce qu'elle a décidé de montrer dans les dix jours. Calder observe avec le carnet ouvert. Il n'écrit pas. Il n'a pas besoin d'écrire — il a tout mémorisé depuis le début, le carnet était pour la forme. Ce qu'il fait vraiment pendant la session : il regarde Ryn. Pas les données. Elle.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> La session se termine. Ryn range. Calder ferme le carnet. Ce qu'il va faire maintenant n'est pas dans aucun manuel qu'il a suivi depuis vingt ans.</div>
+</div>
+
+<!-- Ch.17 -->
+<div id="ch17" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">17</div>
+    <div class="ch-head">
+      <span class="ch-title">Jour dix — fin du marché</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag mots">~3 300 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Le marché est terminé. Le contrat est rempli. Ce qui se passe à la place de la livraison est le tournant de l'Acte II vers l'Acte III.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Le dixième jour</span>
+      <span class="scene-name">Ce que les deux savaient arriverait</span>
+      <p>Ryn entre dans la salle. Calder est là. Tout est normal — la position habituelle, le carnet, la même distance. La différence : aujourd'hui, le marché est terminé. Elle a montré tout ce qu'elle avait prévu de montrer. Il lui a expliqué tout ce qui était nécessaire. Le contrat est rempli. Elle attend de voir ce qu'il fait.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce qu'il ne fait pas</span>
+      <span class="scene-name">Il ne dit pas qu'il va la livrer</span>
+      <p>Calder ne dit pas qu'il va la livrer. Il ne dit pas non plus qu'il ne va pas la livrer. Il dit qu'il a besoin de vingt-quatre heures pour transmettre les données à Varek correctement. Ce n'est pas ce qui était prévu. Ryn le sait. Il le sait. Ils ne disent pas ce qu'ils savent tous les deux.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Après la session</span>
+      <span class="scene-name">Ce qui a changé</span>
+      <p>Ryn rentre dans le district. Le marché est techniquement terminé. Elle a vingt-quatre heures. Elle sait ce qu'elle devrait faire avec ces vingt-quatre heures : préparer une sortie. Elle ne prépare pas de sortie. Elle reste dans le district. Elle n'analyse pas pourquoi.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ryn dans son espace. La marque est silencieuse. La marque a été silencieuse toute la journée — pas l'alarme, pas l'anomalie, simplement silencieuse. Elle ne sait pas si ça lui rassure ou non.</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- ACTE III -->
+<!-- ══════════════════════════════════════════════════ -->
+
+<div id="acte3" class="act-header">
+  <div class="act-num">III</div>
+  <div class="act-info">
+    <span class="act-title">La rupture — Le choix</span>
+    <span class="act-range">Ch.18–24 · ~25 000 mots · Ryn 65% / Calder 35%</span>
+  </div>
+  <div class="act-desc">Calder ne livre pas Ryn. La décision irréversible. Le second agent de Varek. La fuite dans le district. La bascule nommée.</div>
+</div>
+
+<!-- Ch.18 -->
+<div id="ch18" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">18</div>
+    <div class="ch-head">
+      <span class="ch-title">Le second agent</span>
+      <div class="ch-tags">
+        <span class="tag pov-calder">POV Calder</span>
+        <span class="tag mots">~3 300 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">La décision irréversible de Calder. Le second agent de Varek confirme que la livraison était instrumentale depuis le début.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Ce qu'il voit dans le district</span>
+      <span class="scene-name">Varek envoyait deux équipes</span>
+      <p>Dans les vingt-quatre heures après le dixième jour, Calder repère le second agent de Varek dans le district. Pas un messager — un exécuteur. Le profil est familier : quelqu'un envoyé pour récupérer une cible, pas pour escorter, pour exécuter l'activation instrumentale sur place si la livraison échoue. Varek ne lui faisait pas entièrement confiance. L'agent était là depuis le début — observation parallèle.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · La décision</span>
+      <span class="scene-name">La ligne s'applique maintenant</span>
+      <p>Calder a trente secondes. L'agent va trouver Ryn dans les deux heures — il connaît le district mieux qu'il le devrait, ce qui signifie qu'il a ses propres informations. Calder applique son code : il ne laisse pas une mort instrumentale se produire quand il peut l'empêcher. Il se déplace vers Ryn. Il a trente secondes d'avance sur l'agent.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Ce que la décision signifie</span>
+      <span class="scene-name">Il vient de désobéir à Varek</span>
+      <p>En mouvement vers Ryn, Calder fait le calcul de ce qu'il vient de décider. Il a protégé une cible contre les ordres de son commandant. C'est une désobéissance directe. Varek saura — si pas ce soir, dans les jours qui viennent. Il n'a pas eu d'hésitation sur la décision. Il a une hésitation sur ce qu'il y avait en dessous de la décision — la raison non tactique pour laquelle la décision était aussi claire.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Calder atteint Ryn avant l'agent. Il dit une phrase — exactement ce qu'elle a besoin de savoir pour partir maintenant. Elle part. Il s'occupe de l'agent. La décision ne se défait pas.</div>
+</div>
+
+<!-- Ch.19 — PIC 3 -->
+<div id="ch19" class="chapter pic-chapter">
+  <div class="ch-meta">
+    <div class="ch-num">19</div>
+    <div class="ch-head">
+      <span class="ch-title">La fuite dans le district</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag pic">🔴 PIC 3 — début</span>
+        <span class="tag mots">~3 500 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">La dynamique change complètement. Plus de marché, plus de mission. Deux personnes avec un ennemi commun. Le Pic 3 commence ici et se résout au Ch.20. <strong>Le défaut central de Ryn opère pour la première fois dans le T1 — et coûte quelque chose de réel.</strong></div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · La phrase de Calder</span>
+      <span class="scene-name">Une phrase. Elle part.</span>
+      <p>Calder a dit exactement ce qu'il fallait dire — le niveau de danger, la direction à prendre, le temps disponible. Pas plus. Ryn a évalué la phrase en une seconde et a décidé de lui faire confiance. Elle est déjà en mouvement.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ryn, Sera, Davan</span>
+      <span class="scene-name">Le district se mobilise — et Ryn se trompe</span>
+      <p>Ryn trouve Sera et Davan. Elle a évalué la situation rapidement — un seul agent, localisé, géré par Calder. Elle dit à Sera et Davan qu'ils sont en sécurité dans l'espace secondaire une fois qu'ils y sont. Elle y croit. C'est son calcul, basé sur les informations disponibles, et il est faux.</p>
+      <p>Il y a un deuxième contact de Varek dans le district — pas un agent complet, un observateur que Ryn n'a pas identifié parce qu'elle a conclu trop vite que le premier agent était seul. Ce deuxième contact voit Davan. Il ne l'attaque pas — il note sa position. Mais Davan a été exposé par le calcul de Ryn, pas par accident.</p>
+      <p class="scene-note">C'est l'activation du défaut central : confiance trop rapide dans son propre calcul basé sur un minimum d'information. La différence avec ses calculs précédents — qui étaient justes — est que cette fois elle n'avait pas le temps de vérifier. Elle a conclu. C'est suffisant pour faire une erreur réelle.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Le district comme ressource — et le coût visible</span>
+      <span class="scene-name">Elle a mis quelqu'un en danger</span>
+      <p>Ils sont en mouvement dans le district. Ryn mène — elle connaît cet espace mieux que quiconque. La marque chauffe — alarme, pas anomalie. C'est Sera qui voit le deuxième contact en premier. Elle ne dit rien pendant la fuite — ce n'est pas le moment. Elle note. Davan note aussi. Ryn ne voit pas ce qu'ils ont vu.</p>
+      <p>Ce n'est que dans l'espace secondaire, en sécurité, que Sera dit à Ryn ce qu'elle a vu. Pas avec reproche — avec la précision factuelle de quelqu'un qui documente une information. Ryn reçoit ça. Elle comprend ce que son calcul a produit. Elle ne le montre pas. Calder est de l'autre côté de la pièce. Il a entendu.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ils sont en sécurité. Davan est indemne — le deuxième contact n'a pas agi, seulement observé. Mais il sait où Davan est. La marque est froide. Calder regarde Ryn recevoir l'information de Sera avec la qualité d'un homme qui voit quelque chose qu'il n'avait pas dans sa documentation — pas ses capacités. Son défaut. Ce qu'elle fait avec.</div>
+</div>
+
+<!-- Ch.20 -->
+<div id="ch20" class="chapter pic-chapter">
+  <div class="ch-meta">
+    <div class="ch-num">20</div>
+    <div class="ch-head">
+      <span class="ch-title">Ce qui est nommé</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag pic">🔴 PIC 3 — résolution</span>
+        <span class="tag mots">~3 500 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">La bascule est nommée. Pas résolue. C'est le moment que BookTok cite. Il doit être inévitable — si le lecteur ne le voyait pas venir depuis le Ch.5, ce chapitre n'est pas préparé.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · L'espace après la fuite</span>
+      <span class="scene-name">Davan et Sera sont repartis. Ryn porte son erreur.</span>
+      <p>Davan et Sera sont repartis pour surveiller le district. Ryn et Calder sont seuls dans l'espace secondaire. La tension physique de la fuite est encore dans la pièce. Ryn porte aussi ce qu'elle vient de faire — son calcul a exposé Davan. Elle ne le dit pas. Ce n'est pas un personnage qui verbalise la culpabilité. Mais Calder l'a vue recevoir l'information de Sera, et il est dans la pièce avec ce qu'il a vu.</p>
+      <p class="scene-note">La bascule qui arrive est plus chargée parce qu'elle arrive dans cet état. Ryn vient de se voir se tromper de la façon dont elle se trompe — confiance trop rapide dans son propre calcul. Elle est vulnérable d'une façon qu'elle n'était pas avant la fuite. C'est dans cet espace que quelque chose est dit.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce que Ryn dit</span>
+      <span class="scene-name">Pourquoi tu as fait ça</span>
+      <p>Ryn pose la question directement — pourquoi il est venu la prévenir au lieu de laisser l'agent gérer. Elle s'attend à une réponse tactique. Il donne une réponse tactique. Elle sait que ce n'est pas la raison complète. Il le sait aussi. La marque pulse — l'anomalie, pas l'alarme.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Ce qui est nommé</span>
+      <span class="scene-name">Pas résolu. Nommé.</span>
+      <p>Quelque chose est dit ou fait — ou les deux — qui nomme ce qui existe entre eux sans le résoudre. Ce n'est pas une déclaration. Ce n'est pas un geste romantique. C'est le moment où la fiction entre "je collecte des données sur une cible" et la réalité s'effondre. Pour les deux simultanément. Le lecteur attendait ce moment depuis le Ch.5. Calder le savait depuis le Ch.7. Ryn vient de comprendre.</p>
+      <p class="scene-note">Ce moment doit être précisément calibré lors de la rédaction. Il ne doit pas aller trop loin (ce n'est pas la scène physique — c'est la Ch.28) ni rester trop vague. Le lecteur doit repartir avec quelque chose de réel.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre (PIC 3) :</strong> Ils restent dans l'espace un moment. Puis la situation reprend ses droits. Il y a encore l'agent de Varek, encore Varek, encore tout ce qui vient après. Ils repartent séparément. Ce qui vient d'être nommé reste nommé.</div>
+</div>
+
+<!-- Ch.21 -->
+<div id="ch21" class="chapter pic-chapter">
+  <div class="ch-meta">
+    <div class="ch-num">21</div>
+    <div class="ch-head">
+      <span class="ch-title">Section Sera — après la bascule</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag sera-section">+ section Sera</span>
+        <span class="tag mots">~3 100 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Le lendemain de la bascule. Section Sera — elle a observé quelque chose pendant la fuite qu'elle n'a pas encore analysé. La tension redescend vers la réalité.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Le lendemain dans le district</span>
+      <span class="scene-name">La situation reste réelle</span>
+      <p>Ryn dans le district le lendemain. La bascule d'hier est réelle — elle la porte différemment ce matin. Mais la situation est aussi réelle : l'agent de Varek est neutralisé mais Varek sait maintenant que quelque chose ne s'est pas passé comme prévu. La fenêtre est courte.</p>
+    </div>
+    <div class="scene sera-insert">
+      <span class="scene-num">Section Sera — intercalée</span>
+      <span class="scene-name">J'ai vu quelque chose pendant la fuite</span>
+      <p><em>Sera a observé Ryn et Calder dans le district pendant la fuite. Elle a vu quelque chose — la façon dont Calder se positionnait physiquement entre Ryn et les directions de danger potentiel, sans que Ryn le lui demande, sans que ce soit tactiquement nécessaire. Sera re-catalogue son erreur du Ch.12 : elle avait lu le marché comme une tactique de survie à court terme. Elle commence à comprendre que c'est plus compliqué. Mais elle n'a pas encore tous les éléments. Elle tient l'anomalie de la marque — sa mauvaise conclusion du Ch.12 est toujours là, non corrigée. Elle ne le sait pas encore. Le fragment est dans sa poche. Elle ne tient pas — elle ne le cherche pas. Il est simplement là.</em></p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ryn et Davan</span>
+      <span class="scene-name">Ce que Davan a vu</span>
+      <p>Davan dit quelque chose à Ryn sur ce qu'il a vu hier — pas sur Calder directement, sur elle. Elle est différente depuis le marché, d'une façon qu'il n'arrive pas encore à nommer. Il ne la presse pas. Il reste disponible. C'est ce qu'il fait.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ryn reprend sa journée. La marque est silencieuse. Quelque chose dans le district a changé — pas la situation, la façon dont elle l'habite.</div>
+</div>
+
+<!-- Ch.22 -->
+<div id="ch22" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">22</div>
+    <div class="ch-head">
+      <span class="ch-title">L'agent neutralisé</span>
+      <div class="ch-tags">
+        <span class="tag pov-calder">POV Calder</span>
+        <span class="tag mots">~3 000 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">POV Calder — l'agent est neutralisé mais pas éliminé. Varek a été informé. La fenêtre est courte.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · L'agent</span>
+      <span class="scene-name">Neutralisé — pas éliminé</span>
+      <p>Calder a géré l'agent de Varek avec la précision professionnelle qu'on lui reconnaît — neutralisé, mis hors circuit temporairement, mais vivant. Il ne l'a pas éliminé parce que l'élimination d'un agent de Varek déclencherait une réponse différente et plus rapide. Le délai qu'il a acheté : deux à trois jours avant que Varek reçoive le rapport de l'agent.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce que Varek sait</span>
+      <span class="scene-name">Le calcul de l'information</span>
+      <p>Varek sait que l'agent a été neutralisé. Il ne sait pas encore par qui — ça pourrait être la cible elle-même, quelqu'un du district, ou Calder. Dans deux à trois jours, il saura que c'était Calder. Ce que ça signifie : Calder a deux à trois jours pour décider ce qu'il fait.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Ce qu'il n'a pas encore décidé</span>
+      <span class="scene-name">Hors des ordres — sans plan</span>
+      <p>Calder hors des ordres est un personnage qui ne dispose pas de cadre. Il a un code — mais son code n'a pas de clause pour "et maintenant". Il sait ce qu'il ne fera pas. Il ne sait pas encore ce qu'il fera. Pour la première fois depuis vingt ans, il improvise.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Calder relit les deux sections du carnet. Il ferme la section deux. Il rouvre la section deux. Ce n'est pas la première fois qu'il fait ça cette semaine.</div>
+</div>
+
+<!-- Ch.23 -->
+<div id="ch23" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">23</div>
+    <div class="ch-head">
+      <span class="ch-title">Hors des ordres</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag mots">~3 100 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Calder sans mission — ce que Ryn observe de lui dans cet état. La dynamique entre eux change encore.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Calder sans cadre</span>
+      <span class="scene-name">Il ne sait pas comment être là sans une raison fonctionnelle</span>
+      <p>Calder dans le district — pas en mission, pas en observation professionnelle. Il est simplement là. Ryn observe ça. Il est différent sans le cadre de la mission — pas plus vulnérable, mais plus visible dans ses angles morts. Il ne sait pas comment être dans un espace sans une position fonctionnelle.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce qu'elle lui montre</span>
+      <span class="scene-name">Comment le district fonctionne pour les gens qui n'ont pas de cadre</span>
+      <p>Ryn lui montre quelque chose du district — pas la marque, le territoire lui-même. Comment les gens sans lignée survivent dans l'espace entre les structures de l'empire. C'est une forme de confiance — elle lui montre son monde, pas ses capacités. Calder le reçoit avec une attention différente de celle qu'il portait aux démonstrations.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Ce qu'ils font des deux à trois jours restants</span>
+      <span class="scene-name">Un accord non dit</span>
+      <p>Sans que ni l'un ni l'autre le formule, ils décident de gérer les deux à trois jours restants avant que Varek sache. Pas fuir — pas encore. Recueillir les informations nécessaires pour la prochaine décision. Ils travaillent en parallèle dans le district. La coordination entre eux est naturelle d'une façon qu'aucun des deux ne commente.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ryn s'endort avec la marque silencieuse. Le lendemain, Varek sera un peu plus proche de savoir. Elle y pense. Puis elle dort quand même.</div>
+</div>
+
+<!-- Ch.24 -->
+<div id="ch24" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">24</div>
+    <div class="ch-head">
+      <span class="ch-title">Ce que Varek sait maintenant</span>
+      <div class="ch-tags">
+        <span class="tag pov-calder">POV Calder</span>
+        <span class="tag mots">~3 000 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Varek a reçu le rapport de l'agent. Il sait que Calder a désobéi. La fenêtre se ferme. Transition vers l'Acte IV.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Le message de Varek</span>
+      <span class="scene-name">La réponse arrive</span>
+      <p>Calder reçoit la réponse de Varek par canal de communication d'urgence. Le ton est précis. Varek sait que l'agent a été neutralisé. Il n'accuse pas Calder directement — mais les instructions qui suivent le placent clairement dans la position d'un général dont l'autonomie vient d'être réduite à zéro. Une déclaration formelle arrivera dans les jours qui suivent.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce que ça signifie</span>
+      <span class="scene-name">Le calcul final</span>
+      <p>Calder fait le calcul : une déclaration formelle de Varek change la nature de tout. Ce n'est plus une mission qui a déraillé — c'est une désobéissance déclarée. Ce que ça signifie pour lui : quelque chose d'irréversible et de précis. Ce que ça signifie pour Ryn : la menace de Varek va s'intensifier.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Ce qu'il décide</span>
+      <span class="scene-name">Il va lui dire</span>
+      <p>Calder décide de dire à Ryn ce qui arrive — la déclaration de Varek, ce qu'elle signifie, le niveau de menace réel. Pas parce que son code l'y oblige. Parce qu'il a choisi son camp, et ce camp est le sien, et elle a le droit de savoir ce dans quoi elle est.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Calder part trouver Ryn. Ce qu'il va lui dire va changer la nature de tout dans l'Acte IV. Il marche dans le district avec la qualité d'un homme qui a arrêté d'improviser et a commencé à décider.</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- ACTE IV -->
+<!-- ══════════════════════════════════════════════════ -->
+
+<div id="acte4" class="act-header">
+  <div class="act-num">IV</div>
+  <div class="act-info">
+    <span class="act-title">Le cliffhanger — Ce qui vient</span>
+    <span class="act-range">Ch.25–30 · ~20 000 mots · Ryn 40% / Calder 60%</span>
+  </div>
+  <div class="act-desc">La déclaration de Varek. La dernière démonstration. La scène physique. Le choix irréversible de Calder. Pas de section Sera dans cet acte.</div>
+</div>
+
+<!-- Ch.25 -->
+<div id="ch25" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">25</div>
+    <div class="ch-head">
+      <span class="ch-title">La déclaration de Varek</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag mots">~3 200 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Ryn apprend ce qu'est réellement la déclaration de Varek et ce qu'elle implique. Fuir ne résout rien.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Ce que Calder lui dit</span>
+      <span class="scene-name">La déclaration formelle</span>
+      <p>Calder explique à Ryn ce qui arrive — la déclaration formelle de Varek dans les canaux de l'empire. Ce qu'elle contient : Ryn est désignée comme propriété de Varek, marquée de forge, à récupérer. La déclaration rend légale la récupération par n'importe quel agent de l'empire dans n'importe quel territoire. Pas seulement Varek — tout l'appareil de l'empire.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce que Ryn comprend</span>
+      <span class="scene-name">Fuir ne sert à rien</span>
+      <p>Ryn reçoit cette information avec la qualité d'une personne qui re-catalogue encore une fois. Fuir dans un autre territoire : la déclaration la suit. Changer d'identité : les marqueurs de la marque de forge sont biologiques. Se cacher indéfiniment : elle sait ce que ça coûte sur vingt ans. Elle était au bout de quelque chose au Ch.1 — la déclaration confirme qu'il n'y a pas de route ordinaire hors de cette situation.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Ce qu'il lui propose</span>
+      <span class="scene-name">Une option qui n'existait pas hier</span>
+      <p>Calder lui propose quelque chose — pas une solution complète, une option qui nécessite que les deux travaillent ensemble. Elle ne donne pas sa réponse immédiatement. Elle a besoin de la dernière démonstration — la limite haute du stade 3 — pour calculer si cette option est viable.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ryn part dans le district. Elle marche longtemps. La marque est froide. Elle calcule. Ce qu'elle calcule ne ressemble pas à ses calculs habituels.</div>
+</div>
+
+<!-- Ch.26 -->
+<div id="ch26" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">26</div>
+    <div class="ch-head">
+      <span class="ch-title">Ce que la déclaration change pour Calder</span>
+      <div class="ch-tags">
+        <span class="tag pov-calder">POV Calder</span>
+        <span class="tag mots">~3 000 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">POV Calder — la déclaration le place dans une position irréversible. Ce qu'il commence à construire sans en parler à Ryn.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Sa propre position</span>
+      <span class="scene-name">Il n'est plus un général de Varek</span>
+      <p>Calder évalue sa situation avec précision : en protégeant Ryn contre l'agent, en ne livrant pas après le dixième jour, il a effectivement quitté le service de Varek. Il n'a pas encore déclaré ça — mais les actes ont précédé la déclaration. Ce qu'il est maintenant : un ancien général de Varek avec une connaissance complète de la structure de l'armée de Varek et une cible qui lui fait confiance.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce qu'il construit</span>
+      <span class="scene-name">Les ressources disponibles</span>
+      <p>Calder commence à inventorier ce qu'il a — ses contacts dans l'empire, les informations sur la structure de Varek, les points faibles qu'il a observés sur vingt ans. Ce qu'il commence à construire est un plan qui n'est pas encore complet mais qui a une direction.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Ce qu'il ne dit pas à Ryn</span>
+      <span class="scene-name">Le plan dans sa tête</span>
+      <p>Calder ne dit pas à Ryn ce qu'il construit parce qu'il n'est pas prêt à le nommer. Ce qu'il peut faire : préparer la prochaine étape. Ce que la prochaine étape nécessite : voir la limite haute de la marque. Il demande la dernière démonstration pour demain.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Calder ferme le carnet. Il ouvre une nouvelle page. La troisième section — pas les données de la marque, pas les observations sur Ryn. Les ressources disponibles. Le plan a une première ligne.</div>
+</div>
+
+<!-- Ch.27 -->
+<div id="ch27" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">27</div>
+    <div class="ch-head">
+      <span class="ch-title">Dernière démonstration</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag mots">~3 100 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">La limite haute du stade 3. Ce que Ryn comprend maintenant sur ce qu'elle peut faire. Ce que Calder voit.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · La limite haute</span>
+      <span class="scene-name">Ce que le stade 3 peut faire à pleine intensité</span>
+      <p>Ryn pousse la marque à sa limite haute du stade 3 — tout ce qu'elle peut faire sans entrer dans le stade 4. C'est plus que ce qu'elle avait montré au jour neuf. C'est douloureux. C'est aussi précis et contrôlé — elle a appris en dix jours ce qu'elle n'avait jamais osé apprendre en vingt ans. Calder observe. Il ne prend pas de notes cette fois.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce que Ryn comprend</span>
+      <span class="scene-name">Elle peut faire quelque chose que Varek n'a pas prévu</span>
+      <p>En poussant la marque à sa limite, Ryn comprend quelque chose : la marque est plus contrôlable qu'elle le devrait être. Ce que Varek avait prévu — une activation instrumentale, forcée — n'est pas la seule façon d'utiliser ce qu'elle porte. Elle ne l'a jamais envisagé parce qu'elle passait son temps à la cacher. Les dix jours avec Calder ont changé ça.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Ce que Calder dit</span>
+      <span class="scene-name">La première partie du plan</span>
+      <p>Calder lui dit la première partie de ce qu'il a construit — pas tout, ce qui est nécessaire pour la prochaine étape. Elle écoute avec l'attention de quelqu'un qui évalue un plan qu'elle n'aurait pas fait comme ça mais qui reconnaît sa logique. Elle pose deux questions précises. Il répond. Elle dit : d'accord.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ils repartent dans le district avec quelque chose qui ressemble à une direction. La marque est froide et propre après la limite haute. Ryn a mal. Elle ne le dit pas. Calder le sait.</div>
+</div>
+
+<!-- Ch.28 -->
+<div id="ch28" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">28</div>
+    <div class="ch-head">
+      <span class="ch-title">La scène physique</span>
+      <div class="ch-tags">
+        <span class="tag pov-ryn">POV Ryn</span>
+        <span class="tag mots">~3 300 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">La première scène d'ancrage physique mémorable. Elle arrive ici parce que la tension a tenu depuis le Ch.3 et que le lecteur l'attend depuis cent pages.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Ce qui amène la scène</span>
+      <span class="scene-name">La récupération après la limite haute</span>
+      <p>Ryn récupère de la dernière démonstration dans l'espace secondaire du district. Calder est là — pas pour surveiller, parce qu'il est là. La douleur résiduelle de la marque est réelle. Calder fait quelque chose de pratique — vérifie quelque chose sur son épaule, évalue la récupération — et ce geste pratique produit une proximité qui n'est plus gérée par aucun des deux.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · La scène physique</span>
+      <span class="scene-name">Ce que le lecteur attend depuis le Ch.3</span>
+      <p>La scène physique. Pas la déclaration romantique (T3), pas la résolution (T3). Ce moment précis, dans cet espace, avec la marque silencieuse et la pression de tout ce qui vient après. Ce que Ryn ressent physiquement est réel. Ce que Calder fait — ou ne fait pas — est réel. La scène ne va pas trop loin. Elle va exactement assez loin pour que le lecteur TikTok pose son téléphone et fixe le plafond.</p>
+      <p class="scene-note">Cette scène est à calibrer avec précision lors de la rédaction. Elle doit être mémorable et physiquement ancrée sans résoudre la tension romantique. La marque pendant cette scène : l'anomalie, silencieuse, orientée. Pas commentée.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · L'après</span>
+      <span class="scene-name">Ce qui ne change pas et ce qui ne peut plus être ignoré</span>
+      <p>Après la scène, ils sont toujours dans la même situation — Varek, la déclaration, le plan en cours. Rien n'a été résolu. Mais quelque chose a été nommé physiquement. La marque est froide. Ryn reprend la conversation sur le plan. Calder répond sur le plan. Ils font ça.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Ryn rentre seule. Elle ne pense pas au plan. Elle pense à la pièce. Elle pense à la pièce encore un moment. Puis elle pense au plan.</div>
+</div>
+
+<!-- Ch.29 -->
+<div id="ch29" class="chapter">
+  <div class="ch-meta">
+    <div class="ch-num">29</div>
+    <div class="ch-head">
+      <span class="ch-title">Le lendemain</span>
+      <div class="ch-tags">
+        <span class="tag pov-calder">POV Calder</span>
+        <span class="tag mots">~3 000 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">POV Calder — le lendemain de la scène physique. Le plan prend sa forme finale. Ce que Calder décide d'inclure et d'exclure dans le choix du Ch.30.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · Le carnet — page finale</span>
+      <span class="scene-name">La section deux est complète</span>
+      <p>Calder relit le carnet une dernière fois. La section marque — complète, précise, utile. La section Ryn — plus longue que n'importe quelle documentation qu'il ait jamais produite sur une cible. La section plan — la première page d'une troisième section. Il ferme la section deux définitivement. Pas supprimée. Fermée.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Le plan final</span>
+      <span class="scene-name">Ce qu'il peut offrir</span>
+      <p>Calder finalise le plan — ce qu'il peut offrir concrètement à Ryn pour la suite. Ce n'est pas une promesse de résolution (T3). C'est une direction viable avec des ressources réelles. Il la trouve dans le district. Il lui explique le plan complet. Elle l'écoute. Elle pose les bonnes questions. Il a les réponses.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Ce qui reste</span>
+      <span class="scene-name">La réponse de Varek arrive demain</span>
+      <p>La déclaration formelle de Varek arrivera demain dans les canaux officiels de l'empire. Après ça, tout s'accélère. Ce soir est le dernier soir avant que tout s'accélère. Calder et Ryn sont dans le district, séparément, chacun avec ce qu'ils portent de la journée.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre :</strong> Calder seul. Le carnet est fermé. Demain, il fera ce qu'il a décidé de faire. Ce n'est pas la première fois qu'il prend une décision irréversible. C'est la première fois qu'il la prend pour quelqu'un d'autre que lui-même.</div>
+</div>
+
+<!-- Ch.30 — PIC 4 -->
+<div id="ch30" class="chapter pic-chapter">
+  <div class="ch-meta">
+    <div class="ch-num">30</div>
+    <div class="ch-head">
+      <span class="ch-title">La décision</span>
+      <div class="ch-tags">
+        <span class="tag pov-calder">POV Calder</span>
+        <span class="tag pic">🔴 PIC 4 · Cliffhanger</span>
+        <span class="tag mots">~3 400 mots</span>
+      </div>
+    </div>
+  </div>
+  <div class="ch-function">Le choix irréversible final du T1. Pas un sacrifice héroïque — une décision logique appliquée pour la première fois à quelqu'un d'autre que lui-même. La dernière ligne du tome. T2 obligatoire.</div>
+
+  <div class="scenes">
+    <div class="scene">
+      <span class="scene-num">Scène 1 · La déclaration de Varek arrive</span>
+      <span class="scene-name">Ce qui change quand les mots sont officiels</span>
+      <p>La déclaration formelle de Varek dans les canaux de l'empire. Ryn comme propriété de forge désignée. Calder comme général en désobéissance déclarée. Tout ce qui était informel est maintenant dans le registre officiel. Ce que ça active dans l'empire : d'autres agents, d'autres canaux, une réponse systémique plutôt qu'un agent isolé.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 2 · Ce que Calder fait</span>
+      <span class="scene-name">Le choix final du T1</span>
+      <p>Calder fait quelque chose de précis et d'irréversible — dans les canaux de l'empire, dans sa position d'ancien général de Varek, avec la connaissance qu'il a de la structure. Ce qu'il fait achète du temps pour Ryn — pas beaucoup, mais du temps réel. Il utilise sa position de vingt ans pour quelqu'un d'autre que lui-même pour la première fois.</p>
+      <p class="scene-note">Ce choix doit être précisément défini lors du plan détaillé — il doit être logique selon son code, irréversible dans ses conséquences, et clairement lié à la ligne qu'il ne franchit pas révélée au Ch.7. Le cliffhanger du T2 commence ici.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 3 · Ce que Varek reçoit</span>
+      <span class="scene-name">La réponse de Varek</span>
+      <p>Varek reçoit l'action de Calder. Sa réponse arrive rapidement — précise, sans surprises. Ce que la réponse dit : Varek vient en personne. Pas un agent, pas une déclaration. Lui.</p>
+    </div>
+    <div class="scene">
+      <span class="scene-num">Scène 4 · La dernière ligne</span>
+      <span class="scene-name">Ce que Calder tient à la fin</span>
+      <p>Calder tient l'information que Varek vient en personne. Il la calcule. Il ne panique pas — la panique n'est pas dans son registre. Ce qu'il fait : il prépare la prochaine étape. La prochaine étape est dans le T2.</p>
+    </div>
+  </div>
+  <div class="ch-end"><strong>Fin de chapitre (PIC 4) :</strong> Varek vient en personne. Calder tient l'information. Il ne panique pas.
+
+<br><br><strong>Dernière ligne du tome (scellée — v1.1) :</strong>
+<br><em>"He closed the second section of the notebook and put it in his coat, next to where her name had lived for ten days. Varek was coming. He started walking."</em>
+<br><br>Trois phrases. Le carnet dit tout — le He Falls First, le choix irréversible, l'action sans hésitation. Varek arrive. T2 obligatoire. Cette ligne circule seule sur BookTok.</div>
+</div>
+
+<div class="doc-footer">
+  Forged in Ash · The Mark · Plan Scène par Scène v1.0 · Mars 2026 · Vera Draye<br>
+  30 chapitres · 4 actes · ~100 000 mots<br>
+  Cohérent avec : Bible Générale FIA v1.0 · Bible T1 FIA v1.0<br>
+  Prochaine étape : Rédaction Ch.1
+</div>
+
+</main>
+</body>
+</html>
